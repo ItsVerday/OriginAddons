@@ -1,0 +1,25 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.mikarific.originaddons.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "ad.GameMenuScreenMixin",
+    "ad.PotionMixin",
+    "blockpicker.MinecraftClientMixin",
+    "blockpicker.SimpleResourceReloadMixin",
+    "custommenus.Navigator",
+    "custommenus.Realms",
+    "emojipicker.ChatScreenMixin",
+    "emojipicker.ClientLoginNetworkHandlerMixin",
+    "emojipicker.ClientPlayNetworkHandlerMixin",
+    "inventorybuttons.InventoryScreenMixin",
+    "other.MouseMixin",
+    "settings.GameMenuScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

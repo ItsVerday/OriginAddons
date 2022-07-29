@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "originaddons",
+  "version": "${version}",
+  "name": "OriginAddons",
+  "description": "Adds various useful features to Origin Realms!",
+  "authors": [
+    "Mikarific",
+    "ValgoMC",
+    "PaintedYeti",
+    "Kioferno"
+  ],
+  "contact": {
+    "homepage": "https://originaddons.com",
+    "sources": "https://github.com/Mikarific/OriginAddons"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.mikarific.originaddons.fabric.OriginAddonsFabric"
+    ],
+    "modmenu": [
+      "com.mikarific.originaddons.fabric.settings.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "originaddons.mixins.json",
+    "originaddons-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.8",
+    "minecraft": ">=1.18.2"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/MHRhtddvRW"
+      }
+    }
+  }
+}

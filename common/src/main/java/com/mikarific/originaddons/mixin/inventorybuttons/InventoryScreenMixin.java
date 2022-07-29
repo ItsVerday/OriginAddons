@@ -31,6 +31,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/InventoryScreen;addDrawableChild(Lnet/minecraft/client/gui/Element;)Lnet/minecraft/client/gui/Element;"))
     private void addButtons(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
+            window.resizeWindow();
             Identifier TEXTURE = new Identifier("originaddons", "gui/inventory/inventory_buttons.png");
             int TEXTURE_WIDTH = 20;
             int TEXTURE_HEIGHT = 36;

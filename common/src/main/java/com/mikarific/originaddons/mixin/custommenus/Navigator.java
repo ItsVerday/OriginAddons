@@ -39,6 +39,7 @@ public abstract class Navigator extends Screen {
     @Inject(method = "init()V", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
         if (CustomMenus.isNavigatorEnabled() && this.getTitle().getString().contains(MENU)) {
+            window.resizeWindow();
             Identifier MAIN_TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator.png");
             String MAIN_MENU = "섦";
             String BALLOON_MENU = "솝";

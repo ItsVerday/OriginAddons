@@ -24,7 +24,7 @@ public class UITexture extends UIComponent {
     }
 
     public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
-        if (this.isVisable()) {
+        if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

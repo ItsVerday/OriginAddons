@@ -21,7 +21,7 @@ public class UIEmoji extends UIButton {
 
     public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
         super.draw(matrixStack, mouseX, mouseY);
-        if (this.isVisable()) {
+        if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);
             MinecraftClient.getInstance().textRenderer.draw(matrixStack, emoji.getInfo().getStyledText(), 1, 2, emoji.getInfo().getTextColor().getRgb());

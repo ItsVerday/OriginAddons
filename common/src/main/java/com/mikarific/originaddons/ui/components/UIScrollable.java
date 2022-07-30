@@ -1,6 +1,5 @@
 package com.mikarific.originaddons.ui.components;
 
-import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.util.Other;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -30,7 +29,7 @@ public class UIScrollable extends UIComponent {
             maxYOffset = -(highestY - lowestY - this.getHeight());
             childrenLength = this.getChildren().size();
         }
-        if (this.isVisable()) {
+        if (this.isVisible()) {
             this.setHovered(mouseX, mouseY);
             double scaleFactor = MinecraftClient.getInstance().getWindow().getScaleFactor();
             RenderSystem.enableScissor((int) (this.getX() * scaleFactor), (int) ((MinecraftClient.getInstance().getWindow().getScaledHeight() - (this.getY() + this.getHeight())) * scaleFactor), (int) (this.getWidth() * scaleFactor), (int) (this.getHeight() * scaleFactor));
@@ -56,7 +55,7 @@ public class UIScrollable extends UIComponent {
             RenderSystem.disableScissor();
         }
         buttons.forEach(button -> {
-            if (button.isVisable() && button.isHovered() && this.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
+            if (button.isVisible() && button.isHovered() && this.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
         });
     }
 }

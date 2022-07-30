@@ -13,7 +13,7 @@ public class UIComponent {
     private int height;
     private double originalY;
     private double yOffset = 0.0;
-    private boolean visable = true;
+    private boolean visible = true;
     private boolean hovered = false;
     private final ArrayList<UIComponent> children = new ArrayList<>();
 
@@ -26,7 +26,7 @@ public class UIComponent {
     }
 
     public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
-        if (this.isVisable()) setHovered(mouseX, mouseY);
+        if (this.isVisible()) setHovered(mouseX, mouseY);
         Window.drawChildren(children, matrixStack, mouseX, mouseY);
     }
 
@@ -96,13 +96,13 @@ public class UIComponent {
         return this;
     }
 
-    public boolean isVisable() {
-        return this.visable;
+    public boolean isVisible() {
+        return this.visible;
     }
 
-    public UIComponent setVisable(boolean visable) {
-        this.visable = visable;
-        children.forEach(child -> child.setVisable(visable));
+    public UIComponent setVisible(boolean visible) {
+        this.visible = visible;
+        children.forEach(child -> child.setVisible(visible));
         return this;
     }
 
@@ -111,7 +111,7 @@ public class UIComponent {
         UIComponent child = parent.getChildren().get(parent.getChildren().size() - 1);
         child.setX(child.getX() + parent.getX());
         child.setY(child.getY() + parent.getY());
-        child.setVisable(parent.isVisable());
+        child.setVisible(parent.isVisible());
         return this;
     }
     public UIComponent setChildOf(Window parent) {

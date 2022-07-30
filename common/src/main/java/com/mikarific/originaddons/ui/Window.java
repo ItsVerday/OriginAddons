@@ -21,7 +21,7 @@ public class Window {
             if (child instanceof UIButton) buttons.add((UIButton) child);
         });
         buttons.forEach(button -> {
-            if (button.isVisable() && button.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
+            if (button.isVisible() && button.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
         });
     }
 
@@ -31,7 +31,7 @@ public class Window {
 
     public static void clickChildren(ArrayList<UIComponent> children, int button) {
         children.forEach(child -> {
-            if (child.isVisable() && child.isHovered()) child.mouseClicked(button);
+            if (child.isVisible() && child.isHovered()) child.mouseClicked(button);
         });
     }
 

@@ -6,8 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "ad.GameMenuScreenMixin",
-    "ad.PotionMixin",
     "blockpicker.MinecraftClientMixin",
     "blockpicker.SimpleResourceReloadMixin",
     "custommenus.Navigator",

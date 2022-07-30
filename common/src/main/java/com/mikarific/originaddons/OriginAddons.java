@@ -28,8 +28,8 @@ public class OriginAddons {
     public static boolean onOriginRealms() {
         ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
         if (serverInfo == null) return false;
-        if (serverInfo.address.endsWith("originrealms.com")) return true;
-        if (serverInfo.address.endsWith("originrealms.com:25565")) return true;
+        if (serverInfo.address.toLowerCase().endsWith("originrealms.com")) return true;
+        if (serverInfo.address.toLowerCase().endsWith("originrealms.com:25565")) return true;
 
         return false;
     }

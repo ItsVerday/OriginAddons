@@ -23,12 +23,13 @@ public class Realms extends Screen {
         super(title);
     }
 
-    @Inject(method = "init()V", at = @At("HEAD"))
+    @Inject(method = "init()V", at = @At("TAIL"))
     private void init(CallbackInfo ci) {
-        if (CustomMenus.getTeleportingHome()) {
-            CustomMenus.pickupItemAtSlot(3);
-            CustomMenus.setTeleportingHome(false);
-            ci.cancel();
+        if (this.getTitle().getString().contains(MENU)) {
+            if (CustomMenus.getTeleportingHome()) {
+                CustomMenus.pickupItemAtSlot(3);
+                CustomMenus.setTeleportingHome(false);
+            }
         }
     }
 
@@ -36,6 +37,8 @@ public class Realms extends Screen {
     private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (this.getTitle().getString().contains(MENU)) {
             if (CustomMenus.getTeleportingHome()) {
+                CustomMenus.pickupItemAtSlot(3);
+                CustomMenus.setTeleportingHome(false);
                 ci.cancel();
             }
         }

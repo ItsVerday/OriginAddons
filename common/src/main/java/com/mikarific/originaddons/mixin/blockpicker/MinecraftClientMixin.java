@@ -1,5 +1,6 @@
 package com.mikarific.originaddons.mixin.blockpicker;
 
+import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
+    private static final boolean BLOCKPICKER_DEBUG = false;
+
     @Inject(at = @At("HEAD"), method = "doItemPick", cancellable = true)
     private void doItemPickWrapper(CallbackInfo ci) {
         if (BlockPicker.isEnabled()) {
@@ -42,6 +45,8 @@ public class MinecraftClientMixin {
                 PlayerInventory inventory = player.getInventory();
                 int pickSlot = -1;
 
+                if (BLOCKPICKER_DEBUG) OriginAddons.LOGGER.info("Attempting to match '" + customBlockName + "' for blockpicker...");
+
                 for (int slot = 0; slot < inventory.size(); slot++) {
                     ItemStack itemStack = inventory.getStack(slot);
                     NbtCompound itemNBT = itemStack.getNbt();
@@ -57,9 +62,12 @@ public class MinecraftClientMixin {
 
                     if (customBlockItemName.length() == 0) continue;
                     if (compareCustomBlockNames(customBlockName, customBlockItemName)) {
+                        if (BLOCKPICKER_DEBUG) OriginAddons.LOGGER.info("MATCH! Slot " + slot + ": " + customBlockItemName + " <- (" + customBlockName + ")");
                         pickSlot = slot;
                         break;
                     }
+
+                    if (BLOCKPICKER_DEBUG) OriginAddons.LOGGER.info("- Slot " + slot + ": " + customBlockItemName);
                 }
 
                 if (pickSlot > -1) {
@@ -69,6 +77,8 @@ public class MinecraftClientMixin {
                         assert client.interactionManager != null;
                         client.interactionManager.pickFromInventory(pickSlot);
                     }
+                } else {
+                    if (BLOCKPICKER_DEBUG) OriginAddons.LOGGER.info("Failed to match '" + customBlockName + "' to any ItemStacks in inventory!");
                 }
 
                 ci.cancel();

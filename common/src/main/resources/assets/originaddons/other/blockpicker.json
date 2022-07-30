@@ -1,0 +1,36 @@
+{
+  "// remap": "Used to fix block-item name mappings that don't match up for the block picking system.",
+  "remap": {
+    "moss_cover": "moss",
+    "moss_hang": "moss",
+    "flower_cover_red": "red_aubrieta",
+    "flower_cover": "white_aubrieta",
+    "flower_cover_pink": "pink_aubrieta",
+    "flower_cover_blue": "blue_aubrieta",
+    "cattail_land": "cattail",
+    "fungus_cover": "shelf_fungus",
+    "leaf_pile_oak": "leaves",
+    "leaf_pile_fall": "dead_leaves",
+    "leaf_pile_spruce": "cold_leaves",
+    "water_clover": "clover",
+    "mud_cover": "mud_patch",
+    "wisteria_transition_blue": "wisteria_leaves",
+    "wisteria_transition_white": "wisteria_leaves",
+    "wisteria_transition_pink": "wisteria_leaves",
+    "wisteria_transition_purple": "wisteria_leaves",
+    "prism_crystal_lantern_blink": "prism_crystal_lantern",
+    "plant_box": "planters_box",
+    "plant_box_soil": "planters_box",
+    "plant_box_wet": "planters_box",
+    "plant_box_wet_soil": "planters_box",
+    "transit_block_off": "transit_block",
+    "transit_block_on": "transit_block",
+    "chiseled_snow_bricks": "chiseled_packed_snow",
+    "snow_bricks": "packed_snow_bricks"
+  },
+
+  "// numbered": "List of names that shouldn't have their numbers removed from the end of the name.",
+  "numbered": [
+    "crate"
+  ]
+}

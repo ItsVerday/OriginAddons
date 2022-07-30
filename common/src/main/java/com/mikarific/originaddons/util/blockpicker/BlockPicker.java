@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BlockPicker {
-    public static final String REMAP_FILE = "assets/originaddons/other/blockpick.json";
+    public static final String REMAP_FILE = "assets/originaddons/other/blockpicker.json";
 
     private static final Map<Block, Map<BlockState, String>> blockTypes = new HashMap<>();
     private static Map<String, String> remap = null;
@@ -133,7 +133,7 @@ public class BlockPicker {
 
             return true;
         } catch (Exception e) {
-            OriginAddons.LOGGER.error("Error occurred processing blockpick.json!", e);
+            OriginAddons.LOGGER.error("Error occurred processing blockpicker.json!", e);
             return false;
         }
     }

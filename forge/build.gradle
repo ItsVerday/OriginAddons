@@ -17,7 +17,7 @@ configurations {
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
 
-    modApi("me.shedaniel.cloth:cloth-config-forge:6.2.62")
+    modApi(include("me.shedaniel.cloth:cloth-config-forge:6.2.62"))
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
@@ -36,15 +36,12 @@ shadowJar {
 
     configurations = [project.configurations.shadowCommon]
     classifier "dev-shadow"
-
-    relocate("gg.essential.elementa", "com.mikarific.originaddons.elementa")
-    relocate("gg.essential.universalcraft", "com.mikarific.originaddons.universalcraft")
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
+    classifier "FORGE"
 }
 
 jar {
@@ -66,7 +63,7 @@ components.java {
 publishing {
     publications {
         mavenForge(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
+            artifactId = rootProject.archives_base_name + "-" + project.name + "-FORGE"
             from components.java
         }
     }
@@ -78,3 +75,5 @@ publishing {
         }
     }
 }
+
+loom.forge.mixinConfigs = ["originaddons.mixins.json", "originaddons-common.mixins.json"]

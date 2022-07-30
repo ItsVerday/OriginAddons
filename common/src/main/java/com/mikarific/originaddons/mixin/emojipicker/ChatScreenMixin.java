@@ -34,6 +34,7 @@ public class ChatScreenMixin extends Screen {
     @Inject(method = "init()V", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
         if (EmojiPicker.isEmojiPickerEnabled()) {
+            window.resizeWindow();
             int TEXTURE_WIDTH = 158;
             int TEXTURE_HEIGHT = 75;
             box = new UITexture(TEXTURE, 4, this.height - 75 - 34, 122, 75, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setVisable(false).setChildOf(window);

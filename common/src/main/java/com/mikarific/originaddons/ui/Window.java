@@ -2,14 +2,13 @@ package com.mikarific.originaddons.ui;
 
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
-import com.mikarific.originaddons.ui.components.UIEmoji;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class Window {
-    private final ArrayList<UIComponent> children = new ArrayList<>();
+    private ArrayList<UIComponent> children = new ArrayList<>();
 
     public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
         drawChildren(children, matrixStack, mouseX, mouseY);
@@ -38,5 +37,9 @@ public class Window {
 
     public ArrayList<UIComponent> getChildren() {
         return children;
+    }
+
+    public void resizeWindow() {
+        this.children = new ArrayList<>();
     }
 }

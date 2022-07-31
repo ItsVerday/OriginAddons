@@ -22,7 +22,6 @@ public class SettingsConfig implements ConfigData {
     public boolean blockPicker = true;
     public boolean inventoryButtons = true;
 
-
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.CollapsibleObject
     public Debug debugCategory = new Debug();

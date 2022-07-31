@@ -18,6 +18,17 @@ public class SettingsConfig implements ConfigData {
     }
 
     public boolean emojiPicker = true;
+    public boolean hideLockedEmojis = true;
     public boolean blockPicker = true;
     public boolean inventoryButtons = true;
+
+
+    @ConfigEntry.Gui.Tooltip
+    @ConfigEntry.Gui.CollapsibleObject
+    public Debug debugCategory = new Debug();
+    public static class Debug {
+        @ConfigEntry.Gui.Tooltip
+        public boolean emojiPicker = false;
+        public boolean blockPicker = false;
+    }
 }

@@ -12,6 +12,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 public class EmojiPicker {
+    public static void debugLog(String message) {
+        OriginAddons.debugLog(message, OriginAddons.getConfig().debugCategory.emojiPicker);
+    }
+
     public static final String EMOJI_FILE = "assets/originaddons/gui/emojipicker/emoji.json";
     private static final ArrayList<EmojiInstance> emojis = new ArrayList<>();
     public static boolean isEmojiPickerEnabled() {
@@ -80,6 +84,9 @@ public class EmojiPicker {
     }
 
     public static void clearUnlocked() {
+        if (!OriginAddons.getConfig().hideLockedEmojis) return;
+        
+        debugLog("Clearing unlocked emojis...");
         for (EmojiInstance instance: emojis) instance.setUnlocked(false);
     }
 }

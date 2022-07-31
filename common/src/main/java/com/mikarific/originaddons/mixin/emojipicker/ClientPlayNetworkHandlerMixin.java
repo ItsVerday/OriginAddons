@@ -31,6 +31,7 @@ public class ClientPlayNetworkHandlerMixin {
 
         for (EmojiInstance emoji: EmojiPicker.getEmojis()) {
             if (emoji.getInfo().getToken().equals(token)) {
+                EmojiPicker.debugLog("Unlocking emoji '" + token + "'!");
                 emoji.setUnlocked(true);
                 return;
             }

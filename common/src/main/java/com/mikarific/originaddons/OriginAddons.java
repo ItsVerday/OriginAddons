@@ -25,6 +25,10 @@ public class OriginAddons {
         return AutoConfig.getConfigScreen(SettingsConfig.class, parent).get();
     }
 
+    public static void debugLog(String message, boolean enabled) {
+        if (enabled) LOGGER.info(message);
+    }
+
     public static boolean onOriginRealms() {
         ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
         if (serverInfo == null) return false;

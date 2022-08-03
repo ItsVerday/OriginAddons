@@ -6,28 +6,27 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 
 @Config(name = "originaddons")
 public class SettingsConfig implements ConfigData {
+    @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean customMenus = true;
 
+    @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.CollapsibleObject
-    public CustomMenus customMenusCategory = new CustomMenus();
-    public static class CustomMenus {
-        @ConfigEntry.Gui.Tooltip
-        public boolean navigator = true;
-    }
+    public boolean customNavigatorMenu = true;
+    @ConfigEntry.Category("custommenus")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customProfileMenu = true;
 
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
     public boolean emojiPicker = true;
-    public boolean hideLockedEmojis = true;
-    public boolean blockPicker = true;
-    public boolean inventoryButtons = true;
-
+    @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
-    @ConfigEntry.Gui.CollapsibleObject
-    public Debug debugCategory = new Debug();
-    public static class Debug {
-        @ConfigEntry.Gui.Tooltip
-        public boolean emojiPicker = false;
-        public boolean blockPicker = false;
-    }
+    public boolean hideLockedEmojis = true;
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean blockPicker = true;
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean inventoryButtons = true;
 }

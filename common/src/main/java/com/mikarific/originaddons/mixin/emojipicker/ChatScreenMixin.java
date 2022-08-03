@@ -52,7 +52,7 @@ public class ChatScreenMixin extends Screen {
                     emojiY++;
                 }
 
-                new UIEmoji(emoji, TEXTURE, emojiX * 12, emojiY * 12, emoji.getInfo().getWidth() * 12, 12, 122, 32, 12, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+                new UIEmoji(emoji, TEXTURE, emojiX * 12, emojiY * 12, 122, 32, 12, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                     int cursor = chatField.getCursor();
                     String chatText = chatField.getText();
                     String beforeEmoji = chatText.substring(0, cursor);

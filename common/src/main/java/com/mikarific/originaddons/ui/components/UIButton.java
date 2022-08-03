@@ -17,8 +17,8 @@ import java.util.function.Consumer;
 
 public class UIButton extends UIComponent {
     private final Identifier identifier;
-    private final int u;
-    private final int v;
+    private int u;
+    private int v;
     private final int hoveredVOffset;
     private final int textureWidth;
     private final int textureHeight;
@@ -106,5 +106,15 @@ public class UIButton extends UIComponent {
 
     public int getTextureHeight() {
         return textureHeight;
+    }
+
+    public UIButton setU(int u) {
+        this.u = u;
+        return this;
+    }
+
+    public UIButton setV(int v) {
+        this.v = v;
+        return this;
     }
 }

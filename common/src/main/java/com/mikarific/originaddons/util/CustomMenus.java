@@ -15,7 +15,11 @@ public class CustomMenus {
     private static boolean teleportingHome = false;
 
     public static boolean isNavigatorEnabled() {
-        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customMenusCategory.navigator;
+        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customNavigatorMenu;
+    }
+
+    public static boolean isProfileEnabled() {
+        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customProfileMenu;
     }
 
     public static void setTeleportingHome(boolean teleportingHome) {

@@ -25,10 +25,6 @@ import java.util.stream.Collectors;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    private void debugLog(String message) {
-        OriginAddons.debugLog(message, OriginAddons.getConfig().debugCategory.blockPicker);
-    }
-
     @Inject(at = @At("HEAD"), method = "doItemPick", cancellable = true)
     private void doItemPickWrapper(CallbackInfo ci) {
         if (BlockPicker.isEnabled()) {
@@ -47,8 +43,6 @@ public class MinecraftClientMixin {
                 PlayerInventory inventory = player.getInventory();
                 int pickSlot = -1;
 
-                debugLog("Attempting to match '" + customBlockName + "' for blockpicker...");
-
                 for (int slot = 0; slot < inventory.size(); slot++) {
                     ItemStack itemStack = inventory.getStack(slot);
                     NbtCompound itemNBT = itemStack.getNbt();
@@ -64,12 +58,9 @@ public class MinecraftClientMixin {
 
                     if (customBlockItemName.length() == 0) continue;
                     if (compareCustomBlockNames(customBlockName, customBlockItemName)) {
-                        debugLog("MATCH! Slot " + slot + ": " + customBlockItemName + " <- (" + customBlockName + ")");
                         pickSlot = slot;
                         break;
                     }
-
-                    debugLog("- Slot " + slot + ": " + customBlockItemName);
                 }
 
                 if (pickSlot > -1) {
@@ -79,8 +70,6 @@ public class MinecraftClientMixin {
                         assert client.interactionManager != null;
                         client.interactionManager.pickFromInventory(pickSlot);
                     }
-                } else {
-                    debugLog("Failed to match '" + customBlockName + "' to any ItemStacks in inventory!");
                 }
 
                 ci.cancel();

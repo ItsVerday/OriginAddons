@@ -9,13 +9,13 @@ import org.jetbrains.annotations.NotNull;
 public class UIEmoji extends UIButton {
     private final EmojiInstance emoji;
 
-    public UIEmoji(EmojiInstance emoji, Identifier identifier, int x, int y, int width, int height, int u, int v, int hoveredVOffset, int textureWidth, int textureHeight, Runnable action, boolean playSound) {
-        super(identifier, x, y, width, height, u, v, hoveredVOffset, textureWidth, textureHeight, action, playSound);
+    public UIEmoji(EmojiInstance emoji, Identifier identifier, int x, int y, int u, int v, int hoveredVOffset, int textureWidth, int textureHeight, Runnable action, boolean playSound) {
+        super(identifier, x, y, emoji.getInfo().getWidth() * 12, 12, u, v, hoveredVOffset, textureWidth, textureHeight, action, playSound);
         this.emoji = emoji;
     }
 
-    public UIEmoji(EmojiInstance emoji, Identifier identifier, int x, int y, int width, int height, int u, int v, int hoveredVOffset, int textureWidth, int textureHeight, Runnable action, TooltipSupplier tooltipSupplier, boolean playSound) {
-        super(identifier, x, y, width, height, u, v, hoveredVOffset, textureWidth, textureHeight, action, tooltipSupplier, playSound);
+    public UIEmoji(EmojiInstance emoji, Identifier identifier, int x, int y, int u, int v, int hoveredVOffset, int textureWidth, int textureHeight, Runnable action, TooltipSupplier tooltipSupplier, boolean playSound) {
+        super(identifier, x, y, emoji.getInfo().getWidth() * 12, 12, u, v, hoveredVOffset, textureWidth, textureHeight, action, tooltipSupplier, playSound);
         this.emoji = emoji;
     }
 

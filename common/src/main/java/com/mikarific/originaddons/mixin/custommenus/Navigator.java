@@ -26,9 +26,6 @@ import java.util.List;
 @Mixin(HandledScreen.class)
 public abstract class Navigator extends Screen {
     @Shadow public abstract boolean mouseClicked(double mouseX, double mouseY, int button);
-
-    @Shadow protected int x;
-    @Shadow protected int y;
     private final Window window = new Window();
     private final String MENU = "섥";
 
@@ -132,7 +129,7 @@ public abstract class Navigator extends Screen {
                 new UIButton(MAIN_TEXTURE, 123, 17, 38, 19, 252, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
                 }, (b, m, x, y) -> {
                     this.renderTooltip(m, List.of(new TranslatableText("originaddons.menus.navigator.messaging.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), new TranslatableText("originaddons.menus.navigator.messaging.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-                }, true).setChildOf(box);
+                }, false).setChildOf(box);
 
                 //Profile
                 new UIButton(MAIN_TEXTURE, 15, 3, 24, 10, 176, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {

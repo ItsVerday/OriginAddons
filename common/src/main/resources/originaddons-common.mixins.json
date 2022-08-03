@@ -9,6 +9,7 @@
     "blockpicker.MinecraftClientMixin",
     "blockpicker.SimpleResourceReloadMixin",
     "custommenus.Navigator",
+    "custommenus.Profile",
     "custommenus.Realms",
     "emojipicker.ChatScreenMixin",
     "emojipicker.ClientLoginNetworkHandlerMixin",

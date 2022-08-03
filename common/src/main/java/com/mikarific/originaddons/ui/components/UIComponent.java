@@ -92,7 +92,11 @@ public class UIComponent {
     }
 
     public UIComponent setHovered(double mouseX, double mouseY) {
-        this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+        return setHovered(this.x, this.y, this.width, this.height, mouseX, mouseY);
+    }
+
+    public UIComponent setHovered(double x, double y, int width, int height, double mouseX, double mouseY) {
+        this.hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
         return this;
     }
 

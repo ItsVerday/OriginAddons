@@ -9,6 +9,8 @@
   "text.autoconfig.originaddons.option.customMenusCategory.@Tooltip": "Enable/Disable individual menus. Requires \"Enable Custom Menus\" to be §aEnabled§r.",
   "text.autoconfig.originaddons.option.customNavigatorMenu": "Enable Custom Navigator Menu",
   "text.autoconfig.originaddons.option.customNavigatorMenu.@Tooltip": "Replaces the Navigator Menu with a custom OriginAddons version!",
+  "text.autoconfig.originaddons.option.customOrbitMenu": "Enable Custom Orbit Menu",
+  "text.autoconfig.originaddons.option.customOrbitMenu.@Tooltip": "Replaces the Orbit Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customProfileMenu": "Enable Custom Profile Menu",
   "text.autoconfig.originaddons.option.customProfileMenu.@Tooltip": "Replaces the Profile Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customRealmsMenu": "Enable Custom Realms Menu",

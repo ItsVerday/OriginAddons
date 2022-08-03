@@ -53,18 +53,21 @@ public class UIItem extends UIButton {
     }
 
     public void draw(@NotNull MatrixStack matricies, double mouseX, double mouseY) {
-        if (this.isVisible() && stack != null && !stack.getTranslationKey().equals("block.minecraft.air")) {
-            super.draw(matricies, mouseX, mouseY);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.enableDepthTest();
-            MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
-        }
-        if (this.isVisible() && this.isHovered() && drawHighlight) {
-            RenderSystem.disableDepthTest();
-            RenderSystem.colorMask(true, true, true, false);
-            DrawableHelper.fill(matricies, (int) this.getX(), (int) this.getY(), (int) (this.getX() + this.getWidth()), (int) (this.getY() + this.getHeight()), -2130706433);
-            RenderSystem.colorMask(true, true, true, true);
-            RenderSystem.enableDepthTest();
+        if (this.isVisible()) {
+            if (stack != null && !stack.getTranslationKey().equals("block.minecraft.air")) {
+                super.draw(matricies, mouseX, mouseY);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.enableDepthTest();
+                MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
+            }
+            if(drawHighlight) this.setHovered(this.getX() - 1, this.getY() - 1, this.getWidth() + 2, this.getHeight() + 2, mouseX, mouseY);
+            if (this.isHovered() && drawHighlight) {
+                RenderSystem.disableDepthTest();
+                RenderSystem.colorMask(true, true, true, false);
+                DrawableHelper.fill(matricies, (int) this.getX(), (int) this.getY(), (int) (this.getX() + this.getWidth()), (int) (this.getY() + this.getHeight()), -2130706433);
+                RenderSystem.colorMask(true, true, true, true);
+                RenderSystem.enableDepthTest();
+            }
         }
     }
 

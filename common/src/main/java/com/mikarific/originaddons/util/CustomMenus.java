@@ -18,6 +18,10 @@ public class CustomMenus {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customNavigatorMenu;
     }
 
+    public static boolean isOrbitEnabled() {
+        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customOrbitMenu;
+    }
+
     public static boolean isProfileEnabled() {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customProfileMenu;
     }

@@ -15,6 +15,9 @@ public class SettingsConfig implements ConfigData {
     public boolean customNavigatorMenu = true;
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
+    public boolean customOrbitMenu = true;
+    @ConfigEntry.Category("custommenus")
+    @ConfigEntry.Gui.Tooltip
     public boolean customProfileMenu = true;
 
     @ConfigEntry.Category("features")

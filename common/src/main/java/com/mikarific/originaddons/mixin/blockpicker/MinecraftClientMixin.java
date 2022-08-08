@@ -25,6 +25,12 @@ import java.util.stream.Collectors;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
+    private static final boolean DEBUG_BLOCKPICKER = true;
+
+    private static void debugLog(String msg) {
+        OriginAddons.debugLog(msg, DEBUG_BLOCKPICKER);
+    }
+
     @Inject(at = @At("HEAD"), method = "doItemPick", cancellable = true)
     private void doItemPickWrapper(CallbackInfo ci) {
         if (BlockPicker.isEnabled()) {
@@ -43,6 +49,8 @@ public class MinecraftClientMixin {
                 PlayerInventory inventory = player.getInventory();
                 int pickSlot = -1;
 
+                debugLog("Attempting to match '" + customBlockName + "' for blockpicker...");
+
                 for (int slot = 0; slot < inventory.size(); slot++) {
                     ItemStack itemStack = inventory.getStack(slot);
                     NbtCompound itemNBT = itemStack.getNbt();
@@ -58,18 +66,24 @@ public class MinecraftClientMixin {
 
                     if (customBlockItemName.length() == 0) continue;
                     if (compareCustomBlockNames(customBlockName, customBlockItemName)) {
+                        debugLog("MATCH! Slot " + slot + ": " + customBlockItemName + " <- (" + customBlockName + ")");
                         pickSlot = slot;
                         break;
                     }
+
+                    debugLog("- Slot " + slot + ": " + customBlockItemName);
                 }
 
                 if (pickSlot > -1) {
                     if (PlayerInventory.isValidHotbarIndex(pickSlot)) {
                         inventory.selectedSlot = pickSlot;
-                    } else {
+                        // Slot 40 = offhand, which means we are already holding the block
+                    } else if (pickSlot != 40) {
                         assert client.interactionManager != null;
                         client.interactionManager.pickFromInventory(pickSlot);
                     }
+                } else {
+                    debugLog("Failed to match '" + customBlockName + "' to any ItemStacks in inventory!");
                 }
 
                 ci.cancel();

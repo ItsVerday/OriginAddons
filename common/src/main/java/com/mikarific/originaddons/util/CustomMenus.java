@@ -14,6 +14,10 @@ import java.util.Objects;
 public class CustomMenus {
     private static boolean teleportingHome = false;
 
+    public static boolean isGesturesEnabled() {
+        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customGesturesMenu;
+    }
+
     public static boolean isNavigatorEnabled() {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customNavigatorMenu;
     }

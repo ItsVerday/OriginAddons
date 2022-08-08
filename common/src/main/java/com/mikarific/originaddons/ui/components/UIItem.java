@@ -1,34 +1,13 @@
 package com.mikarific.originaddons.ui.components;
 
-import com.mikarific.originaddons.ui.Window;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.opengl.GL11;
-
-import java.util.List;
 
 public class UIItem extends UIButton {
     private ItemStack stack;

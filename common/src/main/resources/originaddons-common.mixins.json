@@ -8,6 +8,7 @@
   "client": [
     "blockpicker.MinecraftClientMixin",
     "blockpicker.SimpleResourceReloadMixin",
+    "custommenus.Gestures",
     "custommenus.Navigator",
     "custommenus.Orbit",
     "custommenus.Profile",

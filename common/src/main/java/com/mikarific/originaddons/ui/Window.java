@@ -2,6 +2,7 @@ package com.mikarific.originaddons.ui;
 
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
+import com.mikarific.originaddons.ui.components.UIItem;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,12 +17,17 @@ public class Window {
 
     public static void drawChildren(ArrayList<UIComponent> children, @NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
         ArrayList<UIButton> buttons = new ArrayList<>();
+        ArrayList<UIItem> items = new ArrayList<>();
         children.forEach(child -> {
             child.draw(matrixStack, mouseX, mouseY);
             if (child instanceof UIButton) buttons.add((UIButton) child);
+            if (child instanceof UIItem) items.add((UIItem) child);
         });
         buttons.forEach(button -> {
             if (button.isVisible() && button.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
+        });
+        items.forEach(item -> {
+            if (item.isVisible() && item.isHovered()) item.renderTooltip(matrixStack, mouseX, mouseY);
         });
     }
 

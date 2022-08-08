@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.*;
 
 @Mixin(HandledScreen.class)
-public abstract class Profile extends Screen {
+public class Profile extends Screen {
     private final Window window = new Window();
     private UIItem face;
     private final Map<Integer, UIItem> items = new HashMap<>();
@@ -321,7 +321,7 @@ public abstract class Profile extends Screen {
                     Slot slot = this.client.player.currentScreenHandler.slots.get(21);
                     if (!slot.getStack().getTranslationKey().equals("block.minecraft.air")) face.setStack(slot.getStack());
                 }
-                if (items.get(7).getStack() == null) {
+                if (items.containsKey(7) && items.get(7).getStack() == null) {
                     items.forEach((slotNumber, item) -> {
                         assert this.client != null;
                         assert this.client.player != null;

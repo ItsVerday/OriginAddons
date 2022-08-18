@@ -66,8 +66,8 @@ public class ItemStackUtils {
 
                 Style gray = Style.EMPTY.withColor(Formatting.GRAY);
                 Style white = Style.EMPTY.withColor(Formatting.WHITE);
-                if (OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_0").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(white)));
-                if (OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_current").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(white)));
+                if (OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_0").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(white)));
+                if (OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_current").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(white)));
 
                 return;
             }

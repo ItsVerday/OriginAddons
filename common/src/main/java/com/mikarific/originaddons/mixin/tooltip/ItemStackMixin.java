@@ -36,11 +36,11 @@ public class ItemStackMixin {
         int auctionTooltipEnd = -1;
 
         for (int i = 0; i < oldTooltip.size(); i++) {
-            String asString = oldTooltip.get(i).getString();
+            String toString = oldTooltip.get(i).getString();
 
-            if (asString.contains("Price: ")) {
+            if (toString.contains("Price: ")) {
                 auctionTooltipStart = i;
-            } else if (asString.contains("Shift click for users auctions")) {
+            } else if (toString.contains("Shift click for users auctions") || toString.contains("Shift click to collect item")) {
                 auctionTooltipEnd = i;
             }
         }

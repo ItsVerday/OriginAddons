@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    private static final boolean DEBUG_BLOCKPICKER = true;
+    private static final boolean DEBUG_BLOCKPICKER = false;
 
     private static void debugLog(String msg) {
         OriginAddons.debugLog(msg, DEBUG_BLOCKPICKER);

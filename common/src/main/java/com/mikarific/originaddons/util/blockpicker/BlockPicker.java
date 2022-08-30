@@ -18,6 +18,7 @@ import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -121,7 +122,7 @@ public class BlockPicker {
         File originAddonsDirectory = new File(runDirectory, "originaddons");
         File blockpickFile = new File(originAddonsDirectory, "blockpicker.json");
         try {
-            Scanner blockpickScanner = new Scanner(blockpickFile);
+            Scanner blockpickScanner = new Scanner(blockpickFile, StandardCharsets.UTF_8);
             StringBuilder blockpickString = new StringBuilder();
             while (blockpickScanner.hasNextLine()) {
                 blockpickString.append(blockpickScanner.nextLine());
@@ -138,9 +139,8 @@ public class BlockPicker {
             for (JsonElement numberedName: blockpickJSON.get("numbered").getAsJsonArray()) {
                 numbered.add(numberedName.getAsString());
             }
-
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             OriginAddons.LOGGER.error("Error occurred processing blockpicker.json!", e);
             return false;
         }

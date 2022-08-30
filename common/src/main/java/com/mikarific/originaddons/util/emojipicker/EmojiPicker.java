@@ -8,10 +8,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.JsonHelper;
 import org.apache.commons.io.input.BOMInputStream;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -29,7 +26,7 @@ public class EmojiPicker {
         File originAddonsDirectory = new File(runDirectory, "originaddons");
         File emojiFile = new File(originAddonsDirectory, "emoji.json");
         try {
-            Scanner emojiScanner = new Scanner(emojiFile);
+            Scanner emojiScanner = new Scanner(emojiFile, StandardCharsets.UTF_8);
             StringBuilder emojiString = new StringBuilder();
             while (emojiScanner.hasNextLine()) {
                 emojiString.append(emojiScanner.nextLine());
@@ -38,7 +35,7 @@ public class EmojiPicker {
             populateEmojisList(emojiJSON);
             loaded = true;
             return true;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             OriginAddons.LOGGER.error("Emojis failed to load!", e);
             return false;
         }

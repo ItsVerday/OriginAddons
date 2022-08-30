@@ -68,11 +68,12 @@ public class JoinScreen extends Screen {
                 Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 action.run();
             } else {
-                Scanner scanner = new Scanner(file);
+                Scanner scanner = new Scanner(file, StandardCharsets.UTF_8);
                 StringBuilder string = new StringBuilder();
                 while (scanner.hasNextLine()) {
                     string.append(scanner.nextLine());
                 }
+                System.out.println(string);
                 JsonObject json = JsonHelper.deserialize(string.toString()).getAsJsonObject();
                 if (latestVersion > json.get("version").getAsInt()) {
                     Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);

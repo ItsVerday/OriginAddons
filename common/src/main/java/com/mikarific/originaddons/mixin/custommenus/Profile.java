@@ -60,7 +60,7 @@ public class Profile extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(36).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(36).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Teleport
                 new UIButton(TEXTURE, 61, 96, 52, 16, 228, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -68,7 +68,7 @@ public class Profile extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(39).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(39).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Invsee
                 new UIButton(TEXTURE, 115, 96, 52, 16, 280, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -76,7 +76,7 @@ public class Profile extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(42).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(42).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
             }
             assert box != null;
@@ -85,7 +85,7 @@ public class Profile extends Screen {
             face = (UIItem) new UIItem(null, 49, 30, false, TEXTURE, 13, 28, 42, 42, 176, 0, 42, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(10).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(10).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
 
             //Items
@@ -98,7 +98,7 @@ public class Profile extends Screen {
                     assert this.client != null;
                     assert this.client.player != null;
                     if (!this.client.player.currentScreenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                     }
                 }, false).setChildOf(box));
             }
@@ -122,32 +122,32 @@ public class Profile extends Screen {
             new UIButton(TEXTURE, 65, 60, 13, 13, 176, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(21).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(21).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Rubies
             new UIButton(TEXTURE, 79, 60, 16, 13, 189, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(22).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(22).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Discord
             new UIButton(TEXTURE, 96, 60, 16, 13, 205, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(23).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(23).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Playtime
             new UIButton(TEXTURE, 113, 60, 13, 13, 221, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(24).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(24).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
 
             //Online Indicator
             onlineIndicator = (UIButton) new UIButton(TEXTURE, 116, 22, 13, 13, 234, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
 
             //Visit Realm
@@ -156,7 +156,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Friend
             int friendU = 252;
@@ -171,7 +171,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(29).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(29).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Duel
             new UIButton(TEXTURE, 61, 79, 16, 14, 234, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -179,7 +179,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Trade
             new UIButton(TEXTURE, 79, 79, 16, 14, 250, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -187,7 +187,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(31).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(31).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Vault
             new UIButton(TEXTURE, 97, 79, 16, 14, 266, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -195,7 +195,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(32).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(32).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Auctions
             new UIButton(TEXTURE, 115, 79, 16, 14, 218, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -203,7 +203,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
 
             //Messaging
@@ -262,7 +262,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Behavior
             new UIButton(TEXTURE, 61, 11, 53, 16, 229, behaviorV, behaviorVOffset, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -270,7 +270,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(3).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(3).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             //Mods
             new UIButton(TEXTURE, 115, 11, 53, 16, 283, modsV, modsVOffset, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -278,7 +278,7 @@ public class Profile extends Screen {
             }, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
             for (int i = 0; i < 9; i++) {
                 int numberX = 8 + (i * 18);
@@ -290,7 +290,7 @@ public class Profile extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 } else {
                     new UIButton(TEXTURE, numberX, 30, 16, 14, numberU, 48, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -298,7 +298,7 @@ public class Profile extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 }
             }

@@ -8,13 +8,16 @@ import com.google.gson.JsonParser;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.io.input.BOMInputStream;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -116,9 +119,16 @@ public class BlockPicker {
     }
 
     private static boolean loadBlockpickJSON() {
-        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(REMAP_FILE);
-        try (InputStream in = new BOMInputStream(inputStream); InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
-            JsonObject blockpickJSON = JsonParser.parseReader(reader).getAsJsonObject();
+        File runDirectory = MinecraftClient.getInstance().runDirectory;
+        File originAddonsDirectory = new File(runDirectory, "originaddons");
+        File blockpickFile = new File(originAddonsDirectory, "blockpicker.json");
+        try {
+            Scanner blockpickScanner = new Scanner(blockpickFile);
+            StringBuilder blockpickString = new StringBuilder();
+            while (blockpickScanner.hasNextLine()) {
+                blockpickString.append(blockpickScanner.nextLine());
+            }
+            JsonObject blockpickJSON = JsonHelper.deserialize(blockpickString.toString()).getAsJsonObject();
             JsonObject remapObject = blockpickJSON.get("remap").getAsJsonObject();
 
             remap = new HashMap<>();

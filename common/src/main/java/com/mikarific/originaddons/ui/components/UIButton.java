@@ -19,7 +19,7 @@ public class UIButton extends UIComponent {
     private final Identifier identifier;
     private int u;
     private int v;
-    private final int hoveredVOffset;
+    private int hoveredVOffset;
     private final int textureWidth;
     private final int textureHeight;
     private final Runnable action;
@@ -115,6 +115,11 @@ public class UIButton extends UIComponent {
 
     public UIButton setV(int v) {
         this.v = v;
+        return this;
+    }
+
+    public UIButton setHoveredVOffset(int hoveredVOffset) {
+        this.hoveredVOffset = hoveredVOffset;
         return this;
     }
 }

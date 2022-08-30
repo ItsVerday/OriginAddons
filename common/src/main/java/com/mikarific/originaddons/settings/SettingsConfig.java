@@ -12,6 +12,9 @@ public class SettingsConfig implements ConfigData {
 
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
+    public boolean customBadgeMenu = true;
+    @ConfigEntry.Category("custommenus")
+    @ConfigEntry.Gui.Tooltip
     public boolean customGesturesMenu = true;
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
@@ -22,6 +25,9 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
     public boolean customProfileMenu = true;
+    @ConfigEntry.Category("custommenus")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customRealmsMenu = true;
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip

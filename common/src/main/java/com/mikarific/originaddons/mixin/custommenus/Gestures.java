@@ -49,7 +49,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(9).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(9).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Slot 2
                 new UIButton(TEXTURE, 62, 27, 52, 34, 228, 0, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -57,7 +57,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(12).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(12).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Slot 3
                 new UIButton(TEXTURE, 116, 27, 52, 34, 280, 0, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -65,7 +65,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(15).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(15).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Slot 4
                 new UIButton(TEXTURE, 8, 63, 52, 34, 176, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -73,7 +73,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Slot 5
                 new UIButton(TEXTURE, 62, 63, 52, 34, 228, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -81,7 +81,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Slot 6
                 new UIButton(TEXTURE, 116, 63, 52, 34, 280, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -89,7 +89,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
 
                 //Back
@@ -98,7 +98,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //View All
                 new UIButton(TEXTURE, 116, 9, 52, 14, 332, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -106,7 +106,7 @@ public class Gestures extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Gestures
                 List<Text> gestures = this.title.getSiblings().get(1).getSiblings().get(0).getSiblings().stream().filter(sibling -> sibling.getStyle().getFont().getPath().contains("gesture")).toList();
@@ -131,7 +131,7 @@ public class Gestures extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 } else {
                     new UIButton(TEXTURE, 8, 9, 16, 14, 176, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -139,7 +139,7 @@ public class Gestures extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 }
                 //Previous Page
@@ -147,7 +147,7 @@ public class Gestures extends Screen {
                     new UIButton(TEXTURE, 8, 101, 36, 14, 176, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(45).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(45).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 } else {
                     new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -155,7 +155,7 @@ public class Gestures extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(45).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(45).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 }
                 //Next Page
@@ -163,7 +163,7 @@ public class Gestures extends Screen {
                     new UIButton(TEXTURE, 132, 101, 36, 14, 212, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(52).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(52).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 } else {
                     new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -171,7 +171,7 @@ public class Gestures extends Screen {
                     }, (b, m, x, y) -> {
                         assert this.client != null;
                         assert this.client.player != null;
-                        this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(52).getStack()), (int)x, (int)y);
+                        this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(52).getStack()), (int)x, (int)y);
                     }, false).setChildOf(box);
                 }
                 //Page Numbers
@@ -187,7 +187,7 @@ public class Gestures extends Screen {
                         assert this.client != null;
                         assert this.client.player != null;
                         if (!this.client.player.currentScreenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                            this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                            this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                         }
                     }, false).setChildOf(box);
                 }

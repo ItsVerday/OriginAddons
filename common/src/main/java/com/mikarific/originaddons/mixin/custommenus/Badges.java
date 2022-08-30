@@ -3,6 +3,7 @@ package com.mikarific.originaddons.mixin.custommenus;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
+import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
 import com.mikarific.originaddons.util.CustomMenus;
 import net.minecraft.client.gui.screen.Screen;
@@ -19,68 +20,65 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HandledScreen.class)
-public class Orbit extends Screen {
+public class Badges extends Screen {
     private final Window window = new Window();
-    private final String MENU = "숰";
+    private UIItem face;
+    private final String MENU = "솷";
 
-    protected Orbit(Text title) {
+    protected Badges(Text title) {
         super(title);
     }
 
     @Inject(method = "init()V", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             window.resizeWindow();
-            Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/orbit.png");
-            int TEXTURE_WIDTH = 316;
-            int TEXTURE_HEIGHT = 112;
-            UIComponent box = new UITexture(TEXTURE, (this.width - 176) / 2, (this.height - 112) / 2, 176, 112, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
-            //Profile
-            new UIButton(TEXTURE, 98, 12, 70, 16, 176, 0, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(8);
-            }, (b, m, x, y) -> {
+            Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/badges.png");
+            int TEXTURE_WIDTH = 260;
+            int TEXTURE_HEIGHT = 99;
+            UIComponent box = new UITexture(TEXTURE, (this.width - 196) / 2, (this.height - 99) / 2, 196, 99, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
+            //Face
+            face = (UIItem) new UIItem(null, 6, 6, false, TEXTURE, 84, 25, 28, 28, 196, 0, 28, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(8).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(4).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
-            //Quests
-            new UIButton(TEXTURE, 98, 30, 70, 16, 176, 32, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(17);
-            }, (b, m, x, y) -> {
+            //Farming
+            new UIButton(TEXTURE, 36, 67, 16, 16, 196, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(17).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(19).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
-            //Friends
-            new UIButton(TEXTURE, 98, 48, 70, 16, 176, 64, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(26);
-            }, (b, m, x, y) -> {
+            //Combat
+            new UIButton(TEXTURE, 72, 67, 16, 16, 212, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(26).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(21).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
-            //Discord
-            new UIButton(TEXTURE, 98, 66, 70, 16, 246, 0, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(35);
-            }, (b, m, x, y) -> {
+            //Exploration
+            new UIButton(TEXTURE, 108, 67, 16, 16, 228, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(35).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(23).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
-            //Settings
-            new UIButton(TEXTURE, 98, 84, 70, 16, 246, 32, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(44);
-            }, (b, m, x, y) -> {
+            //Magic
+            new UIButton(TEXTURE, 144, 67, 16, 16, 244, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 assert this.client != null;
                 assert this.client.player != null;
-                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(44).getStack()), (int)x, (int)y);
+                this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(25).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
         }
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
+            if (face.getStack() == null) {
+                assert this.client != null;
+                assert this.client.player != null;
+                Slot slot = this.client.player.currentScreenHandler.slots.get(4);
+                if (!slot.getStack().getTranslationKey().equals("block.minecraft.air")) face.setStack(slot.getStack());
+            }
             window.draw(matrices, mouseX, mouseY);
             ci.cancel();
         }
@@ -88,7 +86,7 @@ public class Orbit extends Screen {
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             window.mouseClicked(button);
             cir.cancel();
         }
@@ -96,7 +94,7 @@ public class Orbit extends Screen {
 
     @Inject(method = "keyPressed", at = @At("HEAD"), cancellable = true)
     private void keyPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             if (super.keyPressed(keyCode, scanCode, modifiers)) {
                 cir.setReturnValue(true);
             } else {
@@ -112,49 +110,49 @@ public class Orbit extends Screen {
 
     @Inject(method = "mouseDragged", at = @At("HEAD"), cancellable = true)
     private void mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             cir.cancel();
         }
     }
 
     @Inject(method = "mouseReleased", at = @At("HEAD"), cancellable = true)
     private void mouseReleased(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             cir.cancel();
         }
     }
 
     @Inject(method = "isPointOverSlot", at = @At("HEAD"), cancellable = true)
     private void isPointOverSlot(Slot slot, double pointX, double pointY, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             cir.cancel();
         }
     }
 
     @Inject(method = "isPointWithinBounds", at = @At("HEAD"), cancellable = true)
     private void isPointWithinBounds(int x, int y, int width, int height, double pointX, double pointY, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             cir.cancel();
         }
     }
 
     @Inject(method = "handleHotbarKeyPressed", at = @At("HEAD"), cancellable = true)
     private void handleHotbarKeyPressed(int keyCode, int scanCode, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             cir.cancel();
         }
     }
 
     @Inject(method = "onMouseClick(I)V", at = @At("HEAD"), cancellable = true)
     private void onMouseClick(int button, CallbackInfo ci) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "onMouseClick(Lnet/minecraft/screen/slot/Slot;IILnet/minecraft/screen/slot/SlotActionType;)V", at = @At("HEAD"), cancellable = true)
     private void onMouseClick(Slot slot, int slotId, int button, SlotActionType actionType, CallbackInfo ci) {
-        if (CustomMenus.isOrbitEnabled() && this.getTitle().getString().contains(MENU)) {
+        if (CustomMenus.isBadgeEnabled() && this.getTitle().getString().contains(MENU)) {
             ci.cancel();
         }
     }

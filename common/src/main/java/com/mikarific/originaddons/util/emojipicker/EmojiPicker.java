@@ -4,16 +4,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mikarific.originaddons.OriginAddons;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.JsonHelper;
 import org.apache.commons.io.input.BOMInputStream;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EmojiPicker {
-    public static final String EMOJI_FILE = "assets/originaddons/gui/emojipicker/emoji.json";
-    private static final ArrayList<EmojiInstance> emojis = new ArrayList<>();
+    private static ArrayList<EmojiInstance> emojis = new ArrayList<>();
     public static boolean isEmojiPickerEnabled() {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().emojiPicker;
     }
@@ -21,13 +25,20 @@ public class EmojiPicker {
     private static boolean loaded = false;
 
     public static boolean loadEmojis() {
-        InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(EMOJI_FILE);
-        try (InputStream in = new BOMInputStream(inputStream); InputStreamReader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
-            JsonObject emojiJSON = JsonParser.parseReader(reader).getAsJsonObject();
+        File runDirectory = MinecraftClient.getInstance().runDirectory;
+        File originAddonsDirectory = new File(runDirectory, "originaddons");
+        File emojiFile = new File(originAddonsDirectory, "emoji.json");
+        try {
+            Scanner emojiScanner = new Scanner(emojiFile);
+            StringBuilder emojiString = new StringBuilder();
+            while (emojiScanner.hasNextLine()) {
+                emojiString.append(emojiScanner.nextLine());
+            }
+            JsonObject emojiJSON = JsonHelper.deserialize(emojiString.toString()).getAsJsonObject();
             populateEmojisList(emojiJSON);
             loaded = true;
             return true;
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             OriginAddons.LOGGER.error("Emojis failed to load!", e);
             return false;
         }
@@ -72,6 +83,11 @@ public class EmojiPicker {
     public static boolean attemptLoad() {
         if (loaded) return true;
         return loadEmojis();
+    }
+
+    public static void unload() {
+        loaded = false;
+        emojis = new ArrayList<>();
     }
 
     public static ArrayList<EmojiInstance> getEmojis() {

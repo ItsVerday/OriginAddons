@@ -12,9 +12,11 @@ import org.apache.logging.log4j.Logger;
 public class OriginAddons {
     public static final String MOD_ID = "originaddons";
     public static final Logger LOGGER = LogManager.getLogger();
+    public static String VERSION;
 
-    public static void init() {
+    public static void init(String version) {
         AutoConfig.register(SettingsConfig.class, GsonConfigSerializer::new);
+        VERSION = version;
     }
 
     public static SettingsConfig getConfig() {
@@ -32,10 +34,12 @@ public class OriginAddons {
     public static boolean onOriginRealms() {
         ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
         if (serverInfo == null) return false;
+        return onOriginRealms(serverInfo.address);
+    }
 
-        String address = serverInfo.address.toLowerCase();
+    public static boolean onOriginRealms(String address) {
+        address = address.toLowerCase();
         if (address.endsWith(":25565")) address = address.substring(0, address.length() - ":25565".length());
-
         return address.endsWith("originrealms.com");
     }
 }

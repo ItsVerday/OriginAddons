@@ -50,7 +50,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Realms
                 new UIButton(MAIN_TEXTURE, 69, 41, 38, 38, 214, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
@@ -58,7 +58,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(3).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(3).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Resource Worlds
                 new UIButton(MAIN_TEXTURE, 123, 41, 38, 38, 252, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
@@ -66,7 +66,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(6).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Homes
                 new UIButton(MAIN_TEXTURE, 15, 95, 38, 38, 290, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
@@ -74,7 +74,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Towns
                 new UIButton(MAIN_TEXTURE, 69, 95, 38, 38, 328, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
@@ -82,7 +82,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(30).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Adventure Worlds
                 new UIButton(MAIN_TEXTURE, 123, 95, 38, 38, 366, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
@@ -90,7 +90,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(33).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
 
                 //Teleport Home
@@ -198,7 +198,7 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(0).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 //Yellow Balloon
                 new UIButton(BALLOON_TEXTURE, 96, 16, 65, 38, 241, 0, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
@@ -206,21 +206,21 @@ public abstract class Navigator extends Screen {
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(5).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(5).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 new UIButton(BALLOON_TEXTURE, 15, 70, 65, 38, 176, 76, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
                     CustomMenus.pickupItemAtSlot(27);
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(27).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
                 new UIButton(BALLOON_TEXTURE, 96, 70, 65, 38, 241, 76, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
                     CustomMenus.pickupItemAtSlot(32);
                 }, (b, m, x, y) -> {
                     assert this.client != null;
                     assert this.client.player != null;
-                    this.renderTooltip(m, this.getTooltipFromItem(this.client.player.currentScreenHandler.getSlot(32).getStack()), (int)x, (int)y);
+                    this.renderTooltip(m, CustomMenus.getDisplayTooltip(this.client.player.currentScreenHandler.getSlot(32).getStack()), (int)x, (int)y);
                 }, false).setChildOf(box);
             }
         }

@@ -20,7 +20,8 @@
     "emojipicker.ClientPlayNetworkHandlerMixin",
     "inventorybuttons.InventoryScreenMixin",
     "other.MouseMixin",
-    "settings.GameMenuScreenMixin"
+    "settings.GameMenuScreenMixin",
+    "tooltip.ItemStackMixin"
   ],
   "injectors": {
     "defaultRequire": 1

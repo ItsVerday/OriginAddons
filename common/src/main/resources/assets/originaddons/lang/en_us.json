@@ -3,8 +3,11 @@
   "text.autoconfig.originaddons.title": "OriginAddons (BETA)",
   "text.autoconfig.originaddons.category.features": "Toggle Features",
   "text.autoconfig.originaddons.category.custommenus": "Toggle Custom Menus",
+  "text.autoconfig.originaddons.category.customtooltips": "Toggle Custom Tooltip Info",
   "text.autoconfig.originaddons.option.customMenus": "Enable Custom Menus",
   "text.autoconfig.originaddons.option.customMenus.@Tooltip": "Replaces Origin Realms menus with OriginAddons versions of them!",
+  "text.autoconfig.originaddons.option.customTooltips": "Enable Custom Tooltip Info",
+  "text.autoconfig.originaddons.option.customTooltips.@Tooltip": "Adds additional useful information to some item tooltips!",
   "text.autoconfig.originaddons.option.customMenusCategory": "Custom Menus:",
   "text.autoconfig.originaddons.option.customMenusCategory.@Tooltip": "Enable/Disable individual menus. Requires \"Enable Custom Menus\" to be §aEnabled§r.",
   "text.autoconfig.originaddons.option.customBadgeMenu": "Enable Custom Badge Menu",
@@ -19,6 +22,11 @@
   "text.autoconfig.originaddons.option.customProfileMenu.@Tooltip": "Replaces the Profile Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customRealmsMenu": "Enable Custom Realms Menu",
   "text.autoconfig.originaddons.option.customRealmsMenu.@Tooltip": "Replaces the Realms Menu with a custom OriginAddons version!",
+  "text.autoconfig.originaddons.option.customTooltipsCategory": "Custom Tooltips:",
+  "text.autoconfig.originaddons.option.customBottledExperienceLevelsFrom0Tooltip": "Enable Levels (from 0) tooltip",
+  "text.autoconfig.originaddons.option.customBottledExperienceLevelsFrom0Tooltip.@Tooltip": "Shows how many levels a Bottled Experience item would give you from level 0!",
+  "text.autoconfig.originaddons.option.customBottledExperienceLevelsFromCurrentTooltip": "Enable Levels (from current) tooltip",
+  "text.autoconfig.originaddons.option.customBottledExperienceLevelsFromCurrentTooltip.@Tooltip": "Shows how many levels a Bottled Experience item will give you upon drinking with your current level!",
   "text.autoconfig.originaddons.option.emojiPicker": "Enable Emoji Picker",
   "text.autoconfig.originaddons.option.emojiPicker.@Tooltip": "Adds an emoji picker to the chat menu!",
   "text.autoconfig.originaddons.option.hideLockedEmojis": "Hide Locked Emojis",
@@ -60,5 +68,7 @@
   "originaddons.menus.navigator.wiki.description": "Visit the Unofficial OR Wiki!",
   "originaddons.menus.profile.messaging": "Message %username% (Coming Soon)",
   "originaddons.menus.profile.tpa": "Teleport To %username%",
-  "originaddons.menus.profile.tpahere": "Teleport %username% To You"
+  "originaddons.menus.profile.tpahere": "Teleport %username% To You",
+  "originaddons.tooltips.bottled_experience.level_0": "Levels (from 0): ",
+  "originaddons.tooltips.bottled_experience.level_current": "Levels (from current): "
 }

@@ -10,6 +10,10 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public boolean customMenus = true;
 
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customTooltips = true;
+
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
     public boolean customBadgeMenu = true;
@@ -28,6 +32,13 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("custommenus")
     @ConfigEntry.Gui.Tooltip
     public boolean customRealmsMenu = true;
+
+    @ConfigEntry.Category("customtooltips")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customBottledExperienceLevelsFrom0Tooltip = true;
+    @ConfigEntry.Category("customtooltips")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customBottledExperienceLevelsFromCurrentTooltip = true;
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip

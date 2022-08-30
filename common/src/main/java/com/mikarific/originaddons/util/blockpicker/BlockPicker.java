@@ -53,9 +53,7 @@ public class BlockPicker {
         if (!states.containsKey(blockState)) return "";
 
         String modelName = states.get(blockState);
-        if (getRemap().containsKey(modelName)) {
-            return getRemap().get(modelName);
-        }
+        if (getRemap().containsKey(modelName)) modelName = getRemap().get(modelName);
 
         return modelName;
     }

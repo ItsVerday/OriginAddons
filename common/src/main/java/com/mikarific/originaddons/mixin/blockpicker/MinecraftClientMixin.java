@@ -1,6 +1,7 @@
 package com.mikarific.originaddons.mixin.blockpicker;
 
 import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    private static final boolean DEBUG_BLOCKPICKER = true;
+    private static final boolean DEBUG_BLOCKPICKER = false;
 
     private static void debugLog(String msg) {
         OriginAddons.debugLog(msg, DEBUG_BLOCKPICKER);
@@ -53,10 +54,8 @@ public class MinecraftClientMixin {
 
                 for (int slot = 0; slot < inventory.size(); slot++) {
                     ItemStack itemStack = inventory.getStack(slot);
-                    NbtCompound itemNBT = itemStack.getNbt();
-                    if (itemNBT == null) itemNBT = new NbtCompound();
 
-                    String customBlockItemName = getCustomBlockItemName(itemStack, itemNBT);
+                    String customBlockItemName = getCustomBlockItemName(itemStack);
                     if (customBlockItemName.contains(":")) {
                         String[] parts = customBlockItemName.split(":");
                         customBlockItemName = parts[parts.length - 1];
@@ -105,12 +104,9 @@ public class MinecraftClientMixin {
         return cleaned;
     }
 
-    private String getCustomBlockItemName(ItemStack itemStack, NbtCompound nbt) {
-        if (nbt.contains("CustomBlock")) return nbt.getString("CustomBlock");
-        if (nbt.contains("PublicBukkitValues")) {
-            NbtCompound publicBukkitValues = nbt.getCompound("PublicBukkitValues");
-            if (publicBukkitValues.contains("xcore:item-block")) return publicBukkitValues.getString("xcore:item-block");
-        }
+    private String getCustomBlockItemName(ItemStack itemStack) {
+        String customID = ItemStackUtils.getItemStackCustomID(itemStack);
+        if (customID.length() > 0) return customID;
 
         return Registry.ITEM.getId(itemStack.getItem()).getPath();
     }

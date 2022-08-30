@@ -170,8 +170,7 @@ public class Realms extends Screen {
                     assert MinecraftClient.getInstance().player != null;
                     MinecraftClient.getInstance().player.closeHandledScreen();
                     ci.cancel();
-                }
-                if (CustomMenus.isRealmsEnabled()) {
+                } else if (CustomMenus.isRealmsEnabled()) {
                     for (int i = 46; i < 53; i += 3) {
                         int slot = i;
                         assert this.client != null;

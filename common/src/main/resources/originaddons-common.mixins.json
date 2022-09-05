@@ -20,6 +20,7 @@
     "emojipicker.ClientPlayNetworkHandlerMixin",
     "inventorybuttons.InventoryScreenMixin",
     "other.MouseMixin",
+    "rocketbootsfuelbar.ItemStackMixin",
     "settings.GameMenuScreenMixin",
     "tooltip.ItemStackMixin"
   ],

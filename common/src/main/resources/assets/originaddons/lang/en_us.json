@@ -35,6 +35,8 @@
   "text.autoconfig.originaddons.option.blockPicker.@Tooltip": "Allows Origin Realms blocks to be block picked!",
   "text.autoconfig.originaddons.option.inventoryButtons": "Enable Inventory Buttons",
   "text.autoconfig.originaddons.option.inventoryButtons.@Tooltip": "Adds useful buttons to your inventory!",
+  "text.autoconfig.originaddons.option.rocketBootsFuelBar": "Enable Rocket Boots Fuel Bar",
+  "text.autoconfig.originaddons.option.rocketBootsFuelBar.@Tooltip": "Replaces the durability bar on Rocket Boots with a fuel bar!",
   "originaddons.join.title": "OriginAddons",
   "originaddons.join.emoji": "Updating OriginAddons Emoji List...",
   "originaddons.join.blockpick": "Updating OriginAddons Blockpick List...",
@@ -70,5 +72,6 @@
   "originaddons.menus.profile.tpa": "Teleport To %username%",
   "originaddons.menus.profile.tpahere": "Teleport %username% To You",
   "originaddons.tooltips.bottled_experience.level_0": "Levels (from 0): ",
-  "originaddons.tooltips.bottled_experience.level_current": "Levels (from current): "
+  "originaddons.tooltips.bottled_experience.level_current": "Levels (from current): ",
+  "originaddons.tooltips.rocket_boots.durability": "Durability: "
 }

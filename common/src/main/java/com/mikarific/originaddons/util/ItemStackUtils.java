@@ -1,6 +1,8 @@
 package com.mikarific.originaddons.util;
 
 import com.mikarific.originaddons.OriginAddons;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -9,6 +11,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.MathHelper;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -16,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemStackUtils {
+    public static final Style STYLE_GRAY = Style.EMPTY.withColor(Formatting.GRAY);
+    public static final Style STYLE_WHITE = Style.EMPTY.withColor(Formatting.WHITE);
     public static String getItemStackCustomID(ItemStack itemStack) {
         NbtCompound itemNBT = itemStack.getNbt();
         if (itemNBT == null) return "";
@@ -64,10 +69,15 @@ public class ItemStackUtils {
                     playerExperience += getLevelExperience(i);
                 }
 
-                Style gray = Style.EMPTY.withColor(Formatting.GRAY);
-                Style white = Style.EMPTY.withColor(Formatting.WHITE);
-                if (OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_0").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(white)));
-                if (OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_current").setStyle(gray).append(new LiteralText(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(white)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_0").setStyle(STYLE_GRAY).append(new LiteralText(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_current").setStyle(STYLE_GRAY).append(new LiteralText(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(STYLE_WHITE)));
+
+                return;
+            }
+
+            case "rocket_boots_30":
+            case "rocket_boots_90": {
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().rocketBootsFuelBar) tooltip.add(new TranslatableText("originaddons.tooltips.rocket_boots.durability").setStyle(STYLE_GRAY).append(new LiteralText((itemStack.getMaxDamage() - itemStack.getDamage()) + "/" + itemStack.getMaxDamage()).setStyle(STYLE_WHITE)));
 
                 return;
             }
@@ -93,5 +103,65 @@ public class ItemStackUtils {
         }
 
         return level + (double) remainingExperience / (double) getLevelExperience(level);
+    }
+
+    public static boolean hasCustomItemBar(ItemStack itemStack) {
+        String customID = getItemStackCustomID(itemStack);
+        if (customID.startsWith("rocket_boots_")) return OriginAddons.getConfig().rocketBootsFuelBar;
+
+        return false;
+    }
+
+    public static int getMaximumRocketBootsFuel(String id) {
+        switch (id) {
+            case "rocket_boots_90": return 90;
+            case "rocket_boots_30": return 30;
+            default: return 0;
+        }
+    }
+
+    public static float getRocketBootsFuelFraction(ItemStack itemStack, String id) {
+        int maxFuel = getMaximumRocketBootsFuel(id);
+        int currentFuel = maxFuel;
+
+        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
+
+        for (Text text: tooltip) {
+            String toString = text.getString();
+
+            if (toString.contains("Fuel: ")) {
+                currentFuel = Integer.parseInt(toString.substring("Fuel: ".length()));
+            }
+        }
+
+        return (float) currentFuel / maxFuel;
+    }
+
+    public static int getCustomItemBarStep(ItemStack itemStack) {
+        String customID = getItemStackCustomID(itemStack);
+
+        if (customID.startsWith("rocket_boots_")) {
+            return Math.round(13.0F * getRocketBootsFuelFraction(itemStack, customID));
+        }
+
+        return 13;
+    }
+
+    public static int getCustomItemBarColor(ItemStack itemStack) {
+        String customID = getItemStackCustomID(itemStack);
+
+        if (customID.startsWith("rocket_boots_")) {
+            float fuelFraction = getRocketBootsFuelFraction(itemStack, customID);
+
+            if (fuelFraction > 0.75) {
+                return MathHelper.hsvToRgb(0.5F, 1.0F - (fuelFraction - 0.75F) * 2.0F, 1.0F);
+            } else if (fuelFraction > 0.25) {
+                return MathHelper.hsvToRgb(0.666F - 0.166F * (fuelFraction - 0.25F) * 2.0F, 1.0F, 1.0F);
+            } else {
+                return MathHelper.hsvToRgb(0.666F, 1.0F, 1.0F - (0.25F - fuelFraction) * 2.0F);
+            }
+        }
+
+        return 0xFFFFFF;
     }
 }

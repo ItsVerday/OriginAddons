@@ -9,6 +9,7 @@
   "client": [
     "blockpicker.MinecraftClientMixin",
     "blockpicker.SimpleResourceReloadMixin",
+    "cropstars.ItemRendererMixin",
     "custommenus.Badges",
     "custommenus.Gestures",
     "custommenus.Navigator",

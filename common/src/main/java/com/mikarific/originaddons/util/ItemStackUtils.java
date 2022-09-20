@@ -11,6 +11,7 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.text.DecimalFormat;
@@ -103,6 +104,49 @@ public class ItemStackUtils {
         }
 
         return level + (double) remainingExperience / (double) getLevelExperience(level);
+    }
+
+    public static Identifier getItemOverlayIdentifier(ItemStack itemStack) {
+        NbtCompound itemNBT = itemStack.getNbt();
+        if (itemNBT == null) itemNBT = new NbtCompound();
+
+        OriginAddons.LOGGER.info(itemNBT);
+
+        boolean customCrop = false;
+        int cropStars = 1;
+        if (itemNBT.contains("CustomBlock")) {
+            String customBlock = itemNBT.getString("CustomBlock");
+            if (customBlock.endsWith("_crate")) customCrop = true;
+            if (customBlock.endsWith("_basket")) customCrop = true;
+        }
+
+        if (itemNBT.contains("PublicBukkitValues")) {
+            NbtCompound publicBukkitValues = itemNBT.getCompound("PublicBukkitValues");
+
+            if (publicBukkitValues.contains("xcore:item-identifier")) {
+                String id = publicBukkitValues.getString("xcore:item-identifier");
+
+                if (id.contains("Crop")) customCrop = true;
+            }
+
+            if (publicBukkitValues.contains("Stars")) {
+                cropStars = publicBukkitValues.getInt("Stars");
+                customCrop = true;
+            }
+
+            if (publicBukkitValues.contains("CrateStars")) {
+                cropStars = publicBukkitValues.getInt("CrateStars");
+                customCrop = true;
+            }
+
+            if (publicBukkitValues.contains("Golden")) {
+                customCrop = false;
+            }
+        }
+
+        if (customCrop && OriginAddons.getConfig().cropStarsIcon) return new Identifier("originaddons", "textures/crop_overlays/" + cropStars + "_star.png");
+
+        return null;
     }
 
     public static boolean hasCustomItemBar(ItemStack itemStack) {

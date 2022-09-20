@@ -55,4 +55,8 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean rocketBootsFuelBar = true;
+
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean cropStarsIcon = true;
 }

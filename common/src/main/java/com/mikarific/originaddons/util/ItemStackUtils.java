@@ -15,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -106,18 +107,29 @@ public class ItemStackUtils {
         return level + (double) remainingExperience / (double) getLevelExperience(level);
     }
 
+    private static final ArrayList<String> CROP_CRATES = new ArrayList<>();
+    static {
+        CROP_CRATES.add("apple_basket");
+        CROP_CRATES.add("banana_basket");
+        CROP_CRATES.add("mango_basket");
+        CROP_CRATES.add("pineapple_basket");
+        CROP_CRATES.add("chilli_crate");
+        CROP_CRATES.add("corn_crate");
+        CROP_CRATES.add("eggplant_crate");
+        CROP_CRATES.add("lettuce_crate");
+    }
+
     public static Identifier getItemOverlayIdentifier(ItemStack itemStack) {
         NbtCompound itemNBT = itemStack.getNbt();
         if (itemNBT == null) itemNBT = new NbtCompound();
-
-        OriginAddons.LOGGER.info(itemNBT);
 
         boolean customCrop = false;
         int cropStars = 1;
         if (itemNBT.contains("CustomBlock")) {
             String customBlock = itemNBT.getString("CustomBlock");
-            if (customBlock.endsWith("_crate")) customCrop = true;
-            if (customBlock.endsWith("_basket")) customCrop = true;
+            if (CROP_CRATES.contains(customBlock)) {
+                customCrop = true;
+            }
         }
 
         if (itemNBT.contains("PublicBukkitValues")) {
@@ -140,6 +152,10 @@ public class ItemStackUtils {
             }
 
             if (publicBukkitValues.contains("Golden")) {
+                customCrop = false;
+            }
+
+            if (publicBukkitValues.contains("IsShopItem") && publicBukkitValues.getByte("IsShopItem") == 1) {
                 customCrop = false;
             }
         }

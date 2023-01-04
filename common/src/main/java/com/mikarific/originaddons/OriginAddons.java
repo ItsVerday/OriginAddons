@@ -40,6 +40,6 @@ public class OriginAddons {
     public static boolean onOriginRealms(String address) {
         address = address.toLowerCase();
         if (address.endsWith(":25565")) address = address.substring(0, address.length() - ":25565".length());
-        return address.endsWith("originrealms.com");
+        return address.endsWith("originrealms.com") || address.endsWith("originrealms.piston.gg");
     }
 }

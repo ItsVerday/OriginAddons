@@ -18,6 +18,8 @@
   "text.autoconfig.originaddons.option.customNavigatorMenu.@Tooltip": "Replaces the Navigator Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customOrbitMenu": "Enable Custom Orbit Menu",
   "text.autoconfig.originaddons.option.customOrbitMenu.@Tooltip": "Replaces the Orbit Menu with a custom OriginAddons version!",
+  "text.autoconfig.originaddons.option.customPaintingMenu": "Enable Custom Painting Menu",
+  "text.autoconfig.originaddons.option.customPaintingMenu.@Tooltip": "Replaces the Painting Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customProfileMenu": "Enable Custom Profile Menu",
   "text.autoconfig.originaddons.option.customProfileMenu.@Tooltip": "Replaces the Profile Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customRealmsMenu": "Enable Custom Realms Menu",

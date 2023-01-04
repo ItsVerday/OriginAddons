@@ -12,6 +12,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Consumer;
 
@@ -73,8 +74,9 @@ public class UIButton extends UIComponent {
         this.tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
     }
 
-    public void mouseClicked(int button) {
+    public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
         if ((button == 0 || button == 1)) {
+            cir.cancel();
             if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
             action.run();
         }

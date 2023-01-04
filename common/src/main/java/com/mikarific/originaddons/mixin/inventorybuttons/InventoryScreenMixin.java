@@ -57,6 +57,6 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
 
     @Inject(method = "mouseClicked(DDI)Z", at = @At("HEAD"))
     private void clickWindow(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        window.mouseClicked(button);
+        window.mouseClicked(button, cir);
     }
 }

@@ -89,7 +89,7 @@ public class ChatScreenMixin extends Screen {
     @Inject(method = "mouseClicked", at = @At("HEAD"))
     private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (EmojiPicker.isEmojiPickerEnabled()) {
-            window.mouseClicked(button);
+            window.mouseClicked(button, cir);
         }
     }
 

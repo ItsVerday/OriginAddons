@@ -3,6 +3,7 @@ package com.mikarific.originaddons.ui.components;
 import com.mikarific.originaddons.ui.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,8 @@ public class UIComponent {
         Window.drawChildren(children, matrixStack, mouseX, mouseY);
     }
 
-    public void mouseClicked(int button) {
-        Window.clickChildren(children, button);
+    public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
+        Window.clickChildren(children, button, cir);
     }
 
     public double getX() {

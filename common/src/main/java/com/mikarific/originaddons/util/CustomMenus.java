@@ -52,6 +52,10 @@ public class CustomMenus {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customOrbitMenu;
     }
 
+    public static boolean isPaintingEnabled() {
+        return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customPaintingMenu;
+    }
+
     public static boolean isProfileEnabled() {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().customMenus && OriginAddons.getConfig().customProfileMenu;
     }

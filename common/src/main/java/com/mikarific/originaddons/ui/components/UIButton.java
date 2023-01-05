@@ -1,5 +1,6 @@
 package com.mikarific.originaddons.ui.components;
 
+import com.mikarific.originaddons.util.custommenus.CustomMenus;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -65,13 +66,15 @@ public class UIButton extends UIComponent {
             } else {
                 DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
             }
+
             matrixStack.pop();
         }
+
         super.draw(matrixStack, mouseX, mouseY);
     }
 
     public void renderTooltip(MatrixStack matrices, double mouseX, double mouseY) {
-        this.tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY);
+        this.tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.isInventoryEnabled() ? 43 : 0));
     }
 
     public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {

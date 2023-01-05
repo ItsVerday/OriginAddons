@@ -29,6 +29,10 @@ public abstract class HandledScreenMixin extends Screen {
 
     @Inject(method = "init()V", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
+        initWindow();
+    }
+
+    private void initWindow() {
         if (CustomMenus.isEnabled(this)) {
             window.resizeWindow();
             if (CustomMenus.isBadges(this)) Badges.init(this, window);

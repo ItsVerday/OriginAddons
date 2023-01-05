@@ -1,6 +1,7 @@
 package com.mikarific.originaddons.ui.components;
 
 import com.mikarific.originaddons.ui.Window;
+import com.mikarific.originaddons.util.custommenus.CustomMenus;
 import net.minecraft.client.util.math.MatrixStack;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -97,6 +98,10 @@ public class UIComponent {
     }
 
     public UIComponent setHovered(double x, double y, int width, int height, double mouseX, double mouseY) {
+        if (CustomMenus.isInventoryEnabled()) {
+            y -= 44;
+        }
+
         this.hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
         return this;
     }

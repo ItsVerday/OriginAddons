@@ -2,6 +2,7 @@ package com.mikarific.originaddons.util.custommenus;
 
 import com.google.common.collect.Lists;
 import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.util.custommenus.screens.*;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -161,6 +162,60 @@ public class CustomMenus {
                 Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new ClickSlotC2SPacket(screenHandler.syncId, 0, slot, 0, SlotActionType.PICKUP, screenHandler.getSlot(0).getStack(), stack));
             }
         }
+    }
+
+    public static boolean isInventoryEnabled() {
+        Screen currentScreen = MinecraftClient.getInstance().currentScreen;
+
+        if (CustomMenus.isBadges(currentScreen)) {
+            return Badges.inventoryEnabled();
+        }
+
+        if (CustomMenus.isGesturesFavorites(currentScreen)) {
+            return GesturesFavorites.inventoryEnabled();
+        }
+
+        if (CustomMenus.isGesturesAll(currentScreen)) {
+            return GesturesAll.inventoryEnabled();
+        }
+
+        if (CustomMenus.isNavigator(currentScreen)) {
+            return Navigator.inventoryEnabled();
+        }
+
+        if (CustomMenus.isOrbit(currentScreen)) {
+            return Orbit.inventoryEnabled();
+        }
+
+        if (CustomMenus.isPainting(currentScreen)) {
+            return Painting.inventoryEnabled();
+        }
+
+        if (CustomMenus.isProfile(currentScreen)) {
+            return Profile.inventoryEnabled();
+        }
+
+        if (CustomMenus.isProfileStaff(currentScreen)) {
+            return ProfileStaff.inventoryEnabled();
+        }
+
+        if (CustomMenus.isProfilePunish(currentScreen)) {
+            return ProfilePunish.inventoryEnabled();
+        }
+
+        if (CustomMenus.isRealms(currentScreen)) {
+            return Realms.inventoryEnabled();
+        }
+
+        if (CustomMenus.isRealmsRoleSelect(currentScreen)) {
+            return RealmsRoleSelect.inventoryEnabled();
+        }
+
+        if (CustomMenus.isRealmsSettings(currentScreen)) {
+            return RealmsSettings.inventoryEnabled();
+        }
+
+        return false;
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {

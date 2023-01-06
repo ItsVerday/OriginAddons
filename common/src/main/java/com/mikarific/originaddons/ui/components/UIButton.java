@@ -1,6 +1,7 @@
 package com.mikarific.originaddons.ui.components;
 
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.menu.CustomMenu;
+import com.mikarific.originaddons.menu.CustomMenus;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -74,12 +75,12 @@ public class UIButton extends UIComponent {
     }
 
     public void renderTooltip(MatrixStack matrices, double mouseX, double mouseY) {
-        tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.isInventoryEnabled() ? 43 : 0));
+        tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0));
     }
 
     public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
         if ((button == 0 || button == 1)) {
-            cir.cancel();
+            if (cir.isCancellable()) cir.cancel();
             click();
         }
     }
@@ -92,7 +93,7 @@ public class UIButton extends UIComponent {
 
     @Override
     public void drawTooltip(MatrixStack stack) {
-        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8);
+        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0));
     }
 
     @Environment(EnvType.CLIENT)

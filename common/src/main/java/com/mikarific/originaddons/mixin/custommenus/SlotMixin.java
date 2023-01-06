@@ -1,7 +1,7 @@
 package com.mikarific.originaddons.mixin.custommenus;
 
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
-import com.mikarific.originaddons.util.custommenus.screens.*;
+import com.mikarific.originaddons.menu.CustomMenu;
+import com.mikarific.originaddons.menu.CustomMenus;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -24,59 +24,10 @@ public abstract class SlotMixin {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         Screen currentScreen = MinecraftClient.getInstance().currentScreen;
         Slot slot = ((Slot)(Object)this);
-        if (CustomMenus.isEnabled(currentScreen)) {
+        if (CustomMenus.getCurrentMenu() != null) {
             assert currentScreen != null;
-            boolean slotEnabled = false;
-            boolean inventoryEnabled = false;
-            if (CustomMenus.isBadges(currentScreen)) {
-                slotEnabled = Badges.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Badges.inventoryEnabled();
-            }
-            if (CustomMenus.isGesturesFavorites(currentScreen)) {
-                slotEnabled = GesturesFavorites.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = GesturesFavorites.inventoryEnabled();
-            }
-            if (CustomMenus.isGesturesAll(currentScreen)) {
-                slotEnabled = GesturesAll.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = GesturesAll.inventoryEnabled();
-            }
-            if (CustomMenus.isNavigator(currentScreen)) {
-                slotEnabled = Navigator.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Navigator.inventoryEnabled();
-            }
-            if (CustomMenus.isOrbit(currentScreen)) {
-                slotEnabled = Orbit.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Orbit.inventoryEnabled();
-            }
-            if (CustomMenus.isPainting(currentScreen)) {
-                slotEnabled = Painting.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Painting.inventoryEnabled();
-            }
-            if (CustomMenus.isProfile(currentScreen)) {
-                slotEnabled = Profile.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Profile.inventoryEnabled();
-            }
-            if (CustomMenus.isProfileStaff(currentScreen)) {
-                slotEnabled = ProfileStaff.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = ProfileStaff.inventoryEnabled();
-            }
-            if (CustomMenus.isProfilePunish(currentScreen)) {
-                slotEnabled = ProfilePunish.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = ProfilePunish.inventoryEnabled();
-            }
-            if (CustomMenus.isRealms(currentScreen)) {
-                slotEnabled = Realms.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = Realms.inventoryEnabled();
-            }
-            if (CustomMenus.isRealmsRoleSelect(currentScreen)) {
-                slotEnabled = RealmsRoleSelect.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = RealmsRoleSelect.inventoryEnabled();
-            }
-            if (CustomMenus.isRealmsSettings(currentScreen)) {
-                slotEnabled = RealmsSettings.getAllowedSlots().contains(slot.getIndex());
-                inventoryEnabled = RealmsSettings.inventoryEnabled();
-            }
-
+            boolean slotEnabled = CustomMenus.getCurrentMenu().getAllowedSlots().contains(slot.getIndex());
+            boolean inventoryEnabled = CustomMenus.inventoryEnabled();
             if (inventoryEnabled && slot.inventory instanceof PlayerInventory) {
                 cir.setReturnValue(true);
             } else {
@@ -90,8 +41,7 @@ public abstract class SlotMixin {
     @Inject(method = "canInsert", at = @At("HEAD"), cancellable = true)
     private void canInsert(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         assert MinecraftClient.getInstance().player != null;
-        Screen currentScreen = MinecraftClient.getInstance().currentScreen;
-        if (CustomMenus.isEnabled(currentScreen) && !isEnabled()) {
+        if (CustomMenus.getCurrentMenu() != null && !isEnabled()) {
             cir.cancel();
             cir.setReturnValue(false);
             return;

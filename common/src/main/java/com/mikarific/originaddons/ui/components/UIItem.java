@@ -1,6 +1,6 @@
 package com.mikarific.originaddons.ui.components;
 
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.menu.CustomMenus;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -38,7 +38,7 @@ public class UIItem extends UIButton {
                 super.draw(matricies, mouseX, mouseY);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.enableDepthTest();
-                MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.isInventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
+                MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
             }
             if(drawHighlight) this.setHovered(this.getX() - 1, this.getY() - 1, this.getWidth() + 2, this.getHeight() + 2, mouseX, mouseY);
             if (this.isHoveredOrSelected() && drawHighlight) {

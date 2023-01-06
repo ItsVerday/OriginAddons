@@ -58,8 +58,9 @@ public class Window {
 
     public static void clickChildren(ArrayList<UIComponent> children, int button, CallbackInfoReturnable<Boolean> cir) {
         children.forEach(child -> {
-            if (child.isVisible() && child.isHoveredOrSelected()) child.mouseClicked(button, cir);
+            if (child.isVisible() && child.isHovered()) child.mouseClicked(button, cir);
         });
+
     }
 
     public ArrayList<UIComponent> getChildren() {

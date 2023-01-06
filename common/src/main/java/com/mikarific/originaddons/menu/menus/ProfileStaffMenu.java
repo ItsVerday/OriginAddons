@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ProfileMenu extends CustomMenu {
-    public static final String TITLE = "쇉";
+public class ProfileStaffMenu extends CustomMenu {
+    public static final String TITLE = "쉋";
 
     private static UIItem face;
     private static final Map<Integer, UIItem> items = new HashMap<>();

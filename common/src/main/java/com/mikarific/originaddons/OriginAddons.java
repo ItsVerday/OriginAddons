@@ -1,5 +1,6 @@
 package com.mikarific.originaddons;
 
+import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.settings.SettingsConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
@@ -17,6 +18,8 @@ public class OriginAddons {
     public static void init(String version) {
         AutoConfig.register(SettingsConfig.class, GsonConfigSerializer::new);
         VERSION = version;
+
+        CustomMenus.init();
     }
 
     public static SettingsConfig getConfig() {

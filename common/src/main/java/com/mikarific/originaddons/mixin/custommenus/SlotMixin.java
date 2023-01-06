@@ -90,9 +90,7 @@ public abstract class SlotMixin {
     @Inject(method = "canInsert", at = @At("HEAD"), cancellable = true)
     private void canInsert(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         assert MinecraftClient.getInstance().player != null;
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
         Screen currentScreen = MinecraftClient.getInstance().currentScreen;
-        Slot slot = ((Slot)(Object)this);
         if (CustomMenus.isEnabled(currentScreen) && !isEnabled()) {
             cir.cancel();
             cir.setReturnValue(false);

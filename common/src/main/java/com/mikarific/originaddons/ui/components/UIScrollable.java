@@ -34,7 +34,7 @@ public class UIScrollable extends UIComponent {
             double scaleFactor = MinecraftClient.getInstance().getWindow().getScaleFactor();
             RenderSystem.enableScissor((int) (this.getX() * scaleFactor), (int) ((MinecraftClient.getInstance().getWindow().getScaledHeight() - (this.getY() + this.getHeight())) * scaleFactor), (int) (this.getWidth() * scaleFactor), (int) (this.getHeight() * scaleFactor));
             this.getChildren().forEach(child -> {
-                if (this.isHovered()) {
+                if (this.isHoveredOrSelected()) {
                     double y = child.getY() + Other.scrollOffset * 5;
                     double yOffset = child.getYOffset() + Other.scrollOffset * 5;
                     if (yOffset > 0.0) {

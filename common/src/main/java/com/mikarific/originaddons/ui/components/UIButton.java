@@ -61,7 +61,7 @@ public class UIButton extends UIComponent {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, this.getIdentifier());
-            if (this.isHovered()) {
+            if (this.isHoveredOrSelected()) {
                 DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV() + hoveredVOffset, this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
             } else {
                 DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
@@ -74,15 +74,25 @@ public class UIButton extends UIComponent {
     }
 
     public void renderTooltip(MatrixStack matrices, double mouseX, double mouseY) {
-        this.tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.isInventoryEnabled() ? 43 : 0));
+        tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.isInventoryEnabled() ? 43 : 0));
     }
 
     public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
         if ((button == 0 || button == 1)) {
             cir.cancel();
-            if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-            action.run();
+            click();
         }
+    }
+
+    @Override
+    public void click() {
+        if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        action.run();
+    }
+
+    @Override
+    public void drawTooltip(MatrixStack stack) {
+        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8);
     }
 
     @Environment(EnvType.CLIENT)

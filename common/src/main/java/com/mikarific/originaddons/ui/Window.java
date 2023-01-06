@@ -4,18 +4,9 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -36,9 +27,11 @@ public class Window {
                     maxY = bottom;
                 }
             }
+
             UIComponent inventory = new UITexture(new Identifier("textures/gui/container/inventory.png"), (MinecraftClient.getInstance().getWindow().getScaledWidth() - 176) / 2, maxY, 176, 87, 0, 79, 256, 256);
             inventory.draw(matrixStack, mouseX, mouseY);
         }
+
         drawChildren(children, matrixStack, mouseX, mouseY);
         if (includeInventory) matrixStack.pop();
     }
@@ -65,7 +58,7 @@ public class Window {
 
     public static void clickChildren(ArrayList<UIComponent> children, int button, CallbackInfoReturnable<Boolean> cir) {
         children.forEach(child -> {
-            if (child.isVisible() && child.isHovered()) child.mouseClicked(button, cir);
+            if (child.isVisible() && child.isHoveredOrSelected()) child.mouseClicked(button, cir);
         });
     }
 

@@ -95,16 +95,16 @@ public class ChatScreenMixin extends Screen {
 
     @Inject(method = "mouseScrolled(DDD)Z", at = @At("HEAD"), cancellable = true)
     private void scrollWindow(double mouseX, double mouseY, double amount, CallbackInfoReturnable<Boolean> cir) {
-        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHovered()) cir.setReturnValue(true);
+        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) cir.setReturnValue(true);
     }
 
     @Inject(method = "mouseClicked(DDI)Z", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/hud/InGameHud.getChatHud ()Lnet/minecraft/client/gui/hud/ChatHud;"), cancellable = true)
     private void disableHudClicks(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHovered()) cir.setReturnValue(false);
+        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) cir.setReturnValue(false);
     }
 
     @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ChatScreen.renderTextHoverEffect (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Style;II)V"), cancellable = true)
     private void disableHudTooltips(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHovered()) ci.cancel();
+        if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) ci.cancel();
     }
 }

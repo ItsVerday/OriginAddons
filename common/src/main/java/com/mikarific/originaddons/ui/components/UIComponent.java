@@ -17,6 +17,7 @@ public class UIComponent {
     private double yOffset = 0.0;
     private boolean visible = true;
     private boolean hovered = false;
+    private boolean selected = false;
     private final ArrayList<UIComponent> children = new ArrayList<>();
 
     public UIComponent(int x, int y, int width, int height) {
@@ -89,8 +90,17 @@ public class UIComponent {
         return children;
     }
 
+    public boolean isHoveredOrSelected() {
+        return this.hovered || this.selected;
+    }
+
     public boolean isHovered() {
         return this.hovered;
+    }
+
+    public UIComponent setSelected(boolean selected) {
+        this.selected = selected;
+        return this;
     }
 
     public UIComponent setHovered(double mouseX, double mouseY) {
@@ -128,4 +138,8 @@ public class UIComponent {
         parent.getChildren().add(this);
         return this;
     }
+
+    public void click() {}
+
+    public void drawTooltip(MatrixStack stack) {}
 }

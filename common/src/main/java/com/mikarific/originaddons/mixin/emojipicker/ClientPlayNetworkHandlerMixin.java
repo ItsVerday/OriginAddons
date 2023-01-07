@@ -7,6 +7,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.network.NetworkThreadUtils;
+import net.minecraft.network.encryption.SignatureVerifier;
 import net.minecraft.network.packet.s2c.play.PlayerListS2CPacket;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,11 +22,11 @@ public class ClientPlayNetworkHandlerMixin {
         NetworkThreadUtils.forceMainThread(packet, ((ClientPlayNetworkHandler) (Object) this), MinecraftClient.getInstance());
 
         if (packet.getAction() == PlayerListS2CPacket.Action.ADD_PLAYER) {
-            for (PlayerListS2CPacket.Entry entry: packet.getEntries()) handlePlayerListAddition(new PlayerListEntry(entry));
+            for (PlayerListS2CPacket.Entry entry: packet.getEntries()) handlePlayerListAddition(entry);
         }
     }
 
-    private void handlePlayerListAddition(PlayerListEntry entry) {
+    private void handlePlayerListAddition(PlayerListS2CPacket.Entry entry) {
         String token = entry.getProfile().getName();
         if (!token.startsWith(":")) return;
 

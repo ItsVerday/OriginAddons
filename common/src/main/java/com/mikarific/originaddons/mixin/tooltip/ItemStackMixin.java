@@ -5,7 +5,6 @@ import com.mikarific.originaddons.util.ItemStackUtils;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -70,7 +69,7 @@ public abstract class ItemStackMixin {
 
         if (auctionTooltipStart >= 0 && auctionTooltipEnd >= 0) {
             if (newTooltip.size() > 1 && newTooltip.get(newTooltip.size() - 1).getString().trim().length() > 0) {
-                newTooltip.add(new LiteralText(""));
+                newTooltip.add(Text.translatable(""));
             }
 
             for (int i = auctionTooltipStart; i <= auctionTooltipEnd; i++) {

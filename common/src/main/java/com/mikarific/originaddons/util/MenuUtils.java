@@ -3,6 +3,7 @@ package com.mikarific.originaddons.util;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -17,9 +18,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class MenuUtils {
+    public static void sendMessage(ClientPlayerEntity player, String text) {
+        player.sendChatMessage(text, Text.literal(text));
+    }
+
     public static List<Text> getDisplayTooltip(ItemStack item) {
         List<Text> list = Lists.newArrayList();
-        MutableText mutableText = (new LiteralText("")).append(item.getName()).formatted(item.getRarity().formatting);
+        MutableText mutableText = Text.literal("").append(item.getName()).formatted(item.getRarity().formatting);
         if (item.hasCustomName()) {
             mutableText.formatted(Formatting.ITALIC);
         }

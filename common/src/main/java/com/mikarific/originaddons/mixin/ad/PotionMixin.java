@@ -9,7 +9,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +30,7 @@ public abstract class PotionMixin<T extends ScreenHandler> extends HandledScreen
             index = 1
     )
     private Text changeMiningFatigueText(Text text) {
-        if(text.getString().contains("ꑧ") && OriginAddons.onOriginRealms()) return new TranslatableText("originaddons.ad");
+        if(text.getString().contains("ꑧ") && OriginAddons.onOriginRealms()) return Text.translatable("originaddons.ad");
         return text;
     }
 

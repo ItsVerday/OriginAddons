@@ -6,10 +6,8 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -71,15 +69,15 @@ public class ItemStackUtils {
                     playerExperience += getLevelExperience(i);
                 }
 
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_0").setStyle(STYLE_GRAY).append(new LiteralText(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(STYLE_WHITE)));
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, new TranslatableText("originaddons.tooltips.bottled_experience.level_current").setStyle(STYLE_GRAY).append(new LiteralText(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_0").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_current").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(STYLE_WHITE)));
 
                 return;
             }
 
             case "rocket_boots_30":
             case "rocket_boots_90": {
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().rocketBootsFuelBar) tooltip.add(new TranslatableText("originaddons.tooltips.rocket_boots.durability").setStyle(STYLE_GRAY).append(new LiteralText((itemStack.getMaxDamage() - itemStack.getDamage()) + "/" + itemStack.getMaxDamage()).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().rocketBootsFuelBar) tooltip.add(Text.translatable("originaddons.tooltips.rocket_boots.durability").setStyle(STYLE_GRAY).append(Text.literal((itemStack.getMaxDamage() - itemStack.getDamage()) + "/" + itemStack.getMaxDamage()).setStyle(STYLE_WHITE)));
 
                 return;
             }

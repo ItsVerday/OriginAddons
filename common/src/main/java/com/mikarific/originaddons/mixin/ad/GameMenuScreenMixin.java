@@ -3,7 +3,6 @@ package com.mikarific.originaddons.mixin.ad;
 import com.mikarific.originaddons.OriginAddons;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -30,7 +29,7 @@ public class GameMenuScreenMixin {
             index = 4
     )
     private Text changeOpenToLanText(Text text) {
-        if (OriginAddons.onOriginRealms()) return new TranslatableText("originaddons.ad");
+        if (OriginAddons.onOriginRealms()) return Text.translatable("originaddons.ad");
         return text;
     }
 }

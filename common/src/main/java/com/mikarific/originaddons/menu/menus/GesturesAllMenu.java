@@ -8,8 +8,8 @@ import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class GesturesAllMenu extends CustomMenu {
@@ -76,7 +76,7 @@ public class GesturesAllMenu extends CustomMenu {
             }, false).setChildOf(box));
         }
         //Page Numbers
-        new UIText(new LiteralText(screen.getTitle().getSiblings().get(1).getSiblings().get(0).getString()).setStyle(Style.EMPTY), 16777215, 80, 104).setChildOf(box);
+        new UIText(Text.literal(screen.getTitle().getSiblings().get(1).getSiblings().get(0).getString()).setStyle(Style.EMPTY), 16777215, 80, 104).setChildOf(box);
         //Slots
         new UIText(screen.getTitle().getSiblings().get(0).getSiblings().get(1), 16777215, 8, -3).setChildOf(box);
     }

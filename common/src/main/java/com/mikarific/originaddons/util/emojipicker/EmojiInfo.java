@@ -1,6 +1,5 @@
 package com.mikarific.originaddons.util.emojipicker;
 
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -20,7 +19,7 @@ public interface EmojiInfo {
 
     default Text getStyledText() {
         Style style = Style.EMPTY.withFont(getFont()).withColor(getTextColor());
-        return new LiteralText(getDisplay()).setStyle(style);
+        return Text.translatable(getDisplay()).setStyle(style);
     }
 
     TextColor getTextColor();

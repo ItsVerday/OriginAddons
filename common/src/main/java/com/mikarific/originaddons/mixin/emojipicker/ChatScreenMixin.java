@@ -71,7 +71,7 @@ public class ChatScreenMixin extends Screen {
                     chatField.setText(beforeEmoji + emoji.getInfo().getToken() + afterEmoji);
                     chatField.setCursor(cursor + emoji.getInfo().getToken().length());
                 }, (b, m, x, y) -> {
-                    renderTooltip(m, new LiteralText(emoji.getInfo().getToken()).setStyle(EMOJI_TOKEN_HOVER_STYLE), (int) x, (int) y);
+                    renderTooltip(m, Text.literal(emoji.getInfo().getToken()).setStyle(EMOJI_TOKEN_HOVER_STYLE), (int) x, (int) y);
                 }, true).setChildOf(scrollable);
 
                 emojiX += emoji.getInfo().getWidth();

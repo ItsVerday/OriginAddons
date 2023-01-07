@@ -13,10 +13,9 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
+import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -143,21 +142,21 @@ public class ProfileStaffMenu extends CustomMenu {
 
         //Messaging
         new UIButton(TEXTURE, 7, 5, 16, 14, 234, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, new LiteralText((new TranslatableText("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, false).setChildOf(box);
         //TPA
         addSelectableElement(new UIButton(TEXTURE, 25, 5, 16, 14, 250, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            player.sendChatMessage("/tpa " + username);
+            MenuUtils.sendMessage(player, "/tpa " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, new LiteralText((new TranslatableText("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, true).setChildOf(box));
         //TPAHere
         addSelectableElement(new UIButton(TEXTURE, 43, 5, 16, 14, 266, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            player.sendChatMessage("/tpahere " + username);
+            MenuUtils.sendMessage(player, "/tpahere " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, new LiteralText((new TranslatableText("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, true).setChildOf(box));
 
         //Punish

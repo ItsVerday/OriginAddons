@@ -58,7 +58,7 @@ public class UIFace extends UIButton {
                 MinecraftProfileTexture profileTexture = MinecraftClient.getInstance().getSkinProvider().getTextures(profile).get(MinecraftProfileTexture.Type.SKIN);
                 texture = MinecraftClient.getInstance().getSkinProvider().loadSkin(profileTexture, MinecraftProfileTexture.Type.SKIN);
             } else {
-                texture = profile != null ? DefaultSkinHelper.getTexture(PlayerEntity.getUuidFromProfile(profile)) : DefaultSkinHelper.getTexture();
+                texture = profile != null ? DefaultSkinHelper.getTexture(profile.getId()) : DefaultSkinHelper.getTexture();
             }
             RenderSystem.setShaderTexture(0, texture);
             DrawableHelper.drawTexture(matrixStack, innerX, innerY, 8 * scale, 8 * scale, 8, 8, 8, 8, 64, 64);

@@ -4,6 +4,7 @@ import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.util.InventoryButtons;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -38,7 +39,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
             this.navigatorButton = new UIButton(TEXTURE, this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 assert client != null;
                 assert client.player != null;
-                client.player.sendChatMessage("/navigator");
+                MenuUtils.sendMessage(client.player, "/navigator");
             }, true).setChildOf(window);
         }
     }

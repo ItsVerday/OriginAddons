@@ -10,7 +10,7 @@
     "blockpicker.MinecraftClientMixin",
     "blockpicker.SimpleResourceReloadMixin",
     "cropstars.ItemRendererMixin",
-    "custommenus.HandledScreenMixinV2",
+    "custommenus.HandledScreenMixin",
     "custommenus.SlotMixin",
     "emojipicker.ChatScreenMixin",
     "emojipicker.ClientLoginNetworkHandlerMixin",

@@ -6,7 +6,7 @@ import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -35,39 +35,39 @@ public class NavigatorMenu extends CustomMenu {
         UIComponent box = new UITexture(MAIN_TEXTURE, (screen.width - 176) / 2, (screen.height - 141) / 2, 176, 141, 0, 0, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT).setChildOf(window);
         //Spawn
         addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 41, 38, 38, 176, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(0);
+            MenuUtils.pickupItemAtSlot(0);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Realms
         addSelectableElement(new UIButton(MAIN_TEXTURE, 69, 41, 38, 38, 214, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(3);
+            MenuUtils.pickupItemAtSlot(3);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(3).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(3).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Resource Worlds
         addSelectableElement(new UIButton(MAIN_TEXTURE, 123, 41, 38, 38, 252, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(6);
+            MenuUtils.pickupItemAtSlot(6);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Homes
         addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 95, 38, 38, 290, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(27);
+            MenuUtils.pickupItemAtSlot(27);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Towns
         new UIButton(MAIN_TEXTURE, 69, 95, 38, 38, 328, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(30);
+            MenuUtils.pickupItemAtSlot(30);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(30).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
         //Adventure Worlds
         new UIButton(MAIN_TEXTURE, 123, 95, 38, 38, 366, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(33);
+            MenuUtils.pickupItemAtSlot(33);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(33).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
 
         //Teleport Home

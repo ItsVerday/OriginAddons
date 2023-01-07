@@ -7,7 +7,7 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -48,9 +48,9 @@ public class PaintingMenu extends CustomMenu {
         if (cosmosCosmetics) {
             box = new UITexture(TEXTURE, (screen.width - 176) / 2, ((screen.height - 127) / 2) - 5, 176, 127, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
             finishesSelector = (UIButton) new UIButton(TEXTURE, 74, 78, 28, 15, 176 + (finishesOn ? 28 : 0), 0, 15, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(31);
+                MenuUtils.pickupItemAtSlot(31);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(31).getStack()), (int) x, (int) y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(31).getStack()), (int) x, (int) y);
             }, false).setChildOf(box);
         } else {
             window.includeInventory();
@@ -93,11 +93,11 @@ public class PaintingMenu extends CustomMenu {
         }
 
         UIItem item = (UIItem) new UIItem(previousItem, 0, 0, true, texture, slotX, slotY, 16, 16, 176, 64, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(slot);
+            MenuUtils.pickupItemAtSlot(slot);
         }, (b, m, x_, y_) -> {
             ItemStack stack = handler.getSlot(slot).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(stack), (int) x_, (int) y_);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int) x_, (int) y_);
             }
         }, false).setChildOf(box);
 

@@ -4,7 +4,7 @@ import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.*;
-import com.mikarific.originaddons.util.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.screen.ScreenHandler;
@@ -30,49 +30,49 @@ public class GesturesAllMenu extends CustomMenu {
             int slotX = (8 + (slot * 18)) % 162;
             int slotY = 9 + (18 * (int) Math.floor(slot / 9.0));
             addSelectableElement(new UIItem(null, 0, 0, true, TEXTURE, slotX, slotY, 16, 16, slotX, slotY, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(slot);
+                MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
                 if (!screenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                    screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                    screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                 }
             }, false).setChildOf(box));
         }
         //Previous Page
         if (screen.getTitle().getString().contains("쉅")) {
             new UIButton(TEXTURE, 8, 101, 36, 14, 176, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
         } else {
             addSelectableElement(new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(45);
+                MenuUtils.pickupItemAtSlot(45);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         }
         //Next Page
         if (screen.getTitle().getString().contains("쉆")) {
             new UIButton(TEXTURE, 132, 101, 36, 14, 212, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
         } else {
             addSelectableElement(new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(52);
+                MenuUtils.pickupItemAtSlot(52);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         }
         //Back
         if (screen.getTitle().getString().contains("쉄")) {
             addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 192, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(0);
+                MenuUtils.pickupItemAtSlot(0);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         } else {
             addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 176, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(0);
+                MenuUtils.pickupItemAtSlot(0);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         }
         //Page Numbers

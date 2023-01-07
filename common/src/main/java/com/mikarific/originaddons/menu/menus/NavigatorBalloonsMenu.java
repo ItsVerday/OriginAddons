@@ -6,7 +6,7 @@ import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -28,25 +28,25 @@ public class NavigatorBalloonsMenu extends CustomMenu {
         UIComponent box = new UITexture(BALLOON_TEXTURE, (screen.width - 176) / 2, (screen.height - 124) / 2, 176, 124, 0, 0, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT).setChildOf(window);
         //Red Balloon
         addSelectableElement(new UIButton(BALLOON_TEXTURE, 15, 16, 65, 38, 176, 0, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(0);
+            MenuUtils.pickupItemAtSlot(0);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int) x, (int) y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int) x, (int) y);
         }, false).setChildOf(box));
         //Yellow Balloon
         addSelectableElement(new UIButton(BALLOON_TEXTURE, 96, 16, 65, 38, 241, 0, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(5);
+            MenuUtils.pickupItemAtSlot(5);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(5).getStack()), (int) x, (int) y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(5).getStack()), (int) x, (int) y);
         }, false).setChildOf(box));
         addSelectableElement(new UIButton(BALLOON_TEXTURE, 15, 70, 65, 38, 176, 76, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(27);
+            MenuUtils.pickupItemAtSlot(27);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int) x, (int) y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int) x, (int) y);
         }, false).setChildOf(box));
         addSelectableElement(new UIButton(BALLOON_TEXTURE, 96, 70, 65, 38, 241, 76, 38, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT, () -> {
-            CustomMenus.pickupItemAtSlot(32);
+            MenuUtils.pickupItemAtSlot(32);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(32).getStack()), (int) x, (int) y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(32).getStack()), (int) x, (int) y);
         }, false).setChildOf(box));
     }
 

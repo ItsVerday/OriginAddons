@@ -7,7 +7,7 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mikarific.originaddons.util.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.screen.ScreenHandler;
@@ -30,24 +30,24 @@ public class BadgesMenu extends CustomMenu {
         UIComponent box = new UITexture(TEXTURE, (screen.width - 196) / 2, (screen.height - 99) / 2, 196, 99, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
         //Face
         face = (UIItem) new UIItem(null, 6, 6, false, TEXTURE, 84, 25, 28, 28, 196, 0, 28, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
         addSelectableElement(face);
         //Farming
         addSelectableElement(new UIButton(TEXTURE, 36, 67, 16, 16, 196, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(19).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(19).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Combat
         addSelectableElement(new UIButton(TEXTURE, 72, 67, 16, 16, 212, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(21).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(21).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Exploration
         addSelectableElement(new UIButton(TEXTURE, 108, 67, 16, 16, 228, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(23).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(23).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
         //Magic
         addSelectableElement(new UIButton(TEXTURE, 144, 67, 16, 16, 244, 56, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(25).getStack()), (int)x, (int)y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(25).getStack()), (int)x, (int)y);
         }, false).setChildOf(box));
     }
 

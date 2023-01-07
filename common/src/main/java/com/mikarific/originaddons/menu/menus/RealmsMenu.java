@@ -7,7 +7,7 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.Items;
@@ -38,25 +38,25 @@ public class RealmsMenu extends CustomMenu {
         //Featured Realms
         if (screen.getTitle().getString().contains("섪")) {
             new UIButton(TEXTURE, 23, 15, 22, 28, 176, 44, 28, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(1);
+                MenuUtils.pickupItemAtSlot(1);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(1).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(1).getStack()), (int)x, (int)y);
             }, false).setChildOf(box);
         }
         //Teleport Home
         if (screen.getTitle().getString().contains("섫")) {
             addSelectableElement(new UIButton(TEXTURE, 58, 15, 60, 22, 176, 0, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(4);
+                MenuUtils.pickupItemAtSlot(4);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         }
         //Settings
         if (screen.getTitle().getString().contains("섬")) {
             addSelectableElement(new UIButton(TEXTURE, 131, 15, 22, 22, 236, 0, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(7);
+                MenuUtils.pickupItemAtSlot(7);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(7).getStack()), (int)x, (int)y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), (int)x, (int)y);
             }, false).setChildOf(box));
         }
         //Items
@@ -66,10 +66,10 @@ public class RealmsMenu extends CustomMenu {
             int slotX = (8 + (slot * 18)) % 162;
             int slotY = (18 + (18 * (int) Math.floor(slot / 9.0)));
             UIItem item = (UIItem) new UIItem(null, 0, 0, true, TEXTURE, slotX, slotY, 16, 16, slotX, slotY, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(slot);
+                MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
                 if (!screenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                    screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                    screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                 }
             }, false).setChildOf(box);
             items.put(slot, item);
@@ -79,9 +79,9 @@ public class RealmsMenu extends CustomMenu {
         for (int i = 46; i < 53; i += 3) {
             int slot = i;
             UIButton button = (UIButton) new UIButton(TEXTURE, 0, 0, 0, 0, 0, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                CustomMenus.pickupItemAtSlot(slot);
+                MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, CustomMenus.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) x, (int) y);
+                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) x, (int) y);
             }, false).setChildOf(box);
             buttons.put(slot, button);
             addSelectableElement(button);

@@ -1,8 +1,9 @@
 package com.mikarific.originaddons.mixin.custommenus;
 
+import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.menu.CustomMenu;
+import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.ui.Window;
-import com.mikarific.originaddons.util.custommenus.CustomMenus;
-import com.mikarific.originaddons.util.custommenus.screens.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -18,47 +19,62 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(HandledScreen.class)
 public abstract class HandledScreenMixin extends Screen {
-
     @Shadow protected abstract void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY);
 
-    private final Window window = new Window();
+    private static Window window = null;
 
     protected HandledScreenMixin(Text title) {
         super(title);
     }
 
-    @Inject(method = "init()V", at = @At("HEAD"))
+    @Inject(method = "init", at = @At("HEAD"))
     private void init(CallbackInfo ci) {
-        initWindow();
+        initMenu(this);
     }
 
-    private void initWindow() {
-        if (CustomMenus.isEnabled(this)) {
-            window.resizeWindow();
-            if (CustomMenus.isBadges(this)) Badges.init(this, window);
-            if (CustomMenus.isGesturesFavorites(this)) GesturesFavorites.init(this, window);
-            if (CustomMenus.isGesturesAll(this)) GesturesAll.init(this, window);
-            if (CustomMenus.isNavigator(this)) Navigator.init(this, window);
-            if (CustomMenus.isOrbit(this)) Orbit.init(this, window);
-            if (CustomMenus.isPainting(this)) Painting.init(this, window);
-            if (CustomMenus.isProfile(this)) Profile.init(this, window);
-            if (CustomMenus.isProfileStaff(this)) ProfileStaff.init(this, window);
-            if (CustomMenus.isProfilePunish(this)) ProfilePunish.init(this, window);
-            if (CustomMenus.isRealms(this)) Realms.init(this, window);
-            if (CustomMenus.isRealmsRoleSelect(this)) RealmsRoleSelect.init(this, window);
-            if (CustomMenus.isRealmsSettings(this)) RealmsSettings.init(this, window);
+    private void setCurrentMenu(CustomMenu menu, Screen screen) {
+        CustomMenus.setCurrentMenu(menu);
+        window = new Window();
+        menu.doInit(screen, window);
+    }
+
+    private void clearCurrentMenu() {
+        if (CustomMenus.getCurrentMenu() != null) CustomMenus.getCurrentMenu().close(this);
+        CustomMenus.setCurrentMenu(null);
+        window = null;
+    }
+
+    private void initMenu(Screen screen) {
+        CustomMenu menu = CustomMenus.getMenuForScreen(screen);
+        if (menu == null) {
+            clearCurrentMenu();
+            return;
         }
+
+        if (CustomMenus.getCurrentMenu() != null) {
+            if (!CustomMenus.getCurrentMenu().equals(menu)) {
+                clearCurrentMenu();
+                setCurrentMenu(menu, screen);
+            } else {
+                CustomMenus.getCurrentMenu().update(screen, window);
+            }
+        } else {
+            clearCurrentMenu();
+            setCurrentMenu(menu, screen);
+        }
+    }
+
+    @Inject(method = "close", at = @At("HEAD"))
+    private void onClose(CallbackInfo ci) {
+        clearCurrentMenu();
+        OriginAddons.LOGGER.info("Menu closed");
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ingame/HandledScreen.drawBackground(Lnet/minecraft/client/util/math/MatrixStack;FII)V"))
     private void drawBackground(HandledScreen instance, MatrixStack matrixStack, float delta, int mouseX, int mouseY) {
-        if (CustomMenus.isEnabled(this)) {
+        if (CustomMenus.getCurrentMenu() != null) {
             window.draw(matrixStack, mouseX, mouseY);
-            if (CustomMenus.isBadges(this)) Badges.draw(this);
-            if (CustomMenus.isPainting(this)) Painting.draw(this);
-            if (CustomMenus.isProfile(this)) Profile.draw(this);
-            if (CustomMenus.isProfileStaff(this)) ProfileStaff.draw(this);
-            if (CustomMenus.isRealms(this)) Realms.draw(this);
+            CustomMenus.getCurrentMenu().doDraw(this, matrixStack);
         } else {
             drawBackground(matrixStack, delta, mouseX, mouseY);
         }
@@ -66,27 +82,28 @@ public abstract class HandledScreenMixin extends Screen {
 
     @Inject(method = "drawForeground", at = @At("HEAD"), cancellable = true)
     private void drawForeground(MatrixStack matrices, int mouseX, int mouseY, CallbackInfo ci) {
-        if (CustomMenus.isEnabled(this)) {
+        if (CustomMenus.getCurrentMenu() != null) {
             ci.cancel();
         }
     }
 
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        if (CustomMenus.isEnabled(this)) {
+        if (CustomMenus.getCurrentMenu() != null) {
             window.mouseClicked(button, cir);
+            CustomMenus.getCurrentMenu().mouseClicked(this, window);
         }
     }
 
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (CustomMenus.isRealms(this)) {
-            if (CustomMenus.getTeleportingHome()) {
-                CustomMenus.pickupItemAtSlot(3);
-                CustomMenus.setTeleportingHome(false);
-                assert MinecraftClient.getInstance().player != null;
-                MinecraftClient.getInstance().player.closeHandledScreen();
-                ci.cancel();
+    @Inject(method = "keyPressed", at = @At("HEAD"))
+    private void tabPressed(int keyCode, int scanCode, int modifiers, CallbackInfoReturnable<Boolean> cir) {
+        if (keyCode != 258 && keyCode != 257) return;
+
+        if (CustomMenus.getCurrentMenu() != null) {
+            if (keyCode == 258) {
+                CustomMenus.getCurrentMenu().selectNextElement(hasShiftDown());
+            } else {
+                CustomMenus.getCurrentMenu().clickSelectedElement();
             }
         }
     }

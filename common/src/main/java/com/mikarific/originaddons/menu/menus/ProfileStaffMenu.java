@@ -40,7 +40,7 @@ public class ProfileStaffMenu extends CustomMenu {
         Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/profile_staff.png");
         int TEXTURE_WIDTH = 332;
         int TEXTURE_HEIGHT = 142;
-        UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 123) / 2, 176, 104, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
+        UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 123) / 2, 176, 123, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
 
         //Face
         face = (UIItem) new UIItem(null, 49, 30, false, TEXTURE, 13, 28, 42, 42, 176, 0, 42, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {

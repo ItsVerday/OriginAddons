@@ -19,6 +19,7 @@
     "other.MouseMixin",
     "rocketbootsfuelbar.ItemStackMixin",
     "settings.GameMenuScreenMixin",
+    "spu.ClientBuiltinResourcePackProviderMixin",
     "tooltip.ItemStackMixin"
   ],
   "injectors": {

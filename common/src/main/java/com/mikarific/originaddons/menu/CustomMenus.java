@@ -11,11 +11,18 @@ public class CustomMenus {
     private static CustomMenu currentMenu = null;
 
     public static void init() {
+        menus.add(new BadgesMenu());
+        menus.add(new GesturesAllMenu());
+        menus.add(new GesturesMenu());
         menus.add(new NavigatorMenu());
         menus.add(new NavigatorBalloonsMenu());
+        menus.add(new OrbitMenu());
         menus.add(new PaintingMenu());
         menus.add(new ProfileMenu());
         menus.add(new ProfileStaffMenu());
+        menus.add(new RealmsMenu());
+        menus.add(new RealmRoleSelectMenu());
+        menus.add(new RealmSettingsMenu());
     }
 
     public static CustomMenu getMenuForScreen(Screen screen) {

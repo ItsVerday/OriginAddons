@@ -159,6 +159,25 @@ public class ProfileStaffMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, new LiteralText((new TranslatableText("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, true).setChildOf(box));
+
+        //Punish
+        new UIButton(TEXTURE, 7, 96, 52, 16, 176, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+            MenuUtils.pickupItemAtSlot(36);
+        }, (b, m, x, y) -> {
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(36).getStack()), (int)x, (int)y);
+        }, false).setChildOf(box);
+        //Teleport
+        new UIButton(TEXTURE, 61, 96, 52, 16, 228, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+            MenuUtils.pickupItemAtSlot(39);
+        }, (b, m, x, y) -> {
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(39).getStack()), (int)x, (int)y);
+        }, false).setChildOf(box);
+        //Invsee
+        new UIButton(TEXTURE, 115, 96, 52, 16, 280, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+            MenuUtils.pickupItemAtSlot(42);
+        }, (b, m, x, y) -> {
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(42).getStack()), (int)x, (int)y);
+        }, false).setChildOf(box);
     }
 
     @Override

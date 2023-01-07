@@ -93,7 +93,7 @@ public class UIButton extends UIComponent {
 
     @Override
     public void drawTooltip(MatrixStack stack) {
-        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0));
+        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0));
     }
 
     @Environment(EnvType.CLIENT)

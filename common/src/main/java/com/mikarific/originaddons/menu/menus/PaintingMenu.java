@@ -31,6 +31,7 @@ public class PaintingMenu extends CustomMenu {
     private static final int TEXTURE_WIDTH = 232;
     private static final int TEXTURE_HEIGHT = 127;
 
+    private static ScreenHandler screenHandler;
     private static UIComponent box;
     private static UIComponent selectedColor;
     private static UIComponent selectedShade;
@@ -39,7 +40,7 @@ public class PaintingMenu extends CustomMenu {
     @Override
     public void init(Screen screen, Window window) {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        ScreenHandler screenHandler = player.currentScreenHandler;
+        screenHandler = player.currentScreenHandler;
         boolean finishesOn = screen.getTitle().getString().contains(FINISHES_ON);
         boolean finishesOff = screen.getTitle().getString().contains(FINISHES_OFF);
         cosmosCosmetics = finishesOn || finishesOff;
@@ -58,12 +59,12 @@ public class PaintingMenu extends CustomMenu {
         }
 
         for (int x = 1; x < 8; x++) {
-            addSelectableElement(addUIItem(x, 4, TEXTURE, screen, screenHandler, box));
+            addSelectableElement(addUIItem(x, 4, TEXTURE, screen, box));
         }
 
         for (int y = 0; y < 3; y++) {
             for (int x = 3; x < 6; x++) {
-                addSelectableElement(addUIItem(x, y, TEXTURE, screen, screenHandler, box));
+                addSelectableElement(addUIItem(x, y, TEXTURE, screen, box));
             }
         }
 
@@ -72,8 +73,8 @@ public class PaintingMenu extends CustomMenu {
         }
 
         if (cosmosCosmetics) {
-            addUIItem(1, 1, TEXTURE, screen, screenHandler, box);
-            addSelectableElement(addUIItem(7, 1, TEXTURE, screen, screenHandler, box));
+            addUIItem(1, 1, TEXTURE, screen, box);
+            addSelectableElement(addUIItem(7, 1, TEXTURE, screen, box));
         }
 
         selectedColor = new UITexture(TEXTURE, 0, 0, 20, 20, 176, 32, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(box);
@@ -82,7 +83,7 @@ public class PaintingMenu extends CustomMenu {
         updateSelectionMarker(selectedShade, -1, -1);
     }
 
-    private static UIItem addUIItem(int x, int y, Identifier texture, Screen screen, ScreenHandler handler, UIComponent box) {
+    private static UIItem addUIItem(int x, int y, Identifier texture, Screen screen, UIComponent box) {
         int slot = x + y * 9;
         int slotX = 8 + (x * 18);
         int slotY = 7 + (18 * (y + 1));
@@ -95,7 +96,7 @@ public class PaintingMenu extends CustomMenu {
         UIItem item = (UIItem) new UIItem(previousItem, 0, 0, true, texture, slotX, slotY, 16, 16, 176, 64, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(slot);
         }, (b, m, x_, y_) -> {
-            ItemStack stack = handler.getSlot(slot).getStack();
+            ItemStack stack = screenHandler.getSlot(slot).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int) x_, (int) y_);
             }
@@ -120,6 +121,9 @@ public class PaintingMenu extends CustomMenu {
 
     @Override
     public void update(Screen screen, Window window) {
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        screenHandler = player.currentScreenHandler;
+
         updateSelectionMarker(selectedColor, -1, -1);
         updateSelectionMarker(selectedShade, -1, -1);
 
@@ -179,9 +183,6 @@ public class PaintingMenu extends CustomMenu {
 
     @Override
     protected void draw(Screen screen) {
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        ScreenHandler screenHandler = player.currentScreenHandler;
-
         items.forEach((slotNumber, item) -> {
             Slot slot = screenHandler.slots.get(slotNumber);
             if (!slot.getStack().getItem().equals(Items.AIR)) {
@@ -199,6 +200,7 @@ public class PaintingMenu extends CustomMenu {
         finishesSelector = null;
         selectedColor = null;
         selectedShade = null;
+        screenHandler = null;
         items.clear();
     }
 

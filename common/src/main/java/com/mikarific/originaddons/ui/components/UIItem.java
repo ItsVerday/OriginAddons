@@ -39,6 +39,7 @@ public class UIItem extends UIButton {
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.enableDepthTest();
                 MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
+                MinecraftClient.getInstance().getItemRenderer().renderGuiItemOverlay(MinecraftClient.getInstance().textRenderer, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)));
             }
             if(drawHighlight) this.setHovered(this.getX() - 1, this.getY() - 1, this.getWidth() + 2, this.getHeight() + 2, mouseX, mouseY);
             if (this.isHoveredOrSelected() && drawHighlight) {

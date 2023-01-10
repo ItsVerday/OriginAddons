@@ -55,7 +55,7 @@ public abstract class CustomMenu {
 
     public void clickSelectedElement() {
         if (selectedElement == -1) return;
-        selectableElements.get(selectedElement).click();
+        selectableElements.get(selectedElement).click(0);
     }
 
     protected abstract void init(Screen screen, Window window);

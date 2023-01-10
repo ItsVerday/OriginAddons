@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
 import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
@@ -53,16 +54,26 @@ public class MenuUtils {
         return list;
     }
 
+    private static int clickButton = 0;
+
+    public static void setClickButton(int clickButton) {
+        MenuUtils.clickButton = clickButton;
+    }
+
     public static void pickupItemAtSlot(int slot) {
         if (MinecraftClient.getInstance().player.currentScreenHandler instanceof GenericContainerScreenHandler screenHandler) {
             Int2ObjectArrayMap<ItemStack> stack = new Int2ObjectArrayMap<>();
             stack.put(slot, screenHandler.getSlot(slot).getStack());
             boolean hasShiftDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344);
+
+            SlotActionType actionType;
             if (hasShiftDown) {
-                Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new ClickSlotC2SPacket(screenHandler.syncId, 0, slot, 0, SlotActionType.QUICK_MOVE, screenHandler.getSlot(0).getStack(), stack));
+                actionType = SlotActionType.QUICK_MOVE;
             } else {
-                Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new ClickSlotC2SPacket(screenHandler.syncId, 0, slot, 0, SlotActionType.PICKUP, screenHandler.getSlot(0).getStack(), stack));
+                actionType = SlotActionType.PICKUP;
             }
+
+            Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendPacket(new ClickSlotC2SPacket(screenHandler.syncId, 0, slot, clickButton == 0 ? 0 : 1, actionType, screenHandler.getSlot(0).getStack(), stack));
         }
     }
 }

@@ -2,6 +2,7 @@ package com.mikarific.originaddons.ui.components;
 
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
+import com.mikarific.originaddons.util.MenuUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -81,13 +82,14 @@ public class UIButton extends UIComponent {
     public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
         if ((button == 0 || button == 1)) {
             if (cir.isCancellable()) cir.cancel();
-            click();
+            click(button);
         }
     }
 
     @Override
-    public void click() {
+    public void click(int button) {
         if (playSound) MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        MenuUtils.setClickButton(button);
         action.run();
     }
 

@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class UITexture extends UIComponent {
     private final Identifier identifier;
-    private final int u;
-    private final int v;
+    private int u;
+    private int v;
     private final int textureWidth;
     private final int textureHeight;
 
@@ -44,8 +44,18 @@ public class UITexture extends UIComponent {
         return u;
     }
 
+    public UITexture setU(int u) {
+        this.u = u;
+        return this;
+    }
+
     public int getV() {
         return v;
+    }
+
+    public UITexture setV(int v) {
+        this.v = v;
+        return this;
     }
 
     public int getTextureWidth() {

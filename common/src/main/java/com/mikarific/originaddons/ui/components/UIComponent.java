@@ -139,7 +139,7 @@ public class UIComponent {
         return this;
     }
 
-    public void click() {}
+    public void click(int button) {}
 
     public void drawTooltip(MatrixStack stack) {}
 }

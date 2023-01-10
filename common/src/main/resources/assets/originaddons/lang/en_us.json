@@ -10,6 +10,8 @@
   "text.autoconfig.originaddons.option.customTooltips.@Tooltip": "Adds additional useful information to some item tooltips!",
   "text.autoconfig.originaddons.option.customMenusCategory": "Custom Menus:",
   "text.autoconfig.originaddons.option.customMenusCategory.@Tooltip": "Enable/Disable individual menus. Requires \"Enable Custom Menus\" to be §aEnabled§r.",
+  "text.autoconfig.originaddons.option.customAuctionsMenu": "Enable Custom Auctions Menu",
+  "text.autoconfig.originaddons.option.customAuctionsMenu.@Tooltip": "Replaces the Auctions Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customBadgeMenu": "Enable Custom Badge Menu",
   "text.autoconfig.originaddons.option.customBadgeMenu.@Tooltip": "Replaces the Badge Menu with a custom OriginAddons version!",
   "text.autoconfig.originaddons.option.customGesturesMenu": "Enable Custom Gestures Menu",

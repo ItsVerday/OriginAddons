@@ -11,6 +11,7 @@ public class CustomMenus {
     private static CustomMenu currentMenu = null;
 
     public static void init() {
+        menus.add(new AuctionHouseMenu());
         menus.add(new BadgesMenu());
         menus.add(new GesturesAllMenu());
         menus.add(new GesturesMenu());

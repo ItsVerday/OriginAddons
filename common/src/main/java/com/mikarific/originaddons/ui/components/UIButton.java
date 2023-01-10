@@ -25,7 +25,7 @@ public class UIButton extends UIComponent {
     private int hoveredVOffset;
     private final int textureWidth;
     private final int textureHeight;
-    private final Runnable action;
+    private Runnable action;
     private final TooltipSupplier tooltipSupplier;
     private final boolean playSound;
 
@@ -136,6 +136,11 @@ public class UIButton extends UIComponent {
 
     public UIButton setHoveredVOffset(int hoveredVOffset) {
         this.hoveredVOffset = hoveredVOffset;
+        return this;
+    }
+
+    public UIButton setAction(Runnable action) {
+        this.action = action;
         return this;
     }
 }

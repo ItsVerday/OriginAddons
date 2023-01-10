@@ -7,6 +7,7 @@ import com.mikarific.originaddons.ui.components.*;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
@@ -15,14 +16,20 @@ import net.minecraft.util.Identifier;
 public class GesturesAllMenu extends CustomMenu {
     public static final String TITLE = "쉃";
 
+    Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/gestures_all.png");
+    int TEXTURE_WIDTH = 248;
+    int TEXTURE_HEIGHT = 124;
+
+    private static ScreenHandler screenHandler;
+    private static UIButton previousPage;
+    private static UIButton nextPage;
+    private static UIText pageNumbers;
+    private static UIText slots;
+
     @Override
     protected void init(Screen screen, Window window) {
         assert MinecraftClient.getInstance().player != null;
-        ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
-
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/gestures_all.png");
-        int TEXTURE_WIDTH = 248;
-        int TEXTURE_HEIGHT = 124;
+        screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 124) / 2, 176, 124, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
         //Slot Buttons
         for (int i = 9; i < 45; i++) {
@@ -32,35 +39,26 @@ public class GesturesAllMenu extends CustomMenu {
             addSelectableElement(new UIItem(null, 0, 0, true, TEXTURE, slotX, slotY, 16, 16, slotX, slotY, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
-                if (!screenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
+                if (!screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR)) {
                     screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                 }
             }, false).setChildOf(box));
         }
+
         //Previous Page
-        if (screen.getTitle().getString().contains("쉅")) {
-            new UIButton(TEXTURE, 8, 101, 36, 14, 176, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
-            }, false).setChildOf(box);
-        } else {
-            addSelectableElement(new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                MenuUtils.pickupItemAtSlot(45);
-            }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
-            }, false).setChildOf(box));
-        }
+        previousPage = (UIButton) new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
+        }, false).setChildOf(box);
+        addSelectableElement(previousPage);
+
         //Next Page
-        if (screen.getTitle().getString().contains("쉆")) {
-            new UIButton(TEXTURE, 132, 101, 36, 14, 212, 56, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
-            }, false).setChildOf(box);
-        } else {
-            addSelectableElement(new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-                MenuUtils.pickupItemAtSlot(52);
-            }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
-            }, false).setChildOf(box));
-        }
+        nextPage = (UIButton) new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+            MenuUtils.pickupItemAtSlot(52);
+        }, (b, m, x, y) -> {
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
+        }, false).setChildOf(box);
+        addSelectableElement(nextPage);
+
         //Back
         if (screen.getTitle().getString().contains("쉄")) {
             addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 192, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -76,16 +74,59 @@ public class GesturesAllMenu extends CustomMenu {
             }, false).setChildOf(box));
         }
         //Page Numbers
-        new UIText(Text.literal(screen.getTitle().getSiblings().get(1).getSiblings().get(0).getString()).setStyle(Style.EMPTY), 16777215, 80, 104).setChildOf(box);
+        pageNumbers = (UIText) new UIText(Text.literal(""), 16777215, 80, 104).setChildOf(box);
         //Slots
-        new UIText(screen.getTitle().getSiblings().get(0).getSiblings().get(1), 16777215, 8, -3).setChildOf(box);
+        slots = (UIText) new UIText(Text.literal(""), 16777215, 8, -3).setChildOf(box);
+    }
+
+    @Override
+    public void update(Screen screen, Window window) {
+        assert MinecraftClient.getInstance().player != null;
+        screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
+
+        if (screen.getTitle().getString().contains("쉅")) {
+            previousPage.setAction(() -> {});
+            previousPage.setU(176);
+            previousPage.setV(56);
+            previousPage.setHoveredVOffset(0);
+        } else {
+            previousPage.setAction(() -> {
+                MenuUtils.pickupItemAtSlot(45);
+            });
+            previousPage.setU(176);
+            previousPage.setV(28);
+            previousPage.setHoveredVOffset(14);
+        }
+
+        if (screen.getTitle().getString().contains("쉆")) {
+            nextPage.setAction(() -> {});
+            nextPage.setU(212);
+            nextPage.setV(56);
+            nextPage.setHoveredVOffset(0);
+        } else {
+            nextPage.setAction(() -> {
+                MenuUtils.pickupItemAtSlot(52);
+            });
+            nextPage.setU(212);
+            nextPage.setV(28);
+            nextPage.setHoveredVOffset(14);
+        }
+
+        pageNumbers.setText(Text.literal(screen.getTitle().getSiblings().get(1).getSiblings().get(0).getString()).setStyle(Style.EMPTY));
+        slots.setText(screen.getTitle().getSiblings().get(0).getSiblings().get(1));
     }
 
     @Override
     protected void draw(Screen screen) {}
 
     @Override
-    public void close(Screen screen) {}
+    public void close(Screen screen) {
+        previousPage = null;
+        nextPage = null;
+        pageNumbers = null;
+        slots = null;
+        screenHandler = null;
+    }
 
     @Override
     public boolean isEnabled() {

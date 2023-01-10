@@ -10,8 +10,8 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class UIText extends UIComponent {
-    Text text;
-    int color;
+    private Text text;
+    private int color;
 
     public UIText(Text text, int color, int x, int y) {
         super(x, y, 0, 0);
@@ -29,5 +29,10 @@ public class UIText extends UIComponent {
             matrixStack.pop();
         }
         super.draw(matrixStack, mouseX, mouseY);
+    }
+
+    public UIText setText(Text text) {
+        this.text = text;
+        return this;
     }
 }

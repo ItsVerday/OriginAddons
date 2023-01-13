@@ -3,10 +3,7 @@ package com.mikarific.originaddons.menu.menus;
 import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.ui.Window;
-import com.mikarific.originaddons.ui.components.UIButton;
-import com.mikarific.originaddons.ui.components.UIComponent;
-import com.mikarific.originaddons.ui.components.UIItem;
-import com.mikarific.originaddons.ui.components.UITexture;
+import com.mikarific.originaddons.ui.components.*;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -29,6 +26,9 @@ public class ProfileStaffMenu extends CustomMenu {
     private static final Map<Integer, UIItem> items = new HashMap<>();
     private static UIButton onlineIndicator;
     private static String username = "";
+    private static UIText actionText1;
+    private static UIText actionText2;
+    private static UIText actionText3;
 
     @Override
     public void init(Screen screen, Window window) {
@@ -159,30 +159,43 @@ public class ProfileStaffMenu extends CustomMenu {
             screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, true).setChildOf(box));
 
-        //Punish
-        new UIButton(TEXTURE, 7, 96, 52, 16, 176, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+        // Action 1
+        UIButton actionButton1 = (UIButton) new UIButton(TEXTURE, 7, 96, 52, 16, 176, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(36);
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(36).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
-        //Teleport
-        new UIButton(TEXTURE, 61, 96, 52, 16, 228, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+        actionText1 = new UIText(Text.literal(""), 16777215, 10, 4);
+        actionText1.setChildOf(actionButton1);
+
+        // Action 2
+        UIButton actionButton2 = (UIButton) new UIButton(TEXTURE, 61, 96, 52, 16, 280, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(39);
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(39).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
+        actionText2 = new UIText(Text.literal(""), 16777215, 6, 4);
+        actionText2.setChildOf(actionButton2);
+
         //Invsee
-        new UIButton(TEXTURE, 115, 96, 52, 16, 280, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+        UIButton actionButton3 = (UIButton) new UIButton(TEXTURE, 115, 96, 52, 16, 228, 110, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(42);
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(42).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
+        actionText3 = new UIText(Text.literal(""), 16777215, 5, 4);
+        actionText3.setChildOf(actionButton3);
     }
 
     @Override
     public void draw(Screen screen) {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
+
+        Style style = Style.EMPTY.withColor(TextColor.parse("white"));
+        actionText1.setText(Text.literal(screenHandler.getSlot(36).getStack().getName().getString().substring(0, 6)).setStyle(style));
+        actionText2.setText(Text.literal(screenHandler.getSlot(39).getStack().getName().getString().substring(0, 8)).setStyle(style));
+        actionText3.setText(Text.literal(screenHandler.getSlot(42).getStack().getName().getString().substring(0, 8)).setStyle(style));
 
         if (username.equals("")) {
             Slot slot = screenHandler.slots.get(21);

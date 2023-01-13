@@ -3,6 +3,7 @@ package com.mikarific.originaddons.util;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.ItemStack;
@@ -24,35 +25,7 @@ public class MenuUtils {
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {
-        List<Text> list = Lists.newArrayList();
-        MutableText mutableText = Text.literal("").append(item.getName()).formatted(item.getRarity().formatting);
-        if (item.hasCustomName()) {
-            mutableText.formatted(Formatting.ITALIC);
-        }
-        list.add(mutableText);
-        int j;
-        if (item.hasNbt()) {
-            assert item.getNbt() != null;
-            if (item.getNbt().contains("display", 10)) {
-                NbtCompound nbtCompound = item.getNbt().getCompound("display");
-                if (nbtCompound.getType("Lore") == 9) {
-                    NbtList nbtList = nbtCompound.getList("Lore", 8);
-                    for(j = 0; j < nbtList.size(); ++j) {
-                        String string = nbtList.getString(j);
-                        try {
-                            MutableText mutableText2 = Text.Serializer.fromJson(string);
-                            if (mutableText2 != null) {
-                                list.add(Texts.setStyleIfAbsent(mutableText2, Style.EMPTY.withColor(Formatting.DARK_PURPLE).withItalic(true)));
-                            }
-                        } catch (Exception var19) {
-                            nbtCompound.remove("Lore");
-                        }
-                    }
-                }
-            }
-        }
-
-        return list;
+        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
     }
 
     private static int clickButton = 0;

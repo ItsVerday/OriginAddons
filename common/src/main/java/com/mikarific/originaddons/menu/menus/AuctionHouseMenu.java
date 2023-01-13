@@ -193,7 +193,6 @@ public class AuctionHouseMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        OriginAddons.LOGGER.info(StringEscapeUtils.escapeJava(screen.getTitle().toString()));
         String title = screen.getTitle().toString();
         setMenuType(title);
 

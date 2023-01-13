@@ -8,9 +8,11 @@ import net.minecraft.client.util.math.MatrixStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public abstract class CustomMenu {
     private List<UIComponent> selectableElements = new ArrayList<>();
+    private List<Supplier<Boolean>> enabledElements = new ArrayList<>();
     private int selectedElement = -1;
     private double oldMouseX = -1;
     private double oldMouseY = -1;
@@ -28,7 +30,7 @@ public abstract class CustomMenu {
         return renderSelectedTooltip;
     }
 
-    public void doDraw(Screen screen, MatrixStack stack, double mouseX, double mouseY) {
+    public void doDraw(Screen screen, double mouseX, double mouseY) {
         updateMouseHover(mouseX, mouseY);
         draw(screen);
     }
@@ -56,7 +58,12 @@ public abstract class CustomMenu {
     }
 
     protected void addSelectableElement(UIComponent element) {
+        addSelectableElement(element, () -> true);
+    }
+
+    protected void addSelectableElement(UIComponent element, Supplier<Boolean> enabled) {
         selectableElements.add(element);
+        enabledElements.add(enabled);
     }
 
     public void selectNextElement(boolean reversed) {
@@ -67,16 +74,21 @@ public abstract class CustomMenu {
             selectableElements.get(selectedElement).setSelected(false);
         }
 
-        if (reversed) {
-            selectedElement--;
-            if (selectedElement < 0) {
-                selectedElement = selectableElements.size() - 1;
+        int originalSelectedElement = selectedElement;
+
+        do {
+            if (reversed) {
+                selectedElement--;
+                if (selectedElement < 0) selectedElement = selectableElements.size() - 1;
+            } else {
+                selectedElement++;
+                if (selectedElement == selectableElements.size()) selectedElement = 0;
             }
-        } else {
-            selectedElement++;
-            if (selectedElement == selectableElements.size()) {
-                selectedElement = 0;
-            }
+        } while (!enabledElements.get(selectedElement).get() && selectedElement != originalSelectedElement);
+
+        if (selectedElement == originalSelectedElement && !enabledElements.get(selectedElement).get()) {
+            selectedElement = -1;
+            return;
         }
 
         selectableElements.get(selectedElement).setSelected(true);

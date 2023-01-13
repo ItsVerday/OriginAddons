@@ -26,6 +26,9 @@ public class RealmsMenu extends CustomMenu {
     private static final Map<Integer, UIItem> items = new HashMap<>();
     private static final Map<Integer, UIButton> buttons = new HashMap<>();
 
+    private static boolean firstPage = false;
+    private static boolean lastPage = false;
+
     @Override
     protected void init(Screen screen, Window window) {
         assert MinecraftClient.getInstance().player != null;
@@ -73,7 +76,7 @@ public class RealmsMenu extends CustomMenu {
                 }
             }, false).setChildOf(box);
             items.put(slot, item);
-            addSelectableElement(item);
+            addSelectableElement(item, () ->  !screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR));
         }
         //Page Buttons
         for (int i = 46; i < 53; i += 3) {
@@ -84,7 +87,7 @@ public class RealmsMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) x, (int) y);
             }, false).setChildOf(box);
             buttons.put(slot, button);
-            addSelectableElement(button);
+            addSelectableElement(button, i == 46 ? () -> !firstPage : i == 52 ? () -> !lastPage : () -> true);
         }
     }
 
@@ -105,6 +108,7 @@ public class RealmsMenu extends CustomMenu {
                     buttons.get(i).setU(198);
                     buttons.get(i).setV(44);
                     buttons.get(i).setHoveredVOffset(10);
+                    firstPage = false;
                 } else if (customModelData == 8010) {
                     buttons.get(i).setX(box.getX() + 26);
                     buttons.get(i).setY(box.getY() + 111);
@@ -113,6 +117,7 @@ public class RealmsMenu extends CustomMenu {
                     buttons.get(i).setU(198);
                     buttons.get(i).setV(64);
                     buttons.get(i).setHoveredVOffset(0);
+                    firstPage = true;
                 }
                 //Members Only
                 if (customModelData == 8015) {
@@ -141,6 +146,7 @@ public class RealmsMenu extends CustomMenu {
                     buttons.get(i).setU(214);
                     buttons.get(i).setV(44);
                     buttons.get(i).setHoveredVOffset(10);
+                    lastPage = false;
                 } else if (customModelData == 8008) {
                     buttons.get(i).setX(box.getX() + 134);
                     buttons.get(i).setY(box.getY() + 111);
@@ -149,6 +155,7 @@ public class RealmsMenu extends CustomMenu {
                     buttons.get(i).setU(214);
                     buttons.get(i).setV(64);
                     buttons.get(i).setHoveredVOffset(0);
+                    lastPage = true;
                 }
             }
         }
@@ -169,6 +176,8 @@ public class RealmsMenu extends CustomMenu {
         box = null;
         items.clear();
         buttons.clear();
+        firstPage = false;
+        lastPage = false;
     }
 
     @Override

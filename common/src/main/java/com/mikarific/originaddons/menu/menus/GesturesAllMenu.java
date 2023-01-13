@@ -26,6 +26,9 @@ public class GesturesAllMenu extends CustomMenu {
     private static UIText pageNumbers;
     private static UIText slots;
 
+    private static boolean firstPage;
+    private static boolean lastPage;
+
     @Override
     protected void init(Screen screen, Window window) {
         assert MinecraftClient.getInstance().player != null;
@@ -42,14 +45,14 @@ public class GesturesAllMenu extends CustomMenu {
                 if (!screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR)) {
                     screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
                 }
-            }, false).setChildOf(box));
+            }, false).setChildOf(box), () -> !screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR));
         }
 
         //Previous Page
         previousPage = (UIButton) new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
             screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
-        addSelectableElement(previousPage);
+        addSelectableElement(previousPage, () -> !firstPage);
 
         //Next Page
         nextPage = (UIButton) new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
@@ -57,7 +60,7 @@ public class GesturesAllMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
         }, false).setChildOf(box);
-        addSelectableElement(nextPage);
+        addSelectableElement(nextPage, () -> !lastPage);
 
         //Back
         if (screen.getTitle().getString().contains("쉄")) {
@@ -89,6 +92,7 @@ public class GesturesAllMenu extends CustomMenu {
             previousPage.setU(176);
             previousPage.setV(56);
             previousPage.setHoveredVOffset(0);
+            firstPage = true;
         } else {
             previousPage.setAction(() -> {
                 MenuUtils.pickupItemAtSlot(45);
@@ -96,6 +100,7 @@ public class GesturesAllMenu extends CustomMenu {
             previousPage.setU(176);
             previousPage.setV(28);
             previousPage.setHoveredVOffset(14);
+            firstPage = false;
         }
 
         if (screen.getTitle().getString().contains("쉆")) {
@@ -103,6 +108,7 @@ public class GesturesAllMenu extends CustomMenu {
             nextPage.setU(212);
             nextPage.setV(56);
             nextPage.setHoveredVOffset(0);
+            lastPage = true;
         } else {
             nextPage.setAction(() -> {
                 MenuUtils.pickupItemAtSlot(52);
@@ -110,6 +116,7 @@ public class GesturesAllMenu extends CustomMenu {
             nextPage.setU(212);
             nextPage.setV(28);
             nextPage.setHoveredVOffset(14);
+            lastPage = false;
         }
 
         pageNumbers.setText(Text.literal(screen.getTitle().getSiblings().get(1).getSiblings().get(0).getString()).setStyle(Style.EMPTY));
@@ -126,6 +133,8 @@ public class GesturesAllMenu extends CustomMenu {
         pageNumbers = null;
         slots = null;
         screenHandler = null;
+        firstPage = false;
+        lastPage = false;
     }
 
     @Override

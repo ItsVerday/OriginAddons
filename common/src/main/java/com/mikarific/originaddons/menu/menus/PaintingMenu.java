@@ -59,12 +59,12 @@ public class PaintingMenu extends CustomMenu {
         }
 
         for (int x = 1; x < 8; x++) {
-            addSelectableElement(addUIItem(x, 4, TEXTURE, screen, box));
+            addUIItem(x, 4, true, TEXTURE, screen, box);
         }
 
         for (int y = 0; y < 3; y++) {
             for (int x = 3; x < 6; x++) {
-                addSelectableElement(addUIItem(x, y, TEXTURE, screen, box));
+                addUIItem(x, y, true, TEXTURE, screen, box);
             }
         }
 
@@ -73,8 +73,8 @@ public class PaintingMenu extends CustomMenu {
         }
 
         if (cosmosCosmetics) {
-            addUIItem(1, 1, TEXTURE, screen, box);
-            addSelectableElement(addUIItem(7, 1, TEXTURE, screen, box));
+            addUIItem(1, 1, false, TEXTURE, screen, box);
+            addUIItem(7, 1, true, TEXTURE, screen, box);
         }
 
         selectedColor = new UITexture(TEXTURE, 0, 0, 20, 20, 176, 32, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(box);
@@ -83,7 +83,7 @@ public class PaintingMenu extends CustomMenu {
         updateSelectionMarker(selectedShade, -1, -1);
     }
 
-    private static UIItem addUIItem(int x, int y, Identifier texture, Screen screen, UIComponent box) {
+    private UIItem addUIItem(int x, int y, boolean selectable, Identifier texture, Screen screen, UIComponent box) {
         int slot = x + y * 9;
         int slotX = 8 + (x * 18);
         int slotY = 7 + (18 * (y + 1));
@@ -103,6 +103,11 @@ public class PaintingMenu extends CustomMenu {
         }, false).setChildOf(box);
 
         items.put(slot, item);
+
+        if (selectable) {
+            addSelectableElement(item, () -> !screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR));
+        }
+
         return item;
     }
 

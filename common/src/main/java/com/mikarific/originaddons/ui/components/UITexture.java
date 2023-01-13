@@ -23,7 +23,7 @@ public class UITexture extends UIComponent {
         this.textureHeight = textureHeight;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);
@@ -33,7 +33,7 @@ public class UITexture extends UIComponent {
             DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
             matrixStack.pop();
         }
-        super.draw(matrixStack, mouseX, mouseY);
+        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
     }
 
     public Identifier getIdentifier() {

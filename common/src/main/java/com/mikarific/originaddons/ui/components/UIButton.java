@@ -1,6 +1,5 @@
 package com.mikarific.originaddons.ui.components;
 
-import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.util.MenuUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -56,7 +55,7 @@ public class UIButton extends UIComponent {
         this.playSound = playSound;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);
@@ -72,7 +71,7 @@ public class UIButton extends UIComponent {
             matrixStack.pop();
         }
 
-        super.draw(matrixStack, mouseX, mouseY);
+        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
     }
 
     public void renderTooltip(MatrixStack matrices, double mouseX, double mouseY) {
@@ -94,7 +93,7 @@ public class UIButton extends UIComponent {
     }
 
     @Override
-    public void drawTooltip(MatrixStack stack) {
+    public void renderFixedTooltip(MatrixStack stack) {
         tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0));
     }
 

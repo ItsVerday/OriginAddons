@@ -17,6 +17,10 @@ public class Window {
     private ArrayList<UIComponent> children = new ArrayList<>();
 
     public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+        draw(matrixStack, mouseX, mouseY, false);
+    }
+
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         if (includeInventory) {
             matrixStack.push();
             matrixStack.translate(0, -43, 0);
@@ -29,26 +33,26 @@ public class Window {
             }
 
             UIComponent inventory = new UITexture(new Identifier("textures/gui/container/inventory.png"), (MinecraftClient.getInstance().getWindow().getScaledWidth() - 176) / 2, maxY, 176, 87, 0, 79, 256, 256);
-            inventory.draw(matrixStack, mouseX, mouseY);
+            inventory.draw(matrixStack, mouseX, mouseY, hideTooltips);
         }
 
-        drawChildren(children, matrixStack, mouseX, mouseY);
+        drawChildren(children, matrixStack, mouseX, mouseY, hideTooltips);
         if (includeInventory) matrixStack.pop();
     }
 
-    public static void drawChildren(ArrayList<UIComponent> children, @NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public static void drawChildren(ArrayList<UIComponent> children, @NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         ArrayList<UIButton> buttons = new ArrayList<>();
         ArrayList<UIItem> items = new ArrayList<>();
         children.forEach(child -> {
-            child.draw(matrixStack, mouseX, mouseY);
+            child.draw(matrixStack, mouseX, mouseY, hideTooltips);
             if (child instanceof UIButton) buttons.add((UIButton) child);
             if (child instanceof UIItem) items.add((UIItem) child);
         });
         buttons.forEach(button -> {
-            if (button.isVisible() && button.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
+            if (button.isVisible() && button.isHovered() && !hideTooltips) button.renderTooltip(matrixStack, mouseX, mouseY);
         });
         items.forEach(item -> {
-            if (item.isVisible() && item.isHovered()) item.renderTooltip(matrixStack, mouseX, mouseY);
+            if (item.isVisible() && item.isHovered() && !hideTooltips) item.renderTooltip(matrixStack, mouseX, mouseY);
         });
     }
 

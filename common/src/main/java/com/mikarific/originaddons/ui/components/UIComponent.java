@@ -28,9 +28,9 @@ public class UIComponent {
         this.originalY = y;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) setHovered(mouseX, mouseY);
-        Window.drawChildren(children, matrixStack, mouseX, mouseY);
+        Window.drawChildren(children, matrixStack, mouseX, mouseY, hideTooltips);
     }
 
     public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
@@ -141,5 +141,5 @@ public class UIComponent {
 
     public void click(int button) {}
 
-    public void drawTooltip(MatrixStack stack) {}
+    public void renderFixedTooltip(MatrixStack stack) {}
 }

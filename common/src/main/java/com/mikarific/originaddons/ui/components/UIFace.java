@@ -8,11 +8,8 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
-import org.apache.commons.io.FilenameUtils;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -38,8 +35,8 @@ public class UIFace extends UIButton {
         this.scale = scale;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
-        super.draw(matrixStack, mouseX, mouseY);
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
         if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);

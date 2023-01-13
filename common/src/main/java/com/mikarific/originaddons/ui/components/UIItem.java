@@ -32,10 +32,10 @@ public class UIItem extends UIButton {
         this.drawHighlight = drawHighlight;
     }
 
-    public void draw(@NotNull MatrixStack matricies, double mouseX, double mouseY) {
+    public void draw(@NotNull MatrixStack matricies, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
             if (stack != null && !stack.getTranslationKey().equals("block.minecraft.air")) {
-                super.draw(matricies, mouseX, mouseY);
+                super.draw(matricies, mouseX, mouseY, hideTooltips);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.enableDepthTest();
                 MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));

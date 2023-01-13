@@ -12,6 +12,10 @@ import java.util.List;
 public abstract class CustomMenu {
     private List<UIComponent> selectableElements = new ArrayList<>();
     private int selectedElement = -1;
+    private double oldMouseX = -1;
+    private double oldMouseY = -1;
+
+    private boolean renderSelectedTooltip = false;
 
     public void doInit(Screen screen, Window window) {
         selectedElement = -1;
@@ -20,10 +24,34 @@ public abstract class CustomMenu {
         update(screen, window);
     }
 
-    public void doDraw(Screen screen, MatrixStack stack) {
+    public boolean isRenderSelectedTooltip() {
+        return renderSelectedTooltip;
+    }
+
+    public void doDraw(Screen screen, MatrixStack stack, double mouseX, double mouseY) {
+        updateMouseHover(mouseX, mouseY);
         draw(screen);
-        if (selectedElement != -1) {
-            selectableElements.get(selectedElement).drawTooltip(stack);
+    }
+
+    public void drawSelectedElementTooltip(MatrixStack stack) {
+        if (selectedElement != -1 && renderSelectedTooltip) {
+            selectableElements.get(selectedElement).renderFixedTooltip(stack);
+        }
+    }
+
+    private void updateMouseHover(double mouseX, double mouseY) {
+        if (oldMouseX == -1) oldMouseX = mouseX;
+        if (oldMouseY == -1) oldMouseY = mouseY;
+
+        if (Math.abs(mouseX - oldMouseX) < 1.0 && Math.abs(mouseY - oldMouseY) < 1.0) return;
+
+        for (UIComponent elt: selectableElements) {
+            if (elt.isHovered()) {
+                oldMouseX = mouseX;
+                oldMouseY = mouseY;
+                renderSelectedTooltip = false;
+                return;
+            }
         }
     }
 
@@ -34,6 +62,7 @@ public abstract class CustomMenu {
     public void selectNextElement(boolean reversed) {
         if (selectableElements.size() == 0) return;
 
+        renderSelectedTooltip = true;
         if (selectedElement != -1) {
             selectableElements.get(selectedElement).setSelected(false);
         }

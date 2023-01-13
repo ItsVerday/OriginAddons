@@ -16,7 +16,7 @@ public class UIScrollable extends UIComponent {
         super(x, y, width, height);
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
         ArrayList<UIButton> buttons = new ArrayList<>();
         if (this.getChildren().size() != childrenLength) {
             double lowestY = MinecraftClient.getInstance().getWindow().getHeight();
@@ -48,7 +48,7 @@ public class UIScrollable extends UIComponent {
                     child.setY(y);
                     child.setYOffset(yOffset);
                 }
-                child.draw(matrixStack, mouseX, mouseY);
+                child.draw(matrixStack, mouseX, mouseY, hideTooltips);
                 if (child instanceof UIButton) buttons.add((UIButton) child);
             });
             Other.resetScrollOffset();

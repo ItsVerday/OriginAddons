@@ -73,8 +73,9 @@ public abstract class HandledScreenMixin extends Screen {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ingame/HandledScreen.drawBackground(Lnet/minecraft/client/util/math/MatrixStack;FII)V"))
     private void drawBackground(HandledScreen instance, MatrixStack matrixStack, float delta, int mouseX, int mouseY) {
         if (CustomMenus.getCurrentMenu() != null) {
-            window.draw(matrixStack, mouseX, mouseY);
-            CustomMenus.getCurrentMenu().doDraw(this, matrixStack);
+            CustomMenus.getCurrentMenu().doDraw(this, matrixStack, mouseX, mouseY);
+            window.draw(matrixStack, mouseX, mouseY, CustomMenus.getCurrentMenu().isRenderSelectedTooltip());
+            CustomMenus.getCurrentMenu().drawSelectedElementTooltip(matrixStack);
         } else {
             drawBackground(matrixStack, delta, mouseX, mouseY);
         }

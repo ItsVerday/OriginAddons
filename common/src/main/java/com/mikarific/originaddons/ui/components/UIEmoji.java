@@ -19,8 +19,8 @@ public class UIEmoji extends UIButton {
         this.emoji = emoji;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
-        super.draw(matrixStack, mouseX, mouseY);
+    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
         if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);

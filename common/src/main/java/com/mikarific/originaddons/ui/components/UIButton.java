@@ -78,11 +78,15 @@ public class UIButton extends UIComponent {
         tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0));
     }
 
-    public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
+    public UIComponent mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
         if ((button == 0 || button == 1)) {
             if (cir.isCancellable()) cir.cancel();
             click(button);
+
+            return this;
         }
+
+        return null;
     }
 
     @Override

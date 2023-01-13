@@ -56,15 +56,20 @@ public class Window {
         });
     }
 
-    public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
-        clickChildren(children, button, cir);
+    public UIComponent mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
+        return clickChildren(children, button, cir);
     }
 
-    public static void clickChildren(ArrayList<UIComponent> children, int button, CallbackInfoReturnable<Boolean> cir) {
-        children.forEach(child -> {
-            if (child.isVisible() && child.isHovered()) child.mouseClicked(button, cir);
-        });
+    public static UIComponent clickChildren(ArrayList<UIComponent> children, int button, CallbackInfoReturnable<Boolean> cir) {
+        UIComponent clickedElement = null;
+        for (UIComponent child: children) {
+            if (child.isVisible() && child.isHovered()) {
+                UIComponent clickedChild = child.mouseClicked(button, cir);
+                if (clickedElement == null && clickedChild != null) clickedElement = clickedChild;
+            }
+        }
 
+        return clickedElement;
     }
 
     public ArrayList<UIComponent> getChildren() {

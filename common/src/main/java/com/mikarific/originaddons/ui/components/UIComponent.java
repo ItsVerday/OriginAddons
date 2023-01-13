@@ -33,8 +33,8 @@ public class UIComponent {
         Window.drawChildren(children, matrixStack, mouseX, mouseY, hideTooltips);
     }
 
-    public void mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
-        Window.clickChildren(children, button, cir);
+    public UIComponent mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
+        return Window.clickChildren(children, button, cir);
     }
 
     public double getX() {

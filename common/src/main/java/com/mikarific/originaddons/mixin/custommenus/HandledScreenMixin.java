@@ -4,6 +4,7 @@ import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.ui.Window;
+import com.mikarific.originaddons.ui.components.UIComponent;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -91,8 +92,8 @@ public abstract class HandledScreenMixin extends Screen {
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
     private void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (CustomMenus.getCurrentMenu() != null) {
-            window.mouseClicked(button, cir);
-            CustomMenus.getCurrentMenu().mouseClicked(this, window);
+            UIComponent clickedElement = window.mouseClicked(button, cir);
+            CustomMenus.getCurrentMenu().mouseClicked(this, window, clickedElement);
         }
     }
 

@@ -124,8 +124,15 @@ public abstract class CustomMenu {
         return new ArrayList<>();
     }
 
-    public void mouseClicked(Screen screen, Window window) {
+    public void mouseClicked(Screen screen, Window window, UIComponent clickedElement) {
         update(screen, window);
+        if (clickedElement != null) {
+            if (selectedElement != -1) {
+                selectableElements.get(selectedElement).setSelected(false);
+            }
+
+            selectedElement = -1;
+        }
     }
 
     public boolean matchScreen(Screen screen) {

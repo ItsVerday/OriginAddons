@@ -15,6 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.StringEscapeUtils;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -207,14 +208,16 @@ public class AuctionHouseMenu extends CustomMenu {
         String title = screen.getTitle().toString();
         setMenuType(title);
 
-        // This is a really bad way of removing the GUI background
+        // Remove the
         String stepGUI = "\uF82C\uF82A\uF829\uF821";
-        String json = Text.Serializer.toJson(screen.getTitle());
-        json = json.replaceAll(ALL_AUCTIONS_TITLE, stepGUI);
-        json = json.replaceAll(SELF_AUCTIONS_TITLE, stepGUI);
-        json = json.replaceAll(AUCTION_DETAILS_TITLE, stepGUI);
-        json = json.replaceAll(AUCTION_SEARCH_TITLE, stepGUI);
-        pageText.setText(Text.Serializer.fromJson(json));
+        pageText.setText(MenuUtils.transformStringsInText(screen.getTitle(), string -> {
+            string = string.replaceAll(ALL_AUCTIONS_TITLE, stepGUI);
+            string = string.replaceAll(SELF_AUCTIONS_TITLE, stepGUI);
+            string = string.replaceAll(AUCTION_DETAILS_TITLE, stepGUI);
+            string = string.replaceAll(AUCTION_SEARCH_TITLE, stepGUI);
+
+            return string;
+        }));
 
         if (menuType.equals("all")) {
             box.setU(0);

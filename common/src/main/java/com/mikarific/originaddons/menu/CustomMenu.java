@@ -125,11 +125,6 @@ public abstract class CustomMenu {
     }
 
     public void mouseClicked(Screen screen, Window window) {
-        if (selectedElement > -1) {
-            selectableElements.get(selectedElement).setSelected(false);
-        }
-
-        selectedElement = -1;
         update(screen, window);
     }
 

@@ -60,9 +60,13 @@ public class AuctionHouseMenu extends CustomMenu {
     private static UITexture box;
     private static UIButton backButton;
     private static UIButton refreshButton;
+    private static boolean refreshEnabled = false;
     private static UIButton buyButton;
+    private static boolean buyEnabled = false;
     private static UIButton previousPageButton;
+    private static boolean previousPageEnabled = false;
     private static UIButton nextPageButton;
+    private static boolean nextPageEnabled = false;
     private static UIButton categoryButton;
     private static UIButton sortButton;
     private static UIText pageText;
@@ -102,6 +106,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(backButton);
 
         refreshButton = (UIButton) new UIButton(TEXTURE, 26, 9, 16, 14, 48, 276, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(1);
@@ -111,6 +116,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(refreshButton, () -> refreshEnabled);
 
         buyButton = (UIButton) new UIButton(TEXTURE, 134, 9, 34, 14, 170, 248, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(8);
@@ -120,6 +126,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(buyButton, () -> buyEnabled);
 
         previousPageButton = (UIButton) new UIButton(TEXTURE, 8, 101, 36, 14, 64, 248, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(45);
@@ -129,6 +136,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(previousPageButton, () -> previousPageEnabled);
 
         nextPageButton = (UIButton) new UIButton(TEXTURE, 96, 101, 36, 14, 100, 248, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(50);
@@ -138,6 +146,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(nextPageButton, () -> nextPageEnabled);
 
         categoryButton = (UIButton) new UIButton(TEXTURE, 134, 101, 16, 14, 176, 290, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(52);
@@ -147,6 +156,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(categoryButton);
 
         sortButton = (UIButton) new UIButton(TEXTURE, 152, 101, 16, 14, 284, 248, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(53);
@@ -156,6 +166,7 @@ public class AuctionHouseMenu extends CustomMenu {
                 screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
             }
         }, false).setChildOf(box);
+        addSelectableElement(sortButton);
 
         addUIItem(4, 0, TEXTURE, screen, box);
         for (int y = 1; y < 5; y++) {
@@ -234,10 +245,12 @@ public class AuctionHouseMenu extends CustomMenu {
             refreshButton.setU(48);
             refreshButton.setV(248);
             refreshButton.setHoveredVOffset(14);
+            refreshEnabled = true;
         } else {
             refreshButton.setU(48);
             refreshButton.setV(276);
             refreshButton.setHoveredVOffset(0);
+            refreshEnabled = false;
         }
 
         if (title.contains(BUTTON_CONFIRM)) {
@@ -245,38 +258,46 @@ public class AuctionHouseMenu extends CustomMenu {
             buyButton.setV(248);
             buyButton.setHoveredVOffset(14);
             buyButton.setVisible(true);
+            buyEnabled = true;
         } else if (title.contains(BUTTON_CONFIRM_OFF)) {
             buyButton.setU(136);
             buyButton.setV(276);
             buyButton.setHoveredVOffset(0);
             buyButton.setVisible(true);
+            buyEnabled = true;
         } else if (menuType.equals("all")) {
             buyButton.setU(170);
             buyButton.setV(248);
             buyButton.setHoveredVOffset(14);
             buyButton.setVisible(true);
+            buyEnabled = true;
         } else {
             buyButton.setVisible(false);
+            buyEnabled = false;
         }
 
         if (title.contains(BUTTON_FIRST_PAGE)) {
             previousPageButton.setU(64);
             previousPageButton.setV(276);
             previousPageButton.setHoveredVOffset(0);
+            previousPageEnabled = false;
         } else {
             previousPageButton.setU(64);
             previousPageButton.setV(248);
             previousPageButton.setHoveredVOffset(14);
+            previousPageEnabled = true;
         }
 
         if (title.contains(BUTTON_LAST_PAGE)) {
             nextPageButton.setU(100);
             nextPageButton.setV(276);
             nextPageButton.setHoveredVOffset(0);
+            nextPageEnabled = false;
         } else {
             nextPageButton.setU(100);
             nextPageButton.setV(248);
             nextPageButton.setHoveredVOffset(14);
+            nextPageEnabled = true;
         }
 
         if (title.contains(GROUP_BLOCKS)) {
@@ -388,9 +409,13 @@ public class AuctionHouseMenu extends CustomMenu {
         box = null;
         backButton = null;
         refreshButton = null;
+        refreshEnabled = false;
         buyButton = null;
+        buyEnabled = false;
         previousPageButton = null;
+        previousPageEnabled = false;
         nextPageButton = null;
+        nextPageEnabled = false;
         categoryButton = null;
         sortButton = null;
         pageText = null;

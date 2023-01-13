@@ -82,9 +82,9 @@ public abstract class CustomMenu {
         selectableElements.get(selectedElement).setSelected(true);
     }
 
-    public void clickSelectedElement() {
+    public void clickSelectedElement(int button) {
         if (selectedElement == -1) return;
-        selectableElements.get(selectedElement).click(0);
+        selectableElements.get(selectedElement).click(button);
     }
 
     protected abstract void init(Screen screen, Window window);

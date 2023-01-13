@@ -104,7 +104,7 @@ public abstract class HandledScreenMixin extends Screen {
             if (keyCode == 258) {
                 CustomMenus.getCurrentMenu().selectNextElement(hasShiftDown());
             } else {
-                CustomMenus.getCurrentMenu().clickSelectedElement();
+                CustomMenus.getCurrentMenu().clickSelectedElement(hasShiftDown() ? 1 : 0);
             }
         }
     }

@@ -121,8 +121,8 @@ public class UIComponent {
     }
 
     public UIComponent setVisible(boolean visible) {
+        if (visible != this.visible) this.hovered = false;
         this.visible = visible;
-        this.hovered = false;
         children.forEach(child -> child.setVisible(visible));
         return this;
     }

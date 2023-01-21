@@ -193,9 +193,12 @@ public class ProfileStaffMenu extends CustomMenu {
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
         Style style = Style.EMPTY.withColor(TextColor.parse("white"));
-        actionText1.setText(Text.literal(screenHandler.getSlot(36).getStack().getName().getString().substring(0, 6)).setStyle(style));
-        actionText2.setText(Text.literal(screenHandler.getSlot(39).getStack().getName().getString().substring(0, 8)).setStyle(style));
-        actionText3.setText(Text.literal(screenHandler.getSlot(42).getStack().getName().getString().substring(0, 8)).setStyle(style));
+        String text1 = screenHandler.getSlot(36).getStack().getName().getString();
+        actionText1.setText(Text.literal(text1.substring(0, Math.min(text1.length(), 6))).setStyle(style));
+        String text2 = screenHandler.getSlot(39).getStack().getName().getString();
+        actionText2.setText(Text.literal(text2.substring(0, Math.min(text2.length(), 8))).setStyle(style));
+        String text3 = screenHandler.getSlot(42).getStack().getName().getString();
+        actionText3.setText(Text.literal(text3.substring(0, Math.min(text3.length(), 8))).setStyle(style));
 
         if (username.equals("")) {
             Slot slot = screenHandler.slots.get(21);

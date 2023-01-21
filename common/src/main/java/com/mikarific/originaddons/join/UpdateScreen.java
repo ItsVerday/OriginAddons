@@ -53,17 +53,17 @@ public class UpdateScreen extends Screen {
         super.init();
         int height = 110 + changelogLineCount * 10;
         if (changelog.size() > 0) height += 20;
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 150, height, 148, 20, Text.translatable("originaddons.update.update"), (button) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.update"), (button) -> {
             Util.getOperatingSystem().open(download);
-        }));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 + 2, height, 148, 20, Text.translatable("originaddons.update.joinanyways"), (button) -> {
+        }).dimensions(this.width / 2 - 150, height, 148, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.joinanyways"), (button) -> {
             assert this.client != null;
             this.client.setScreen(new JoinScreen((MultiplayerScreen) this.parent, entry, info));
-        }));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, height + 24, 200, 20, Text.translatable("originaddons.update.cancel"), (button) -> {
+        }).dimensions(this.width / 2 + 2, height, 148, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.cancel"), (button) -> {
             assert this.client != null;
             this.client.setScreen(this.parent);
-        }));
+        }).dimensions(this.width / 2 - 100, height + 24, 200, 20).build());
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {

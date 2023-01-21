@@ -17,11 +17,11 @@ import java.util.function.Function;
 
 public class MenuUtils {
     public static void sendMessage(ClientPlayerEntity player, String text) {
-        player.sendChatMessage(text, Text.literal(text));
+        player.networkHandler.sendChatMessage(text);
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {
-        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
+        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.BASIC);
     }
 
     private static int clickButton = 0;

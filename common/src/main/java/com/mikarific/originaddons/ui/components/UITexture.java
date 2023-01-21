@@ -27,7 +27,7 @@ public class UITexture extends UIComponent {
         if (this.isVisible()) {
             matrixStack.push();
             matrixStack.translate(this.getX(), this.getY(), 1f);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, this.getIdentifier());
             DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());

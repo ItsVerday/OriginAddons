@@ -21,13 +21,13 @@ public class ClientPlayNetworkHandlerMixin {
         if (!OriginAddons.onOriginRealms()) return;
         NetworkThreadUtils.forceMainThread(packet, ((ClientPlayNetworkHandler) (Object) this), MinecraftClient.getInstance());
 
-        if (packet.getAction() == PlayerListS2CPacket.Action.ADD_PLAYER) {
+        if (packet.getActions().contains(PlayerListS2CPacket.Action.ADD_PLAYER)) {
             for (PlayerListS2CPacket.Entry entry: packet.getEntries()) handlePlayerListAddition(entry);
         }
     }
 
     private void handlePlayerListAddition(PlayerListS2CPacket.Entry entry) {
-        String token = entry.getProfile().getName();
+        String token = entry.profile().getName();
         if (!token.startsWith(":")) return;
 
         for (EmojiInstance emoji: EmojiPicker.getEmojis()) {

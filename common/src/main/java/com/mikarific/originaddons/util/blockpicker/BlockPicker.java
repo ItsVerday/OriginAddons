@@ -4,23 +4,19 @@ import com.mikarific.originaddons.OriginAddons;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.registry.Registries;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
-import org.apache.commons.io.input.BOMInputStream;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -60,7 +56,7 @@ public class BlockPicker {
     }
 
     public static void processBlockStateFile(JsonObject json, Identifier blockIdentifier) {
-        Block block = Registry.BLOCK.get(blockIdentifier);
+        Block block = Registries.BLOCK.get(blockIdentifier);
 
         if (json.has("variants")) {
             JsonObject variants = json.get("variants").getAsJsonObject();
@@ -158,7 +154,7 @@ public class BlockPicker {
 
     private static boolean isCustomModel(Block block, Identifier modelIdentifier) {
         boolean isCustom = modelIdentifier.getPath().contains("custom/");
-        boolean isNoteBlock = Registry.BLOCK.getId(block).equals(Registry.BLOCK.getId(Blocks.NOTE_BLOCK));
+        boolean isNoteBlock = Registries.BLOCK.getId(block).equals(Registries.BLOCK.getId(Blocks.NOTE_BLOCK));
         boolean isVanillaOre = modelIdentifier.getPath().startsWith("block/") && modelIdentifier.getPath().endsWith("_ore");
 
         if (isNoteBlock) return isCustom || isVanillaOre;

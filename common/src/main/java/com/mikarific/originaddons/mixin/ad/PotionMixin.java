@@ -42,7 +42,7 @@ public abstract class PotionMixin<T extends ScreenHandler> extends HandledScreen
             )
     )
     private void changeMiningFatigueSprite(MatrixStack matrices, int x, int y, int zOffset, int width, int height, Sprite sprite) {
-        if (sprite.getId().toString().equals("minecraft:mob_effect/mining_fatigue") && OriginAddons.onOriginRealms()) {
+        if (sprite.getAtlasId().toString().equals("minecraft:mob_effect/mining_fatigue") && OriginAddons.onOriginRealms()) {
             RenderSystem.setShaderTexture(0, new Identifier("originaddons", "gui/inventory/ad.png"));
             AbstractInventoryScreen.drawTexture(matrices, x, y, width, height, 0, 0, width, height, 18, 18);
         } else {

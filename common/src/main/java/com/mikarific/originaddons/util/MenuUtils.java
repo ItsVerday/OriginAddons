@@ -17,7 +17,7 @@ import java.util.function.Function;
 
 public class MenuUtils {
     public static void sendCommand(ClientPlayerEntity player, String text) {
-        player.sendCommand(text);
+        player.sendChatMessage(text, null);
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {

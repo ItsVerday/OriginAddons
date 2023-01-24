@@ -39,7 +39,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
             this.navigatorButton = new UIButton(TEXTURE, this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 assert client != null;
                 assert client.player != null;
-                MenuUtils.sendMessage(client.player, "/navigator");
+                MenuUtils.sendCommand(client.player, "/navigator");
             }, true).setChildOf(window);
         }
     }

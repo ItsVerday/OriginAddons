@@ -72,7 +72,7 @@ public class NavigatorMenu extends CustomMenu {
 
         //Teleport Home
         addSelectableElement(new UIButton(MAIN_TEXTURE, 76, 79, 24, 12, 291, 97, 12, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/realm tp");
+            MenuUtils.sendCommand(player, "/realm tp");
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.teleporthome.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.teleporthome.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
@@ -80,19 +80,19 @@ public class NavigatorMenu extends CustomMenu {
 
         //Auction House
         addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 17, 38, 19, 176, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/ah");
+            MenuUtils.sendCommand(player, "/ah");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.auctionhouse.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.auctionhouse.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box));
         //Badges
         addSelectableElement(new UIButton(MAIN_TEXTURE, 64, 17, 19, 19, 214, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/badges");
+            MenuUtils.sendCommand(player, "/badges");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.badges.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.badges.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box));
         //Gestures
         addSelectableElement( new UIButton(MAIN_TEXTURE, 93, 17, 19, 19, 233, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/g");
+            MenuUtils.sendCommand(player, "/g");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.gestures.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.gestures.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box));
@@ -104,19 +104,19 @@ public class NavigatorMenu extends CustomMenu {
 
         //Profile
         new UIButton(MAIN_TEXTURE, 15, 3, 24, 10, 176, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/profile");
+            MenuUtils.sendCommand(player, "/profile");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.profile.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.profile.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box);
         //Quests
         new UIButton(MAIN_TEXTURE, 39, 3, 25, 10, 200, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/quests");
+            MenuUtils.sendCommand(player, "/quests");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.quests.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.quests.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box);
         //Friends
         new UIButton(MAIN_TEXTURE, 64, 3, 24, 10, 225, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/friends");
+            MenuUtils.sendCommand(player, "/friends");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.friends.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.friends.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box);
@@ -134,7 +134,7 @@ public class NavigatorMenu extends CustomMenu {
         }, true).setChildOf(box);
         //Settings
         new UIButton(MAIN_TEXTURE, 112, 3, 25, 10, 273, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/settings");
+            MenuUtils.sendCommand(player, "/settings");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.settings.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.settings.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box);

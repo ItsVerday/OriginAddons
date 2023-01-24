@@ -16,12 +16,12 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class MenuUtils {
-    public static void sendMessage(ClientPlayerEntity player, String text) {
-        player.networkHandler.sendChatMessage(text);
+    public static void sendCommand(ClientPlayerEntity player, String text) {
+        player.sendCommand(text);
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {
-        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.BASIC);
+        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
     }
 
     private static int clickButton = 0;

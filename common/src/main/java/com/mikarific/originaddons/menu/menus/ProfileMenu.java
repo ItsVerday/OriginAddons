@@ -146,14 +146,14 @@ public class ProfileMenu extends CustomMenu {
         }, false).setChildOf(box);
         //TPA
         addSelectableElement(new UIButton(TEXTURE, 25, 5, 16, 14, 250, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/tpa " + username);
+            MenuUtils.sendCommand(player, "/tpa " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
         }, true).setChildOf(box));
         //TPAHere
         addSelectableElement(new UIButton(TEXTURE, 43, 5, 16, 14, 266, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendMessage(player, "/tpahere " + username);
+            MenuUtils.sendCommand(player, "/tpahere " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);

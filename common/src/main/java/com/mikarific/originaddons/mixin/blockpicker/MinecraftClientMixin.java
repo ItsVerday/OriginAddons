@@ -8,11 +8,10 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -108,7 +107,7 @@ public class MinecraftClientMixin {
         String customID = ItemStackUtils.getItemStackCustomID(itemStack);
         if (customID.length() > 0) return customID;
 
-        return Registries.ITEM.getId(itemStack.getItem()).getPath();
+        return Registry.ITEM.getId(itemStack.getItem()).getPath();
     }
 
     private String getCustomBlockName(BlockView view, BlockPos pos) {

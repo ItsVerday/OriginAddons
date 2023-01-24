@@ -182,7 +182,7 @@ public class ItemStackUtils {
         int maxFuel = getMaximumRocketBootsFuel(id);
         int currentFuel = maxFuel;
 
-        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.BASIC);
+        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
 
         for (Text text: tooltip) {
             String toString = text.getString();

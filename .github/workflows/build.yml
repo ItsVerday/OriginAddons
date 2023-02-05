@@ -31,3 +31,8 @@ jobs:
         with:
           name: forge
           path: forge/build/libs/*.jar
+      - name: Archive merged builds
+        uses: actions/upload-artifact@v3
+        with:
+          name: merged
+          path: build/libs/*.jar

@@ -68,7 +68,6 @@ public abstract class HandledScreenMixin extends Screen {
     @Inject(method = "close", at = @At("HEAD"))
     private void onClose(CallbackInfo ci) {
         clearCurrentMenu();
-        OriginAddons.LOGGER.info("Menu closed");
     }
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ingame/HandledScreen.drawBackground(Lnet/minecraft/client/util/math/MatrixStack;FII)V"))

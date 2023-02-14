@@ -4,10 +4,12 @@ import com.mikarific.originaddons.OriginAddons;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mikarific.originaddons.util.ItemStackUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Identifier;
@@ -27,7 +29,9 @@ public class BlockPicker {
 
     private static final Map<Block, Map<BlockState, String>> blockTypes = new HashMap<>();
     private static Map<String, String> remap = null;
+    private static Map<String, String> remapItems = null;
     private static List<String> numbered = null;
+
     public static boolean isEnabled() {
         return OriginAddons.onOriginRealms() && OriginAddons.getConfig().blockPicker;
     }
@@ -40,6 +44,7 @@ public class BlockPicker {
     public static void clearRemap() {
         remap = null;
         numbered = null;
+        remapItems = null;
     }
 
     public static String getCustomBlockName(BlockState blockState) {
@@ -53,6 +58,28 @@ public class BlockPicker {
         if (getRemap().containsKey(modelName)) modelName = getRemap().get(modelName);
 
         return modelName;
+    }
+
+    public static String getCustomBlockItemName(ItemStack itemStack) {
+        String customID = ItemStackUtils.getItemStackCustomID(itemStack);
+        if (customID.length() > 0) {
+            if (customID.contains(":")) {
+                String[] parts = customID.split(":");
+                customID = parts[parts.length - 1];
+            }
+
+            customID = "originrealms:" + customID;
+        } else {
+            customID = "minecraft:" + Registry.ITEM.getId(itemStack.getItem()).getPath();
+        }
+
+        if (getRemapItems().containsKey(customID)) customID = getRemapItems().get(customID);
+
+        String[] parts = customID.split(":");
+        customID = parts[parts.length - 1];
+        if (getRemapItems().containsKey(customID)) customID = getRemapItems().get(customID);
+
+        return customID;
     }
 
     public static void processBlockStateFile(JsonObject json, Identifier blockIdentifier) {
@@ -125,6 +152,7 @@ public class BlockPicker {
             }
             JsonObject blockpickJSON = JsonHelper.deserialize(blockpickString.toString()).getAsJsonObject();
             JsonObject remapObject = blockpickJSON.get("remap").getAsJsonObject();
+            JsonObject remapItemsObject = blockpickJSON.get("remap_items").getAsJsonObject();
 
             remap = new HashMap<>();
             for (String from: remapObject.keySet()) {
@@ -134,6 +162,11 @@ public class BlockPicker {
             numbered = new ArrayList<>();
             for (JsonElement numberedName: blockpickJSON.get("numbered").getAsJsonArray()) {
                 numbered.add(numberedName.getAsString());
+            }
+
+            remapItems = new HashMap<>();
+            for (String from: remapItemsObject.keySet()) {
+                remapItems.put(from, remapItemsObject.get(from).getAsString());
             }
             return true;
         } catch (IOException e) {
@@ -150,6 +183,11 @@ public class BlockPicker {
     private static List<String> getNumbered() {
         if (numbered == null && !loadBlockpickJSON()) return new ArrayList<>();
         return numbered;
+    }
+
+    private static Map<String, String> getRemapItems() {
+        if (remapItems == null && !loadBlockpickJSON()) return new HashMap<>();
+        return remapItems;
     }
 
     private static boolean isCustomModel(Block block, Identifier modelIdentifier) {

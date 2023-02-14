@@ -1,7 +1,6 @@
 package com.mikarific.originaddons.mixin.blockpicker;
 
 import com.mikarific.originaddons.OriginAddons;
-import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
@@ -11,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -54,7 +52,8 @@ public class MinecraftClientMixin {
                 for (int slot = 0; slot < inventory.size(); slot++) {
                     ItemStack itemStack = inventory.getStack(slot);
 
-                    String customBlockItemName = getCustomBlockItemName(itemStack);
+                    String customBlockItemName = BlockPicker.getCustomBlockItemName(itemStack);
+                    debugLog("- Slot " + slot + ": " + customBlockItemName);
                     if (customBlockItemName.contains(":")) {
                         String[] parts = customBlockItemName.split(":");
                         customBlockItemName = parts[parts.length - 1];
@@ -68,8 +67,6 @@ public class MinecraftClientMixin {
                         pickSlot = slot;
                         break;
                     }
-
-                    debugLog("- Slot " + slot + ": " + customBlockItemName);
                 }
 
                 if (pickSlot > -1) {
@@ -101,13 +98,6 @@ public class MinecraftClientMixin {
         String cleaned = Arrays.stream(name.toLowerCase().split("_")).map(word -> word.endsWith("s") ? word.substring(0, word.length() - 1) : word).sorted().collect(Collectors.joining("_"));
         cleanCustomBlockNameCache.put(name, cleaned);
         return cleaned;
-    }
-
-    private String getCustomBlockItemName(ItemStack itemStack) {
-        String customID = ItemStackUtils.getItemStackCustomID(itemStack);
-        if (customID.length() > 0) return customID;
-
-        return Registry.ITEM.getId(itemStack.getItem()).getPath();
     }
 
     private String getCustomBlockName(BlockView view, BlockPos pos) {

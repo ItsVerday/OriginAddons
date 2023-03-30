@@ -97,7 +97,7 @@ public class GesturesMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customGesturesMenu;
+        return false;
     }
 
     @Override

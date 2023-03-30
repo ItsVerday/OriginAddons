@@ -69,7 +69,7 @@ public class BadgesMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customBadgeMenu;
+        return false;
     }
 
     @Override

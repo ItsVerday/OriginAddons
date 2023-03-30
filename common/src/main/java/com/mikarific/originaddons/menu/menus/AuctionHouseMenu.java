@@ -426,7 +426,7 @@ public class AuctionHouseMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customAuctionsMenu;
+        return false;
     }
 
     @Override

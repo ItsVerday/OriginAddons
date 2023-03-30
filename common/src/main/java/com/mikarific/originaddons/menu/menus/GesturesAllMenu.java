@@ -139,7 +139,7 @@ public class GesturesAllMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customGesturesMenu;
+        return false;
     }
 
     @Override

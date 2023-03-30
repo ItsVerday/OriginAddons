@@ -182,7 +182,7 @@ public class RealmsMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customRealmsMenu;
+        return false;
     }
 
     @Override

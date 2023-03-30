@@ -9,35 +9,9 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean customMenus = true;
-
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean customTooltips = true;
-
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customAuctionsMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customBadgeMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customGesturesMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customNavigatorMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customOrbitMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customPaintingMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customProfileMenu = true;
-    @ConfigEntry.Category("custommenus")
-    @ConfigEntry.Gui.Tooltip
-    public boolean customRealmsMenu = true;
 
     @ConfigEntry.Category("customtooltips")
     @ConfigEntry.Gui.Tooltip

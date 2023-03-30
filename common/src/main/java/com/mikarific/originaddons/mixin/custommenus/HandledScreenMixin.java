@@ -1,11 +1,9 @@
 package com.mikarific.originaddons.mixin.custommenus;
 
-import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIComponent;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;

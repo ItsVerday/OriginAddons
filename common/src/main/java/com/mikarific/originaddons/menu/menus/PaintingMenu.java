@@ -211,7 +211,7 @@ public class PaintingMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customPaintingMenu;
+        return false;
     }
 
     @Override

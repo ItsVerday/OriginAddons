@@ -58,7 +58,7 @@ public class NavigatorBalloonsMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customNavigatorMenu;
+        return OriginAddons.getConfig().customMenus;
     }
 
     @Override

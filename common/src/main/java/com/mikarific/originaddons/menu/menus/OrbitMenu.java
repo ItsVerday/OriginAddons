@@ -64,7 +64,7 @@ public class OrbitMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customOrbitMenu;
+        return false;
     }
 
     @Override

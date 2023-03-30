@@ -239,7 +239,7 @@ public class ProfileStaffMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customProfileMenu;
+        return false;
     }
 
     @Override

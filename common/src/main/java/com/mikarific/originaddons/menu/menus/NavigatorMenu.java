@@ -160,7 +160,7 @@ public class NavigatorMenu extends CustomMenu {
 
     @Override
     public boolean isEnabled() {
-        return OriginAddons.getConfig().customNavigatorMenu;
+        return OriginAddons.getConfig().customMenus;
     }
 
     @Override

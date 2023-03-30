@@ -40,6 +40,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
                 assert client != null;
                 assert client.player != null;
                 MenuUtils.sendCommand(client.player, "/navigator");
+                close();
             }, true).setChildOf(window);
         }
     }
@@ -51,7 +52,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
         }
     }
 
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ingame/InventoryScreen.drawMouseoverTooltip(Lnet/minecraft/client/util/math/MatrixStack;II)V"))
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/AbstractInventoryScreen;render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V"))
     private void renderWindow(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         window.draw(matrices, mouseX, mouseY);
     }

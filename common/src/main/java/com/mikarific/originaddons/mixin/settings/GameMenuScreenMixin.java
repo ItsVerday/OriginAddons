@@ -1,8 +1,6 @@
 package com.mikarific.originaddons.mixin.settings;
 
 import com.mikarific.originaddons.OriginAddons;
-import com.mikarific.originaddons.settings.SettingsConfig;
-import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.client.gui.screen.GameMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;

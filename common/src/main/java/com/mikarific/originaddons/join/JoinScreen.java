@@ -1,6 +1,8 @@
 package com.mikarific.originaddons.join;
 
 import com.google.gson.JsonObject;
+import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import com.mikarific.originaddons.util.emojipicker.EmojiPicker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ConnectScreen;
@@ -45,10 +47,11 @@ public class JoinScreen extends Screen {
             //noinspection ResultOfMethodCallIgnored
             originAddonsDirectory.mkdirs();
         }
+
         this.status = Text.translatable("originaddons.join.emoji");
         update(new File(originAddonsDirectory, "emoji.json"), "https://api.originaddons.com/emoji.json?v=" + Instant.now().toEpochMilli(), info.get("emojiVersion").getAsInt(), EmojiPicker::unload);
         this.status = Text.translatable("originaddons.join.blockpick");
-        update(new File(originAddonsDirectory, "blockpicker.json"), "https://api.originaddons.com/blockpicker.json?v=" + Instant.now().toEpochMilli(), info.get("blockpickVersion").getAsInt(), EmojiPicker::unload);
+        update(new File(originAddonsDirectory, "blockpicker.json"), "https://api.originaddons.com/blockpicker.json?v=" + Instant.now().toEpochMilli(), info.get("blockpickVersion").getAsInt(), BlockPicker::clear);
         assert this.client != null;
         ConnectScreen.connect(this.parent, this.client, ServerAddress.parse(this.entry.address), this.entry);
     }
@@ -58,6 +61,7 @@ public class JoinScreen extends Screen {
             InputStream inputStream = new URL(url).openStream();
             if (!file.exists()) {
                 Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                OriginAddons.LOGGER.info("Created file " + file.getName() + "!");
                 action.run();
             } else {
                 Scanner scanner = new Scanner(file, StandardCharsets.UTF_8);
@@ -65,11 +69,14 @@ public class JoinScreen extends Screen {
                 while (scanner.hasNextLine()) {
                     string.append(scanner.nextLine());
                 }
-                System.out.println(string);
+
                 JsonObject json = JsonHelper.deserialize(string.toString()).getAsJsonObject();
                 if (latestVersion > json.get("version").getAsInt()) {
                     Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    OriginAddons.LOGGER.info("Updated file " + file.getName() + "!");
                     action.run();
+                } else {
+                    OriginAddons.LOGGER.info("File " + file.getName() + " is up to date.");
                 }
             }
         } catch (IOException e) {

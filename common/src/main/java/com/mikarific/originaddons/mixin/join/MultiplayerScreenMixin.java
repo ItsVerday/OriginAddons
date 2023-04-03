@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +26,23 @@ import java.util.List;
 public class MultiplayerScreenMixin {
     @Inject(method = "connect(Lnet/minecraft/client/network/ServerInfo;)V", at = @At("HEAD"), cancellable = true)
     private void connect(ServerInfo entry, CallbackInfo ci) throws IOException {
-        if (OriginAddons.onOriginRealms(entry.address)) {
-            URL infoUrl = new URL("https://api.originaddons.com/info.json?v=" + Instant.now().toEpochMilli());
-            InputStreamReader infoReader = new InputStreamReader(infoUrl.openStream());
-            JsonObject info = JsonHelper.deserialize(infoReader).getAsJsonObject();
-            if (Other.newerVersionExists(info)) {
-                String latestVersion = info.get("latestVersion").getAsString();
-                MinecraftClient.getInstance().setScreen(new UpdateScreen((MultiplayerScreen)(Object)this, entry, info, latestVersion));
-            } else {
-                MinecraftClient.getInstance().setScreen(new JoinScreen((MultiplayerScreen)(Object)this, entry, info));
+        try {
+            if (OriginAddons.onOriginRealms(entry.address)) {
+                URL infoUrl = new URL("https://api.originaddons.com/info.json?v=" + Instant.now().toEpochMilli());
+                InputStreamReader infoReader = new InputStreamReader(infoUrl.openStream());
+                JsonObject info = JsonHelper.deserialize(infoReader).getAsJsonObject();
+                if (Other.newerVersionExists(info)) {
+                    String latestVersion = info.get("latestVersion").getAsString();
+                    MinecraftClient.getInstance().setScreen(new UpdateScreen((MultiplayerScreen) (Object) this, entry, info, latestVersion));
+                } else {
+                    MinecraftClient.getInstance().setScreen(new JoinScreen((MultiplayerScreen) (Object) this, entry, info));
+                }
+
+                ci.cancel();
             }
-            ci.cancel();
+        } catch (UnknownHostException e) {
+            OriginAddons.LOGGER.error("Failed to connect to api.originaddons.com! Connecting without updating assets...");
+            e.printStackTrace();
         }
     }
 }

@@ -93,27 +93,23 @@ public abstract class InGameHudMixin {
         if (playerEntity.getArmor() > 0) y -= 10;
 
         RenderSystem.setShaderTexture(0, ICONS);
-        for (int fuel30 = 0; fuel30 < maxFuel; fuel30 += 30) {
-            for (int w = 0; w < 10; ++w) {
-                int thisFuel = w * 3 + fuel30;
-                int x = width + w * 8;
+        for (int w = 0; w < 10; ++w) {
+            int thisFuel = w * 3;
+            int x = width + w * 8;
 
-                int u = 0;
-                if (currentFuel == thisFuel + 1) {
-                    u = 9;
-                } else if (currentFuel == thisFuel + 2) {
-                    u = 18;
-                } else if (currentFuel >= thisFuel + 3) {
-                    u = 27;
-                }
-
-                int jitter = 0;
-                if (currentFuel <= 2 && currentFuel > 0) jitter = random.nextInt(2);
-
-                DrawableHelper.drawTexture(matrices, x, y + jitter, u, 0, 9, 9, 36, 9);
+            int u = 0;
+            if (currentFuel == thisFuel + 1) {
+                u = 9;
+            } else if (currentFuel == thisFuel + 2) {
+                u = 18;
+            } else if (currentFuel >= thisFuel + 3) {
+                u = 27;
             }
 
-            y -= 10;
+            int jitter = 0;
+            if (currentFuel <= 2 && currentFuel > 0 && !OriginAddons.getConfig().noRocketBootsFuelBarShaking) jitter = random.nextInt(2);
+
+            DrawableHelper.drawTexture(matrices, x, y + jitter, u, 0, 9, 9, 36, 9);
         }
     }
 }

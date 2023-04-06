@@ -38,6 +38,9 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean neverHideRocketBootsFuelBar = false;
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean noRocketBootsFuelBarShaking = false;
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip

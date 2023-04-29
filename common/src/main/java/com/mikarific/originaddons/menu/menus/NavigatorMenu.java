@@ -84,23 +84,18 @@ public class NavigatorMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.auctionhouse.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.auctionhouse.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box));
-        //Badges
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 64, 17, 19, 19, 214, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/badges");
+        //Streak
+        addSelectableElement(new UIButton(MAIN_TEXTURE, 69, 17, 38, 19, 214, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
+            MenuUtils.sendCommand(player, "/s");
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.badges.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.badges.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
+            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.streak.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.streak.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
         }, true).setChildOf(box));
         //Gestures
-        addSelectableElement( new UIButton(MAIN_TEXTURE, 93, 17, 19, 19, 233, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
+        new UIButton(MAIN_TEXTURE, 123, 17, 38, 19, 252, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
             MenuUtils.sendCommand(player, "/g");
         }, (b, m, x, y) -> {
             screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.gestures.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.gestures.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box));
-        //Messaging
-        new UIButton(MAIN_TEXTURE, 123, 17, 38, 19, 252, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.messaging.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.messaging.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, false).setChildOf(box);
+        }, true).setChildOf(box);
 
         //Profile
         new UIButton(MAIN_TEXTURE, 15, 3, 24, 10, 176, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {

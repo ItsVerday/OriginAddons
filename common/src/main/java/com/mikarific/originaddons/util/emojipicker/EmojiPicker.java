@@ -65,8 +65,7 @@ public class EmojiPicker {
         }
 
         for (EmojiInstance unorderedEmoji: unordered) {
-            OriginAddons.LOGGER.warn("Emoji '" + unorderedEmoji.getInfo().getID() + "' not in emoji order! Added to end of list by default.");
-            emojis.add(unorderedEmoji);
+            OriginAddons.LOGGER.warn("Emoji '" + unorderedEmoji.getInfo().getID() + "' not in emoji order!");
         }
     }
 

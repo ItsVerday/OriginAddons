@@ -2,8 +2,11 @@ package com.mikarific.originaddons.mixin.custommenus;
 
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
+import com.mikarific.originaddons.menu.ScreenHandler;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIComponent;
+import net.minecraft.client.gui.Drawable;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 @Mixin(HandledScreen.class)
 public abstract class HandledScreenMixin extends Screen {
@@ -47,6 +52,11 @@ public abstract class HandledScreenMixin extends Screen {
         CustomMenu menu = CustomMenus.getMenuForScreen(screen);
         if (menu == null) {
             clearCurrentMenu();
+            //List<Drawable> drawables = ScreenHandler.handleScreen(screen);
+            //for (Drawable drawable: drawables) {
+            //    addDrawable(drawable);
+            //}
+
             return;
         }
 

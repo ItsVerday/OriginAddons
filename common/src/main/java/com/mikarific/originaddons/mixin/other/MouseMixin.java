@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseMixin {
     @Inject(method = "onMouseScroll(JDD)V", at = @At("HEAD"))
     private void trackWheel (long window, double horizontal, double vertical, CallbackInfo info) {
-        if (vertical > 1.0) vertical = 1.0;
-        if (vertical < -1.0) vertical = -1.0;
+        if (vertical > 2.0) vertical = 2.0;
+        if (vertical < -2.0) vertical = -2.0;
         Other.changeScrollOffset(vertical);
     }
 }

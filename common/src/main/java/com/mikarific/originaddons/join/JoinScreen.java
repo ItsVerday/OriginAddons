@@ -57,6 +57,7 @@ public class JoinScreen extends Screen {
     }
 
     private void update(File file, String url, int latestVersion, Runnable action) {
+        OriginAddons.LOGGER.info("Attempting to update " + file.getName() + " to version " + latestVersion + "...");
         try {
             InputStream inputStream = new URL(url).openStream();
             if (!file.exists()) {
@@ -71,6 +72,9 @@ public class JoinScreen extends Screen {
                 }
 
                 JsonObject json = JsonHelper.deserialize(string.toString()).getAsJsonObject();
+                scanner.close();
+
+                OriginAddons.LOGGER.info("Current version for file " + file.getName() + " is " + json.get("version").getAsInt() + ".");
                 if (latestVersion > json.get("version").getAsInt()) {
                     Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
                     OriginAddons.LOGGER.info("Updated file " + file.getName() + "!");

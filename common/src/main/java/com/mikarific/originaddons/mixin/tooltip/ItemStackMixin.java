@@ -6,6 +6,8 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
+import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,6 +31,7 @@ public abstract class ItemStackMixin {
         ItemStack self = (ItemStack) (Object) this;
         List<Text> oldTooltip = cir.getReturnValue();
         List<Text> newTooltip = new ArrayList<>();
+        List<Text> advanced = new ArrayList<>();
 
         int auctionTooltipStart = -1;
         int auctionTooltipEnd = -1;
@@ -39,7 +42,7 @@ public abstract class ItemStackMixin {
 
                 if (toString.contains("Price: ")) {
                     auctionTooltipStart = i;
-                } else if (toString.contains("Shift click for users auctions") || toString.contains("Shift click to collect item") || toString.contains("Auction Sold")) {
+                } else if (toString.contains("for users auctions") || toString.contains("to collect item") || toString.contains("Auction Sold")) {
                     auctionTooltipEnd = i;
                 } else if (toString.contains("When in") || toString.contains("When on")) {
                     auctionTooltipStart = i;
@@ -52,10 +55,15 @@ public abstract class ItemStackMixin {
         for (int i = 0; i < oldTooltip.size(); i++) {
             if (i >= auctionTooltipStart && i <= auctionTooltipEnd) continue;
             Text oldText = oldTooltip.get(i);
+            TextColor color = oldText.getStyle().getColor();
             boolean isBlank = oldText.getString().trim().length() == 0;
 
             if (!(isBlank && wasBlank)) {
-                newTooltip.add(oldText);
+                if (color != null && color.getName().equals(Formatting.DARK_GRAY.getName())) {
+                    advanced.add(oldText);
+                } else {
+                    newTooltip.add(oldText);
+                }
             }
 
             wasBlank = isBlank;
@@ -76,6 +84,8 @@ public abstract class ItemStackMixin {
                 newTooltip.add(oldTooltip.get(i));
             }
         }
+
+        newTooltip.addAll(advanced);
 
         cir.setReturnValue(newTooltip);
     }

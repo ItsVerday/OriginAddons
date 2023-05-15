@@ -1,5 +1,6 @@
 package com.mikarific.originaddons.settings;
 
+import com.mikarific.originaddons.util.RocketBootsItemBarType;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
@@ -32,6 +33,7 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean inventoryButtons = true;
+
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean rocketBootsFuelBar = true;
@@ -41,6 +43,9 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean noRocketBootsFuelBarShaking = false;
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public RocketBootsItemBarType rocketBootsItemBarType = RocketBootsItemBarType.FUEL;
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip

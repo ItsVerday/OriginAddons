@@ -1,5 +1,6 @@
-package com.mikarific.originaddons.mixin.rocketbootsfuelbar;
+package com.mikarific.originaddons.mixin.rocketboots;
 
+import com.mikarific.originaddons.util.ItemBarInfo;
 import com.mikarific.originaddons.util.ItemStackUtils;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,8 +13,9 @@ public class ItemStackMixin {
     @Inject(method = "isItemBarVisible", at = @At("HEAD"), cancellable = true)
     private void customItemBarVisibility(CallbackInfoReturnable<Boolean> cir) {
         ItemStack self = (ItemStack) (Object) this;
+        ItemBarInfo info = ItemStackUtils.getCustomItemBar(self);
 
-        if (ItemStackUtils.hasCustomItemBar(self)) {
+        if (info != null) {
             cir.setReturnValue(true);
             cir.cancel();
         }
@@ -22,9 +24,10 @@ public class ItemStackMixin {
     @Inject(method = "getItemBarStep", at = @At("HEAD"), cancellable = true)
     private void customItemBarStep(CallbackInfoReturnable<Integer> cir) {
         ItemStack self = (ItemStack) (Object) this;
+        ItemBarInfo info = ItemStackUtils.getCustomItemBar(self);
 
-        if (ItemStackUtils.hasCustomItemBar(self)) {
-            cir.setReturnValue(ItemStackUtils.getCustomItemBarStep(self));
+        if (info != null) {
+            cir.setReturnValue(Math.round(13.0F * info.getFraction()));
             cir.cancel();
         }
     }
@@ -32,9 +35,10 @@ public class ItemStackMixin {
     @Inject(method = "getItemBarColor", at = @At("HEAD"), cancellable = true)
     private void customItemBarColor(CallbackInfoReturnable<Integer> cir) {
         ItemStack self = (ItemStack) (Object) this;
+        ItemBarInfo info = ItemStackUtils.getCustomItemBar(self);
 
-        if (ItemStackUtils.hasCustomItemBar(self)) {
-            cir.setReturnValue(ItemStackUtils.getCustomItemBarColor(self));
+        if (info != null) {
+            cir.setReturnValue(info.getColor());
             cir.cancel();
         }
     }

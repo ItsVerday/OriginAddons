@@ -21,14 +21,17 @@ import java.util.regex.Pattern;
 public class ItemStackUtils {
     public static final Style STYLE_GRAY = Style.EMPTY.withColor(Formatting.GRAY);
     public static final Style STYLE_WHITE = Style.EMPTY.withColor(Formatting.WHITE);
+
     public static String getItemStackCustomID(ItemStack itemStack) {
         NbtCompound itemNBT = itemStack.getNbt();
         if (itemNBT == null) return "";
         if (itemNBT.contains("CustomBlock")) return itemNBT.getString("CustomBlock");
         if (itemNBT.contains("PublicBukkitValues")) {
             NbtCompound publicBukkitValues = itemNBT.getCompound("PublicBukkitValues");
-            if (publicBukkitValues.contains("xcore:item-block")) return publicBukkitValues.getString("xcore:item-block");
-            if (publicBukkitValues.contains("xcore:item-registry-key")) return publicBukkitValues.getString("xcore:item-registry-key");
+            if (publicBukkitValues.contains("xcore:item-block"))
+                return publicBukkitValues.getString("xcore:item-block");
+            if (publicBukkitValues.contains("xcore:item-registry-key"))
+                return publicBukkitValues.getString("xcore:item-registry-key");
         }
 
         return "";
@@ -46,7 +49,7 @@ public class ItemStackUtils {
                 int expAmount = 0;
                 int index = -1;
                 int currentIndex = -1;
-                for (Text line: tooltip) {
+                for (Text line : tooltip) {
                     currentIndex++;
                     Matcher matcher = expAmountPattern.matcher(line.getString().trim());
                     if (!matcher.find()) continue;
@@ -69,15 +72,18 @@ public class ItemStackUtils {
                     playerExperience += getLevelExperience(i);
                 }
 
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip) tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_0").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(STYLE_WHITE)));
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip) tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_current").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFrom0Tooltip)
+                    tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_0").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, expAmount))).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().customBottledExperienceLevelsFromCurrentTooltip)
+                    tooltip.add(index, Text.translatable("originaddons.tooltips.bottled_experience.level_current").setStyle(STYLE_GRAY).append(Text.literal(levelFormat.format(calculateLeveling(player, playerExperience + expAmount))).setStyle(STYLE_WHITE)));
 
                 return;
             }
 
             case "rocket_boots_30":
             case "rocket_boots_90": {
-                if (OriginAddons.getConfig().customTooltips && OriginAddons.getConfig().rocketBootsFuelBar) tooltip.add(Text.translatable("originaddons.tooltips.rocket_boots.durability").setStyle(STYLE_GRAY).append(Text.literal((itemStack.getMaxDamage() - itemStack.getDamage()) + "/" + itemStack.getMaxDamage()).setStyle(STYLE_WHITE)));
+                if (OriginAddons.getConfig().customTooltips && !OriginAddons.getConfig().rocketBootsItemBarType.equals(RocketBootsItemBarType.DURABILITY))
+                    tooltip.add(Text.translatable("originaddons.tooltips.rocket_boots.durability").setStyle(STYLE_GRAY).append(Text.literal((itemStack.getMaxDamage() - itemStack.getDamage()) + "/" + itemStack.getMaxDamage()).setStyle(STYLE_WHITE)));
 
                 return;
             }
@@ -106,6 +112,7 @@ public class ItemStackUtils {
     }
 
     private static final ArrayList<String> CROP_CRATES = new ArrayList<>();
+
     static {
         CROP_CRATES.add("apple_basket");
         CROP_CRATES.add("banana_basket");
@@ -158,23 +165,45 @@ public class ItemStackUtils {
             }
         }
 
-        if (customCrop && OriginAddons.getConfig().cropStarsIcon) return new Identifier("originaddons", "textures/crop_overlays/" + cropStars + "_star.png");
+        if (customCrop && OriginAddons.getConfig().cropStarsIcon)
+            return new Identifier("originaddons", "textures/crop_overlays/" + cropStars + "_star.png");
 
         return null;
     }
 
-    public static boolean hasCustomItemBar(ItemStack itemStack) {
+    public static ItemBarInfo getCustomItemBar(ItemStack itemStack) {
         String customID = getItemStackCustomID(itemStack);
-        if (customID.startsWith("rocket_boots_")) return OriginAddons.getConfig().rocketBootsFuelBar;
+        if (customID.startsWith("rocket_boots_")) {
+            float durabilityFraction = 1.0f - (float) itemStack.getDamage() / itemStack.getMaxDamage();
+            if (OriginAddons.getConfig().rocketBootsItemBarType.equals(RocketBootsItemBarType.DURABILITY)) return null;
 
-        return false;
+            float fraction = getRocketBootsFuelFraction(itemStack, customID);
+            if (OriginAddons.getConfig().rocketBootsItemBarType.equals(RocketBootsItemBarType.LOWEST) && durabilityFraction < fraction) return null;
+
+            int color;
+
+            if (fraction > 0.75) {
+                color = MathHelper.hsvToRgb(0.5F, 1.0F - (fraction - 0.75F) * 2.0F, 1.0F);
+            } else if (fraction > 0.25) {
+                color = MathHelper.hsvToRgb(0.666F - 0.166F * (fraction - 0.25F) * 2.0F, 1.0F, 1.0F);
+            } else {
+                color = MathHelper.hsvToRgb(0.666F, 1.0F, 1.0F - (0.25F - fraction) * 2.0F);
+            }
+
+            return new ItemBarInfo(color, fraction);
+        }
+
+        return null;
     }
 
     public static int getMaximumRocketBootsFuel(String id) {
         switch (id) {
-            case "rocket_boots_90": return 90;
-            case "rocket_boots_30": return 30;
-            default: return 0;
+            case "rocket_boots_90":
+                return 90;
+            case "rocket_boots_30":
+                return 30;
+            default:
+                return 0;
         }
     }
 
@@ -184,7 +213,7 @@ public class ItemStackUtils {
 
         List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
 
-        for (Text text: tooltip) {
+        for (Text text : tooltip) {
             String toString = text.getString();
 
             if (toString.contains("Fuel: ")) {
@@ -203,23 +232,5 @@ public class ItemStackUtils {
         }
 
         return 13;
-    }
-
-    public static int getCustomItemBarColor(ItemStack itemStack) {
-        String customID = getItemStackCustomID(itemStack);
-
-        if (customID.startsWith("rocket_boots_")) {
-            float fuelFraction = getRocketBootsFuelFraction(itemStack, customID);
-
-            if (fuelFraction > 0.75) {
-                return MathHelper.hsvToRgb(0.5F, 1.0F - (fuelFraction - 0.75F) * 2.0F, 1.0F);
-            } else if (fuelFraction > 0.25) {
-                return MathHelper.hsvToRgb(0.666F - 0.166F * (fuelFraction - 0.25F) * 2.0F, 1.0F, 1.0F);
-            } else {
-                return MathHelper.hsvToRgb(0.666F, 1.0F, 1.0F - (0.25F - fuelFraction) * 2.0F);
-            }
-        }
-
-        return 0xFFFFFF;
     }
 }

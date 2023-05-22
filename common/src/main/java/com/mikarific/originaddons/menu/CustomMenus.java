@@ -12,6 +12,7 @@ public class CustomMenus {
 
     public static void init() {
         menus.add(new NavigatorMenu());
+        menus.add(new NavigatorBalloonsMenu());
         // menus.add(new AuctionHouseMenu());
         // menus.add(new BadgesMenu());
         // menus.add(new GesturesAllMenu());

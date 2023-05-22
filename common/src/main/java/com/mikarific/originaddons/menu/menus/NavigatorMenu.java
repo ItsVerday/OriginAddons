@@ -8,20 +8,26 @@ import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UITexture;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ConfirmLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 public class NavigatorMenu extends CustomMenu {
-    public static final String TITLE = "섦";
+    public static final String TITLE = "슣";
+    public static final String TITLE_NO_REALM = "스";
+    public static final Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator.png");
+
+    public static final int TEXTURE_WIDTH = 226;
+    public static final int TEXTURE_HEIGHT = 332;
+
 
     @Override
     protected void init(Screen screen, Window window) {
@@ -29,133 +35,130 @@ public class NavigatorMenu extends CustomMenu {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         ScreenHandler screenHandler = player.currentScreenHandler;
 
-        Identifier MAIN_TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator.png");
-        int MAIN_TEXTURE_WIDTH = 404;
-        int MAIN_TEXTURE_HEIGHT = 141;
-        UIComponent box = new UITexture(MAIN_TEXTURE, (screen.width - 176) / 2, (screen.height - 141) / 2, 176, 141, 0, 0, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT).setChildOf(window);
-        //Spawn
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 41, 38, 38, 176, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(0);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box));
-        //Realms
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 69, 41, 38, 38, 214, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(3);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(3).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box));
-        //Resource Worlds
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 123, 41, 38, 38, 252, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(6);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box));
-        //Homes
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 95, 38, 38, 290, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(27);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box));
-        //Towns
-        new UIButton(MAIN_TEXTURE, 69, 95, 38, 38, 328, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(30);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box);
-        //Adventure Worlds
-        new UIButton(MAIN_TEXTURE, 123, 95, 38, 38, 366, 0, 38, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(33);
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), (int)x, (int)y);
-        }, false).setChildOf(box);
+        int MENU_WIDTH = 226;
+        int MENU_HEIGHT = 124;
+        UIComponent box = new UITexture(TEXTURE, (screen.width - MENU_WIDTH) / 2, (screen.height - MENU_HEIGHT) / 2, MENU_WIDTH, MENU_HEIGHT, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
 
-        //Teleport Home
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 76, 79, 24, 12, 291, 97, 12, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/realm tp");
-            player.closeHandledScreen();
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.teleporthome.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.teleporthome.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, false).setChildOf(box));
+        Style tooltipTitle = Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true);
+        Style tooltipDescription = Style.EMPTY.withColor(TextColor.parse("gray"));
+        Style tooltipAction = Style.EMPTY.withColor(TextColor.parse("#85CC16"));
+        Style tooltipAlternateAction = Style.EMPTY.withColor(TextColor.parse("#0EA6E9"));
 
-        //Auction House
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 15, 17, 38, 19, 176, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/ah");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.auctionhouse.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.auctionhouse.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box));
-        //Streak
-        addSelectableElement(new UIButton(MAIN_TEXTURE, 69, 17, 38, 19, 214, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/s");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.streak.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.streak.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box));
-        //Gestures
-        new UIButton(MAIN_TEXTURE, 123, 17, 38, 19, 252, 96, 19, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/g");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.gestures.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.gestures.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
+        // Realms
+        addButtonBaseAugmented(box, screen, screenHandler, player, 33, 9, 70, 52, 0, 124, 52, true, () -> {
+            boolean hasShiftDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344);
+            if (hasShiftDown) return "/realm tp";
+            return null;
+        }, 0,
+                Text.translatable("originaddons.menus.navigator.realms.alt").setStyle(tooltipAlternateAction));
+        // Spawn
+        addButtonBaseAugmented(box, screen, screenHandler, player, 105, 9, 88, 34, 70, 124, 34, true, () -> {
+            boolean hasShiftDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344);
+            if (hasShiftDown) return "/spawn";
+            return null;
+        }, 4,
+                Text.translatable("originaddons.menus.navigator.spawn.alt").setStyle(tooltipAlternateAction));
+        // Open World
+        addButtonBase(box, screen, screenHandler, player, 33, 63, 70,  52, 0,  228, 52, true, 27);
+        // Homes
+        addButtonBase(box, screen, screenHandler, player, 105, 45, 88, 34, 70, 192, 34, true, 22);
+        // Towns
+        addButtonBase(box, screen, screenHandler, player, 105, 81, 88, 34, 70, 260, 34, false, 40);
 
-        //Profile
-        new UIButton(MAIN_TEXTURE, 15, 3, 24, 10, 176, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/profile");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.profile.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.profile.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
-        //Quests
-        new UIButton(MAIN_TEXTURE, 39, 3, 25, 10, 200, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/quests");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.quests.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.quests.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
-        //Friends
-        new UIButton(MAIN_TEXTURE, 64, 3, 24, 10, 225, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/friends");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.friends.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.friends.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
-        //Discord
-        new UIButton(MAIN_TEXTURE, 88, 3, 24, 10, 249, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            player.closeHandledScreen();
-            MinecraftClient.getInstance().setScreen(new ConfirmLinkScreen((confirmed) -> {
-                if (confirmed) {
-                    Util.getOperatingSystem().open("https://discord.gg/MHRhtddvRW");
-                }
-                MinecraftClient.getInstance().setScreen(screen);
-            }, "https://discord.gg/MHRhtddvRW", true));
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.discord.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.discord.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
-        //Settings
-        new UIButton(MAIN_TEXTURE, 112, 3, 25, 10, 273, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            MenuUtils.sendCommand(player, "/settings");
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.settings.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.settings.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
-        //Wiki
-        new UIButton(MAIN_TEXTURE, 137, 3, 24, 10, 298, 76, 10, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT, () -> {
-            player.closeHandledScreen();
-            MinecraftClient.getInstance().setScreen(new ConfirmLinkScreen((confirmed) -> {
-                if (confirmed) {
-                    Util.getOperatingSystem().open("https://originrealms.wiki/");
-                }
-                MinecraftClient.getInstance().setScreen(screen);
-            }, "https://originrealms.wiki/", true));
-        }, (b, m, x, y) -> {
-            screen.renderTooltip(m, List.of(Text.translatable("originaddons.menus.navigator.wiki.title").setStyle(Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true)), Text.translatable("originaddons.menus.navigator.wiki.description").setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), (int)x, (int)y);
-        }, true).setChildOf(box);
+        // Auction House
+        addButtonCustom(box, screen, player, 8, 9, 23, 70, 158, 124, 70, true, () -> "/ah",
+                Text.translatable("originaddons.menus.navigator.auctionhouse.title").setStyle(tooltipTitle),
+                Text.translatable("originaddons.menus.navigator.auctionhouse.description1").setStyle(tooltipDescription),
+                Text.translatable("originaddons.menus.navigator.auctionhouse.description2").setStyle(tooltipDescription),
+                Text.literal(""),
+                Text.translatable("originaddons.menus.navigator.auctionhouse.action").setStyle(tooltipAction));
+        // Friends / Party
+        addButtonCustom(box, screen, player,  8, 81,  23, 34, 158, 264, 34, true, () -> {
+            boolean hasShiftDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344);
+            if (hasShiftDown) return "/party";
+            return "/friends";
+        }, Text.translatable("originaddons.menus.navigator.friends.title").setStyle(tooltipTitle),
+                Text.translatable("originaddons.menus.navigator.friends.description1").setStyle(tooltipDescription),
+                Text.translatable("originaddons.menus.navigator.friends.description2").setStyle(tooltipDescription),
+                Text.literal(""),
+                Text.translatable("originaddons.menus.navigator.friends.action").setStyle(tooltipAction),
+                Text.translatable("originaddons.menus.navigator.friends.alt").setStyle(tooltipAlternateAction));
+        // Gestures
+        addButtonCustom(box, screen, player,  195, 9, 23, 52, 181, 124, 52, true, () -> "/g",
+                Text.translatable("originaddons.menus.navigator.gestures.title").setStyle(tooltipTitle),
+                Text.translatable("originaddons.menus.navigator.gestures.description").setStyle(tooltipDescription),
+                Text.literal(""),
+                Text.translatable("originaddons.menus.navigator.gestures.action").setStyle(tooltipAction));
+        // Settings
+        addButtonCustom(box, screen, player, 195, 63, 23,  34, 181, 228, 34, true, () -> "/settings",
+                Text.translatable("originaddons.menus.navigator.settings.title").setStyle(tooltipTitle),
+                Text.translatable("originaddons.menus.navigator.settings.description").setStyle(tooltipDescription),
+                Text.literal(""),
+                Text.translatable("originaddons.menus.navigator.settings.action").setStyle(tooltipAction)
+        );
+        // Streak
+        addButtonCustom(box, screen, player, 195, 99, 23, 16, 181, 296, 16, true, () -> {
+            boolean hasShiftDown = InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 340) || InputUtil.isKeyPressed(MinecraftClient.getInstance().getWindow().getHandle(), 344);
+            if (hasShiftDown) return "/balloon green-balloon";
+            return "/streaks";
+        }, Text.translatable("originaddons.menus.navigator.streak.title").setStyle(tooltipTitle),
+                Text.translatable("originaddons.menus.navigator.streak.description1").setStyle(tooltipDescription),
+                Text.translatable("originaddons.menus.navigator.streak.description2").setStyle(tooltipDescription),
+                Text.literal(""),
+                Text.translatable("originaddons.menus.navigator.streak.action").setStyle(tooltipAction),
+                Text.translatable("originaddons.menus.navigator.streak.alt").setStyle(tooltipAlternateAction));
+    }
+
+    private void addButtonBase(UIComponent box, Screen screen, ScreenHandler screenHandler, ClientPlayerEntity player, int x, int y, int width, int height, int u, int v, int hoveredVOffset, boolean selectable, int slot) {
+        addButtonBaseAugmented(box, screen, screenHandler, player, x, y, width, height, u, v, hoveredVOffset, selectable, () -> null, slot);
+    }
+
+    private void addButtonBaseAugmented(UIComponent box, Screen screen, ScreenHandler screenHandler, ClientPlayerEntity player, int x, int y, int width, int height, int u, int v, int hoveredVOffset, boolean selectable, Supplier<String> possibleCommand, int slot, Text... extraTooltipLines) {
+        addButton(box, x, y, width, height, u, v, hoveredVOffset, selectable, false, () -> {
+            String command = possibleCommand.get();
+            if (command != null) {
+                MenuUtils.sendCommand(player, command);
+            } else {
+                MenuUtils.pickupItemAtSlot(slot);
+            }
+        }, (b, m, tx, ty) -> {
+            List<Text> tooltip = MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack());
+            tooltip.addAll(List.of(extraTooltipLines));
+            screen.renderTooltip(m, tooltip, (int) tx, (int) ty);
+        });
+    }
+
+    private void addButtonCustom(UIComponent box, Screen screen, ClientPlayerEntity player, int x, int y, int width, int height, int u, int v, int hoveredVOffset, boolean selectable, Supplier<String> command, Text... tooltip) {
+        addButton(box, x, y, width, height, u, v, hoveredVOffset, selectable, true, () -> {
+            MenuUtils.sendCommand(player, command.get());
+        }, (b, m, tx, ty) -> {
+            screen.renderTooltip(m, List.of(tooltip), (int) tx, (int) ty);
+        });
+    }
+
+    private void addButton(UIComponent box, int x, int y, int width, int height, int u, int v, int hoveredVOffset, boolean selectable, boolean playSound, Runnable action, UIButton.TooltipSupplier tooltip) {
+        UIComponent button = new UIButton(TEXTURE, x, y, width, height, u, v, hoveredVOffset, TEXTURE_WIDTH, TEXTURE_HEIGHT, action, tooltip, playSound).setChildOf(box);
+
+        if (selectable) addSelectableElement(button);
     }
 
     @Override
-    protected void draw(Screen screen) {}
+    protected void draw(Screen screen) {
+    }
 
     @Override
-    public void close(Screen screen) {}
+    public void close(Screen screen) {
+    }
 
     @Override
     public boolean isEnabled() {
         return OriginAddons.getConfig().customMenus;
+    }
+
+    @Override
+    protected boolean matches(Screen screen) {
+        String title = screen.getTitle().getString();
+        return title.contains(TITLE) || title.contains(TITLE_NO_REALM);
     }
 
     @Override

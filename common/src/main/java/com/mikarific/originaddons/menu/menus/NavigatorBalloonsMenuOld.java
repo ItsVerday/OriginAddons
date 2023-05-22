@@ -13,7 +13,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Identifier;
 
-public class NavigatorBalloonsMenu extends CustomMenu {
+public class NavigatorBalloonsMenuOld extends CustomMenu {
     public static final String TITLE = "솝";
 
     @Override

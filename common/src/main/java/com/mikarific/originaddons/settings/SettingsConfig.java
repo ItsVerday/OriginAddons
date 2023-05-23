@@ -50,4 +50,8 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
     public boolean cropStarsIcon = true;
+
+    @ConfigEntry.Category("features")
+    @ConfigEntry.Gui.Tooltip
+    public boolean updateNotifications = true;
 }

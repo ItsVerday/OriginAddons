@@ -31,7 +31,7 @@ public class MultiplayerScreenMixin {
                 URL infoUrl = new URL("https://api.originaddons.com/info.json?v=" + Instant.now().toEpochMilli());
                 InputStreamReader infoReader = new InputStreamReader(infoUrl.openStream());
                 JsonObject info = JsonHelper.deserialize(infoReader).getAsJsonObject();
-                if (Other.newerVersionExists(info)) {
+                if (Other.newerVersionExists(info) && OriginAddons.getConfig().updateNotifications) {
                     String latestVersion = info.get("latestVersion").getAsString();
                     MinecraftClient.getInstance().setScreen(new UpdateScreen((MultiplayerScreen) (Object) this, entry, info, latestVersion));
                 } else {

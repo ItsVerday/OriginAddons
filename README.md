@@ -11,8 +11,9 @@ OriginAddons is *not* an alternative to Origin Enhanced, which is officially end
 - A Rocket Boots fuel HUD above the armor HUD, which displays how much fuel you have left
 - An option to replace the durability bar on Rocket Boots with a Fuel Bar
 - An icon on Jacko Crops and Crop Crates/Baskets indicating their star level at a glance
-- Various other small improvements and QoL features, including improvements to line ordering in tooltips (especially on the Auction House), and a screen notifying you when OriginAddons is not up-to-date, which appears when joining Origin Realms.
+- Various other small improvements and QoL features, including improvements to line ordering in tooltips (especially on the Auction House), and a screen notifying you when OriginAddons is not up-to-date, which appears when joining Origin Realms
 We intend to add more in the future as well.
 
 ## Download
 You can download OriginAddons on [Modrinth](https://modrinth.com/mod/originaddons). Additionally, you can join our public discord at [discord.gg/dP5HwtByh6](https://discord.gg/dP5HwtByh6), where you can get support, suggest new features for the mod, or just chat about Origin Realms.
+If you're using Forge, download the Forge version of OriginAddons. If you're using Fabric or Quilt, download the Fabric version of OriginAddons. If you're not sure, download the Universal version, which should function on all 3 loaders.

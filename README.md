@@ -11,7 +11,7 @@ OriginAddons is *not* an alternative to Origin Enhanced, which is officially end
 - A Rocket Boots fuel HUD above the armor HUD, which displays how much fuel you have left
 - An option to replace the durability bar on Rocket Boots with a Fuel Bar
 - An icon on Jacko Crops and Crop Crates/Baskets indicating their star level at a glance
-- Various other small improvements and QoL features, including improvements to line ordering in tooltips (especially on the Auction House), and a screen notifying you when OriginAddons is not up-to-date, which appears when joining Origin Realms
+- Various other small improvements and QoL features, including a built-in Server Pack Unlocker, various tooltip improvements, and a screen notifying you when OriginAddons is not up-to-date, which appears when joining Origin Realms
 We intend to add more in the future as well.
 
 ## Download

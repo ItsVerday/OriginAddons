@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class InventoryScreenMixin extends AbstractInventoryScreen<PlayerScreenHandler> {
     @Shadow public abstract void removed();
 
-    private static TexturedButtonWidget button;
+    private static TexturedButtonWidget navigatorMenuButton;
     public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
         super(screenHandler, playerInventory, text);
     }
@@ -48,14 +48,14 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     private void addButtons(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
             Identifier TEXTURE = new Identifier("originaddons", "gui/inventory/inventory_buttons.png");
-            button = new TexturedButtonWidget(this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE, 20, 36, (button) -> {
+            navigatorMenuButton = new TexturedButtonWidget(this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE, 20, 36, (button) -> {
                 assert client != null;
                 assert client.player != null;
                 MenuUtils.sendCommand(client.player, "/navigator");
                 placeCursorItem(client.player);
             });
 
-            addDrawableChild(button);
+            addDrawableChild(navigatorMenuButton);
 
             /*
             window.resizeWindow();
@@ -74,7 +74,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Inject(method = "method_19891(Lnet/minecraft/client/gui/widget/ButtonWidget;)V", at = @At(value = "TAIL"))
     private void moveButtonsWithRecipeBook(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
-            button.setPos(this.x + 127, button.y);
+            navigatorMenuButton.setPos(this.x + 127, navigatorMenuButton.y);
         }
     }
 

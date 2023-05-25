@@ -45,7 +45,7 @@ public class ChatScreenMixin extends Screen {
             int emojiX = 0;
             int emojiY = 0;
             for (EmojiInstance emoji: EmojiPicker.getEmojis()) {
-                if (!emoji.isUnlocked()) continue;
+                if (!emoji.isUnlocked() || emoji.isHidden()) continue;
 
                 if (emoji.getInfo().getWidth() + emojiX > 9) {
                     emojiX = 0;

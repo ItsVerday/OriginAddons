@@ -66,6 +66,8 @@ public class EmojiPicker {
 
         for (EmojiInstance unorderedEmoji: unordered) {
             OriginAddons.LOGGER.warn("Emoji '" + unorderedEmoji.getInfo().getID() + "' not in emoji order!");
+            unorderedEmoji.setHidden(true);
+            emojis.add(unorderedEmoji);
         }
     }
 
@@ -94,6 +96,9 @@ public class EmojiPicker {
     public static void clearUnlocked() {
         if (!OriginAddons.getConfig().hideLockedEmojis) return;
 
-        for (EmojiInstance instance: emojis) instance.setUnlocked(false);
+        for (EmojiInstance instance: emojis) {
+            instance.setUnlocked(false);
+            instance.setHidden(false);
+        }
     }
 }

@@ -17,6 +17,8 @@
     "emojipicker.ClientPlayNetworkHandlerMixin",
     "inventorybuttons.InventoryScreenMixin",
     "other.MouseMixin",
+    "perf.item_model_caching.ItemStackMixin",
+    "perf.item_model_caching.ModelOverrideListMixin",
     "rocketboots.InGameHudMixin",
     "rocketboots.ItemStackMixin",
     "settings.GameMenuScreenMixin",

@@ -1,4 +1,4 @@
-package com.mikarific.originaddons.mixin.perf.item_model_caching;
+package com.mikarific.originaddons.util;
 
 import net.minecraft.client.render.model.BakedModel;
 

@@ -11,6 +11,10 @@ architectury {
     common("fabric", "forge")
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/originaddons.accesswidener")
+}
+
 publishing {
     publications {
         mavenCommon(MavenPublication) {

@@ -1,5 +1,7 @@
 package com.mikarific.originaddons.mixin.perf.item_model_caching;
 
+import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.util.ModelCachedItemStack;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.world.ClientWorld;
@@ -20,6 +22,9 @@ public class ModelOverrideListMixin {
             ordinal = 1
     ), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void applyWithCache(BakedModel model, ItemStack stack, ClientWorld world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir, Item item, int i, float[] fs) {
+        if (!OriginAddons.onOriginRealms()) return;
+        if (!OriginAddons.getConfig().optimizeItemFrameRendering) return;
+
         ModelCachedItemStack modelCachedItemStack = (ModelCachedItemStack) (Object) stack;
         BakedModel cachedModel = modelCachedItemStack.match(fs);
         if (cachedModel != null) {
@@ -27,8 +32,13 @@ public class ModelOverrideListMixin {
         }
     }
 
-    @Inject(method = "apply", at = @At("RETURN"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void setCachedItem(BakedModel model, ItemStack stack, ClientWorld world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir, Item item, int i, float[] fs, ModelOverrideList.BakedOverride[] var9, int var10, int var11, ModelOverrideList.BakedOverride bakedOverride, BakedModel bakedModel) {
+    @Inject(method = "apply", at = @At(value = "RETURN", ordinal = 1), locals = LocalCapture.CAPTURE_FAILHARD)
+    private void setCachedItem(BakedModel model, ItemStack stack, ClientWorld world, LivingEntity entity, int seed, CallbackInfoReturnable<BakedModel> cir, Item item, int i, float[] fs) {
+        if (!OriginAddons.onOriginRealms()) return;
+        if (!OriginAddons.getConfig().optimizeItemFrameRendering) return;
 
+        ModelCachedItemStack modelCachedItemStack = (ModelCachedItemStack) (Object) stack;
+        BakedModel toCache = cir.getReturnValue();
+        modelCachedItemStack.use(toCache, fs);
     }
 }

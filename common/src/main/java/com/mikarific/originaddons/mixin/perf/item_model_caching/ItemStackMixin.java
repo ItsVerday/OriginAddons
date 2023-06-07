@@ -1,5 +1,7 @@
 package com.mikarific.originaddons.mixin.perf.item_model_caching;
 
+import com.mikarific.originaddons.OriginAddons;
+import com.mikarific.originaddons.util.ModelCachedItemStack;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;

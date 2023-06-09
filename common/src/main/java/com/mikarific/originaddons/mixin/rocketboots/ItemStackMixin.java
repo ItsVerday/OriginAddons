@@ -27,7 +27,10 @@ public class ItemStackMixin {
         ItemBarInfo info = ItemStackUtils.getCustomItemBar(self);
 
         if (info != null) {
-            cir.setReturnValue(Math.round(13.0F * info.getFraction()));
+            int fraction = Math.round(13.0F * info.getFraction());
+            if (fraction < 0) fraction = 0;
+            if (fraction > 13) fraction = 13;
+            cir.setReturnValue(fraction);
             cir.cancel();
         }
     }

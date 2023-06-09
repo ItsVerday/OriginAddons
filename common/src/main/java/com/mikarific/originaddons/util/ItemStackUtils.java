@@ -174,9 +174,9 @@ public class ItemStackUtils {
     public static ItemBarInfo getCustomItemBar(ItemStack itemStack) {
         String customID = getItemStackCustomID(itemStack);
         if (customID.startsWith("rocket_boots_")) {
-            float durabilityFraction = 1.0f - (float) itemStack.getDamage() / itemStack.getMaxDamage();
             if (OriginAddons.getConfig().rocketBootsItemBarType.equals(RocketBootsItemBarType.DURABILITY)) return null;
 
+            float durabilityFraction = 1.0f - (float) itemStack.getDamage() / itemStack.getMaxDamage();
             float fraction = getRocketBootsFuelFraction(itemStack, customID);
             if (OriginAddons.getConfig().rocketBootsItemBarType.equals(RocketBootsItemBarType.LOWEST) && durabilityFraction < fraction) return null;
 

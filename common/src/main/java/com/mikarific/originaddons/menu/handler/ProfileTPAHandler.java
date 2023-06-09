@@ -18,7 +18,7 @@ import java.util.Objects;
 public class ProfileTPAHandler {
     public static final String TITLE = "쇉";
     public static final String TITLE_OTHER = "쉋";
-    public static final Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/profile_tpa.png");
+    public static final Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/profile_tpa.png");
     public static final int TEXTURE_WIDTH = 49;
     public static final int TEXTURE_HEIGHT = 41;
 

@@ -34,7 +34,7 @@ public class RealmsMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/realms.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/realms.png");
         int TEXTURE_WIDTH = 260;
         int TEXTURE_HEIGHT = 138;
         box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 138) / 2, 176, 138, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 public class GesturesAllMenu extends CustomMenu {
     public static final String TITLE = "쉃";
 
-    Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/gestures_all.png");
+    Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/gestures_all.png");
     int TEXTURE_WIDTH = 248;
     int TEXTURE_HEIGHT = 124;
 

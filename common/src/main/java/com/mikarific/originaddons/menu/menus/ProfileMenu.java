@@ -36,7 +36,7 @@ public class ProfileMenu extends CustomMenu {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         ScreenHandler screenHandler = player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/profile.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/profile.png");
         int TEXTURE_WIDTH = 330;
         int TEXTURE_HEIGHT = 110;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 104) / 2, 176, 104, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

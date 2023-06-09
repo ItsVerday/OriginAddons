@@ -45,7 +45,7 @@ public class PaintingMenu extends CustomMenu {
         boolean finishesOff = screen.getTitle().getString().contains(FINISHES_OFF);
         cosmosCosmetics = finishesOn || finishesOff;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/painting.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/painting.png");
         if (cosmosCosmetics) {
             box = new UITexture(TEXTURE, (screen.width - 176) / 2, ((screen.height - 127) / 2) - 5, 176, 127, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
             finishesSelector = (UIButton) new UIButton(TEXTURE, 74, 78, 28, 15, 176 + (finishesOn ? 28 : 0), 0, 15, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {

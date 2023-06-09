@@ -20,7 +20,7 @@ public class RealmSettingsMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/realms_settings.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/realms_settings.png");
         int TEXTURE_WIDTH = 266;
         int TEXTURE_HEIGHT = 52;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 52) / 2 - 26, 176, 52, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

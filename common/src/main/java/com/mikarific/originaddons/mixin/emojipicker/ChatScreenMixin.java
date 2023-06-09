@@ -24,7 +24,7 @@ public class ChatScreenMixin extends Screen {
     @Shadow protected TextFieldWidget chatField;
 
     private final Window window = new Window();
-    private final Identifier TEXTURE = new Identifier("originaddons", "gui/emojipicker/emojipicker.png");
+    private final Identifier TEXTURE = new Identifier("originaddons", "textures/gui/emojipicker/emojipicker.png");
     private UIComponent box;
 
     protected ChatScreenMixin(Text title) {

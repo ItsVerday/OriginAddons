@@ -20,7 +20,7 @@ public class GameMenuScreenMixin extends Screen {
     @Inject(method = "initWidgets()V", at = @At("TAIL"))
     private void addSettingsButton(CallbackInfo ci) {
         if (OriginAddons.onOriginRealms()) {
-            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 126, this.height / 4 + 72 + -16, 20, 20, 0, 0, 20, new Identifier("originaddons", "gui/settings.png"), 20, 40, (button) -> {
+            this.addDrawableChild(new TexturedButtonWidget(this.width / 2 - 126, this.height / 4 + 72 + -16, 20, 20, 0, 0, 20, new Identifier("originaddons", "textures/gui/settings.png"), 20, 40, (button) -> {
                 assert this.client != null;
                 this.client.setScreen(OriginAddons.getConfigScreen(this));
             }));

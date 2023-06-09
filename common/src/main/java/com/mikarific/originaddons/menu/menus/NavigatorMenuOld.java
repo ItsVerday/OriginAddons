@@ -29,7 +29,7 @@ public class NavigatorMenuOld extends CustomMenu {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         ScreenHandler screenHandler = player.currentScreenHandler;
 
-        Identifier MAIN_TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator.png");
+        Identifier MAIN_TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/navigator.png");
         int MAIN_TEXTURE_WIDTH = 404;
         int MAIN_TEXTURE_HEIGHT = 141;
         UIComponent box = new UITexture(MAIN_TEXTURE, (screen.width - 176) / 2, (screen.height - 141) / 2, 176, 141, 0, 0, MAIN_TEXTURE_WIDTH, MAIN_TEXTURE_HEIGHT).setChildOf(window);

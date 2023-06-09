@@ -50,7 +50,7 @@ public class AuctionHouseMenu extends CustomMenu {
     public static final String SORT_LOWEST = "숖";
     public static final String SORT_RECENT = "숗";
 
-    private static Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/auction_house.png");
+    private static Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/auction_house.png");
     private static int TEXTURE_WIDTH = 352;
     private static int TEXTURE_HEIGHT = 318;
 

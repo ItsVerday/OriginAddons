@@ -22,7 +22,7 @@ public class NavigatorBalloonsMenuOld extends CustomMenu {
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
         ScreenHandler screenHandler = player.currentScreenHandler;
 
-        Identifier BALLOON_TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator_balloon.png");
+        Identifier BALLOON_TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/navigator_balloon.png");
         int BALLOON_TEXTURE_WIDTH = 306;
         int BALLOON_TEXTURE_HEIGHT = 152;
         UIComponent box = new UITexture(BALLOON_TEXTURE, (screen.width - 176) / 2, (screen.height - 124) / 2, 176, 124, 0, 0, BALLOON_TEXTURE_WIDTH, BALLOON_TEXTURE_HEIGHT).setChildOf(window);

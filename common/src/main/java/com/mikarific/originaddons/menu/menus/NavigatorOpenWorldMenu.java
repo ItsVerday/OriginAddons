@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 
 public class NavigatorOpenWorldMenu extends CustomMenu {
     public static final String TITLE = "꣓";
-    public static final Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator_open_world.png");
+    public static final Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/navigator_open_world.png");
 
     public static final int TEXTURE_WIDTH = 208;
     public static final int TEXTURE_HEIGHT = 302;

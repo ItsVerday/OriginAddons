@@ -20,7 +20,7 @@ public class OrbitMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/orbit.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/orbit.png");
         int TEXTURE_WIDTH = 316;
         int TEXTURE_HEIGHT = 112;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 112) / 2, 176, 112, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

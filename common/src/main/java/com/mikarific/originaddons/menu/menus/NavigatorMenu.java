@@ -23,7 +23,7 @@ import java.util.function.Supplier;
 public class NavigatorMenu extends CustomMenu {
     public static final String TITLE = "슣";
     public static final String TITLE_NO_REALM = "스";
-    public static final Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator.png");
+    public static final Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/navigator.png");
 
     public static final int TEXTURE_WIDTH = 226;
     public static final int TEXTURE_HEIGHT = 332;

@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 public class NavigatorBalloonsMenu extends CustomMenu {
     public static final String TITLE = "슥";
 
-    public static final Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/navigator_balloon.png");
+    public static final Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/navigator_balloon.png");
 
     public static final int TEXTURE_WIDTH = 192;
     public static final int TEXTURE_HEIGHT = 314;

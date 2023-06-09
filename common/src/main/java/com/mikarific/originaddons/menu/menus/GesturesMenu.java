@@ -24,7 +24,7 @@ public class GesturesMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/gestures_favorites.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/gestures_favorites.png");
         int TEXTURE_WIDTH = 384;
         int TEXTURE_HEIGHT = 136;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 176) / 2, (screen.height - 106) / 2, 176, 106, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

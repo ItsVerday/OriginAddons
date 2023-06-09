@@ -47,7 +47,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/InventoryScreen;addDrawableChild(Lnet/minecraft/client/gui/Element;)Lnet/minecraft/client/gui/Element;"))
     private void addButtons(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
-            Identifier TEXTURE = new Identifier("originaddons", "gui/inventory/inventory_buttons.png");
+            Identifier TEXTURE = new Identifier("originaddons", "textures/gui/inventory/inventory_buttons.png");
             navigatorMenuButton = new TexturedButtonWidget(this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE, 20, 36, (button) -> {
                 assert client != null;
                 assert client.player != null;

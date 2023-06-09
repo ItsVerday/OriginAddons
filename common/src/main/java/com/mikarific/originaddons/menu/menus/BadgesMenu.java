@@ -24,7 +24,7 @@ public class BadgesMenu extends CustomMenu {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
-        Identifier TEXTURE = new Identifier("originaddons", "gui/custommenus/badges.png");
+        Identifier TEXTURE = new Identifier("originaddons", "textures/gui/custommenus/badges.png");
         int TEXTURE_WIDTH = 260;
         int TEXTURE_HEIGHT = 99;
         UIComponent box = new UITexture(TEXTURE, (screen.width - 196) / 2, (screen.height - 99) / 2, 196, 99, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);

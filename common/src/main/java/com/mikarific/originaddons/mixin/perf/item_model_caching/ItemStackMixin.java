@@ -34,11 +34,6 @@ public class ItemStackMixin implements ModelCachedItemStack {
         this.cachedPredicateValues = predicateValues;
     }
 
-    private void clearCachedModel() {
-        this.cachedModel = null;
-        this.cachedPredicateValues = null;
-    }
-
     @Inject(method = "setCount", at = @At("RETURN"))
     private void setCountClearCache(int count, CallbackInfo ci) {
         clearCachedModel();

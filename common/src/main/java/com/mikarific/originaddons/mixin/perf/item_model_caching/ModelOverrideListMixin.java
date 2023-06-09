@@ -29,6 +29,8 @@ public class ModelOverrideListMixin {
         BakedModel cachedModel = modelCachedItemStack.match(fs);
         if (cachedModel != null) {
             cir.setReturnValue(cachedModel);
+        } else {
+            modelCachedItemStack.clearCachedModel();
         }
     }
 

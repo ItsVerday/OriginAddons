@@ -40,7 +40,7 @@
   "text.autoconfig.originaddons.option.inventoryButtons": "Enable Inventory Buttons",
   "text.autoconfig.originaddons.option.inventoryButtons.@Tooltip": "Adds useful buttons to your inventory.",
   "text.autoconfig.originaddons.option.rocketBootsFuelBar": "Enable Rocket Boots Fuel HUD",
-  "text.autoconfig.originaddons.option.rocketBootsFuelBar.@Tooltip": "Adds a Rocket Boots Fuel HUD above your armor/health.",
+  "text.autoconfig.originaddons.option.rocketBootsFuelBar.@Tooltip": "Adds a Rocket Boots Fuel HUD next to your hotbar, showing your remaining rocket boots fuel.",
   "text.autoconfig.originaddons.option.neverHideRocketBootsFuelBar": "Always show the Rocket Boots Fuel HUD",
   "text.autoconfig.originaddons.option.neverHideRocketBootsFuelBar.@Tooltip": "Prevents the Rocket Boots Fuel HUD from being hidden when in a Resource World/at Origin Isles.",
   "text.autoconfig.originaddons.option.noRocketBootsFuelBarShaking": "Disable the Rocket Boots Fuel HUD shaking",

@@ -17,6 +17,7 @@ import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
+import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -32,6 +33,7 @@ import java.util.List;
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
     private static final Identifier ICONS = new Identifier("originaddons", "textures/gui/rocket_boots_fuel_bar.png");
+    private static final int FUEL_BAR_HEIGHT = 30;
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
@@ -78,10 +80,12 @@ public abstract class InGameHudMixin {
         return true;
     }
 
-    @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;getMaxAir()I", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void renderRocketBootsFuelBar(MatrixStack matrices, CallbackInfo ci, PlayerEntity playerEntity, int i, boolean bl, long l, int j, HungerManager hungerManager, int k, int m, int n, int o, float f, int p, int q, int r, int s, int t, int u, int v, LivingEntity livingEntity, int x) {
+    @Inject(method = "renderStatusBars", at = @At("HEAD"))
+    private void renderRocketBootsFuelBar(MatrixStack matrices, CallbackInfo ci) {
         if (!OriginAddons.onOriginRealms()) return;
         if (!OriginAddons.getConfig().rocketBootsFuelBar) return;
+
+        PlayerEntity playerEntity = getCameraPlayer();
         if (playerEntity == null) return;
 
         Identifier worldKey = playerEntity.world.getRegistryKey().getValue();
@@ -98,44 +102,24 @@ public abstract class InGameHudMixin {
 
         if (!shouldRenderRocketBootsFuelBar()) return;
 
-        int y = t + 10;
-
-        int maxAir = playerEntity.getMaxAir();
-        int currentAir = Math.min(playerEntity.getAir(), maxAir);
-        if (playerEntity.isSubmergedIn(FluidTags.WATER) || currentAir < maxAir) {
-            int delta = getHeartRows(getHeartCount(playerEntity));
-            y -= delta * 10;
-        }
-
         RenderSystem.setShaderTexture(0, ICONS);
-        for (int w = 0; w < 10; ++w) {
-            int thisFuel = w * 3;
-            int rocketX = n - (9 - w) * 8 - 9;
+        int scaledWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
+        int scaledHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
+        int barX = (scaledWidth / 2 - 5 / 2) + 96;
+        int barY = scaledHeight - FUEL_BAR_HEIGHT - 4;
 
-            int textureU = 0;
-            if (currentFuel == thisFuel + 1) {
-                textureU = 9;
-            } else if (currentFuel == thisFuel + 2) {
-                textureU = 18;
-            } else if (currentFuel >= thisFuel + 3) {
-                textureU = 27;
-            }
-
-            int jitter = 0;
-            if (currentFuel <= 2 && currentFuel > 0 && !OriginAddons.getConfig().noRocketBootsFuelBarShaking) jitter = random.nextInt(2);
-
-            DrawableHelper.drawTexture(matrices, rocketX, y + jitter, textureU, 0, 9, 9, 36, 9);
+        if (currentFuel <= 2 && currentFuel > 0 && !OriginAddons.getConfig().noRocketBootsFuelBarShaking) {
+            barX += random.nextInt(2) - 1;
+            barY += random.nextInt(2);
         }
+
+        int barHeight = currentFuel;
+        if (barHeight < 0) barHeight = 0;
+        if (barHeight > FUEL_BAR_HEIGHT) barHeight = FUEL_BAR_HEIGHT;
+
+        DrawableHelper.drawTexture(matrices, barX, barY, 0, 0, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 10, FUEL_BAR_HEIGHT + 2);
+        DrawableHelper.drawTexture(matrices, barX, barY + FUEL_BAR_HEIGHT + 1 - barHeight, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 5, 1 + barHeight, 10, FUEL_BAR_HEIGHT + 2);
 
         RenderSystem.setShaderTexture(0, InGameHud.GUI_ICONS_TEXTURE);
-    }
-
-    @ModifyConstant(method = "render", constant = @Constant(floatValue = -4.0f))
-    private float moveActionBar(float constant) {
-        if (shouldRenderRocketBootsFuelBar()) {
-            return constant - 10;
-        }
-
-        return constant;
     }
 }

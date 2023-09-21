@@ -54,9 +54,5 @@ public class SettingsConfig implements ConfigData {
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip
-    public boolean optimizeItemFrameRendering = true;
-
-    @ConfigEntry.Category("features")
-    @ConfigEntry.Gui.Tooltip
     public boolean updateNotifications = true;
 }

@@ -4,7 +4,6 @@
   "package": "com.mikarific.originaddons.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "join.MultiplayerScreenMixin"
   ],
   "client": [
     "blockpicker.MinecraftClientMixin",
@@ -16,9 +15,8 @@
     "emojipicker.ClientLoginNetworkHandlerMixin",
     "emojipicker.ClientPlayNetworkHandlerMixin",
     "inventorybuttons.InventoryScreenMixin",
+    "join.MultiplayerScreenMixin",
     "other.MouseMixin",
-    "perf.item_model_caching.ItemStackMixin",
-    "perf.item_model_caching.ModelOverrideListMixin",
     "rocketboots.InGameHudMixin",
     "rocketboots.ItemStackMixin",
     "settings.GameMenuScreenMixin",

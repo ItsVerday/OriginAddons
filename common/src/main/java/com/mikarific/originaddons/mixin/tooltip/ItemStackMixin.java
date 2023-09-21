@@ -56,10 +56,13 @@ public abstract class ItemStackMixin {
             if (i >= auctionTooltipStart && i <= auctionTooltipEnd) continue;
             Text oldText = oldTooltip.get(i);
             TextColor color = oldText.getStyle().getColor();
-            boolean isBlank = oldText.getString().trim().length() == 0;
+            boolean isBlank = oldText.getString().trim().isEmpty();
 
             if (!(isBlank && wasBlank)) {
-                if (color != null && color.getName().equals(Formatting.DARK_GRAY.getName())) {
+                boolean isAdvanced = false;
+                if (color != null && color.getName().equals(Formatting.DARK_GRAY.getName())) isAdvanced = true;
+                if (oldText.getString().trim().startsWith("Durability")) isAdvanced = true;
+                if (isAdvanced) {
                     advanced.add(oldText);
                 } else {
                     newTooltip.add(oldText);
@@ -69,14 +72,14 @@ public abstract class ItemStackMixin {
             wasBlank = isBlank;
         }
 
-        while (newTooltip.size() > 2 && newTooltip.get(newTooltip.size() - 1).getString().trim().length() == 0) {
+        while (newTooltip.size() > 2 && newTooltip.get(newTooltip.size() - 1).getString().trim().isEmpty()) {
             newTooltip.remove(newTooltip.size() - 1);
         }
 
         ItemStackUtils.appendCustomTooltip(self, player, newTooltip);
 
         if (auctionTooltipStart >= 0 && auctionTooltipEnd >= 0) {
-            if (newTooltip.size() > 1 && newTooltip.get(newTooltip.size() - 1).getString().trim().length() > 0) {
+            if (newTooltip.size() > 1 && !newTooltip.get(newTooltip.size() - 1).getString().trim().isEmpty()) {
                 newTooltip.add(Text.translatable(""));
             }
 

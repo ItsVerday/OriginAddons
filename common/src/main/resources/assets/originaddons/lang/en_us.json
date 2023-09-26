@@ -49,6 +49,8 @@
   "text.autoconfig.originaddons.option.rocketBootsItemBarType.@Tooltip": "Determines how the durability bar on Rocket Boots is rendered.",
   "text.autoconfig.originaddons.option.cropStarsIcon": "Enable Crop Stars Icon",
   "text.autoconfig.originaddons.option.cropStarsIcon.@Tooltip": "Adds a star icon to crop and crop basket items to show their tier visually.",
+  "text.autoconfig.originaddons.option.protectionRuneIcon": "Enable Protection Rune Icon",
+  "text.autoconfig.originaddons.option.protectionRuneIcon.@Tooltip": "Adds a shield icon to items with a Protection Rune.",
   "text.autoconfig.originaddons.option.updateNotifications": "Enable Update Notifications",
   "text.autoconfig.originaddons.option.updateNotifications.@Tooltip": "Notifies you if OriginAddons is out of date upon joining Origin Realms.",
   "originaddons.join.title": "OriginAddons",

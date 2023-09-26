@@ -124,10 +124,7 @@ public class ItemStackUtils {
         CROP_CRATES.add("lettuce_crate");
     }
 
-    public static Identifier getItemOverlayIdentifier(ItemStack itemStack) {
-        NbtCompound itemNBT = itemStack.getNbt();
-        if (itemNBT == null) itemNBT = new NbtCompound();
-
+    private static int getCropStars(NbtCompound itemNBT) {
         boolean customCrop = false;
         int cropStars = 1;
         if (itemNBT.contains("CustomBlock")) {
@@ -165,8 +162,26 @@ public class ItemStackUtils {
             }
         }
 
-        if (customCrop && OriginAddons.getConfig().cropStarsIcon)
-            return new Identifier("originaddons", "textures/item_overlays/crops/" + cropStars + "_star.png");
+        if (customCrop) return cropStars;
+        return 0;
+    }
+
+    private static boolean isProtected(NbtCompound itemNBT) {
+        if (itemNBT.contains("PublicBukkitValues")) {
+            NbtCompound publicBukkitValues = itemNBT.getCompound("PublicBukkitValues");
+            if (publicBukkitValues.contains("xenchantments:protection-rune")) return true;
+        }
+
+        return false;
+    }
+
+    public static Identifier getItemOverlayIdentifier(ItemStack itemStack) {
+        NbtCompound itemNBT = itemStack.getNbt();
+        if (itemNBT == null) itemNBT = new NbtCompound();
+
+        int cropStars = getCropStars(itemNBT);
+        if (cropStars > 0 && OriginAddons.getConfig().cropStarsIcon) return new Identifier("originaddons", "textures/item_overlays/crops/" + cropStars + "_star.png");
+        if (isProtected(itemNBT) && OriginAddons.getConfig().protectionRuneIcon) return new Identifier("originaddons", "textures/item_overlays/protection_rune.png");
 
         return null;
     }

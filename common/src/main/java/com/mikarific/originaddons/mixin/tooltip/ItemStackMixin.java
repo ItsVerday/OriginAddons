@@ -65,7 +65,7 @@ public abstract class ItemStackMixin {
                 if (isAdvanced) {
                     advanced.add(oldText);
                 } else {
-                    newTooltip.add(oldText);
+                    newTooltip.addAll(ItemStackUtils.transformTooltipLine(self, oldText));
                 }
             }
 
@@ -84,7 +84,7 @@ public abstract class ItemStackMixin {
             }
 
             for (int i = auctionTooltipStart; i <= auctionTooltipEnd; i++) {
-                newTooltip.add(oldTooltip.get(i));
+                newTooltip.addAll(ItemStackUtils.transformTooltipLine(self, oldTooltip.get(i)));
             }
         }
 

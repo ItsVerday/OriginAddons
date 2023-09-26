@@ -31,6 +31,8 @@
   "text.autoconfig.originaddons.option.customBottledExperienceLevelsFrom0Tooltip.@Tooltip": "Shows how many levels a Bottled Experience item would give you from level 0.",
   "text.autoconfig.originaddons.option.customBottledExperienceLevelsFromCurrentTooltip": "Enable Levels (from current) tooltip",
   "text.autoconfig.originaddons.option.customBottledExperienceLevelsFromCurrentTooltip.@Tooltip": "Shows how many levels a Bottled Experience item will give you upon drinking with your current level.",
+  "text.autoconfig.originaddons.option.customPricePerItemTooltip": "Enable Price per Item tooltip",
+  "text.autoconfig.originaddons.option.customPricePerItemTooltip.@Tooltip": "For stacks of items on the Auction House, shows how much each item in the stack costs.",
   "text.autoconfig.originaddons.option.emojiPicker": "Enable Emoji Picker",
   "text.autoconfig.originaddons.option.emojiPicker.@Tooltip": "Adds an emoji picker to the chat menu.",
   "text.autoconfig.originaddons.option.hideLockedEmojis": "Hide Locked Emojis",
@@ -99,5 +101,7 @@
   "originaddons.menus.navigator.spawn.alt": " → Shift-click to teleport to the Red Balloon",
   "originaddons.tooltips.bottled_experience.level_0": "Levels (from 0): ",
   "originaddons.tooltips.bottled_experience.level_current": "Levels (from current): ",
-  "originaddons.tooltips.rocket_boots.durability": "Durability: "
+  "originaddons.tooltips.rocket_boots.durability": "Durability: ",
+  "originaddons.tooltips.price_per.label": "Price per Item: ",
+  "originaddons.tooltips.price_per.value": "%s ꢦ"
 }

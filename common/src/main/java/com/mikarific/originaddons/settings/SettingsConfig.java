@@ -20,6 +20,9 @@ public class SettingsConfig implements ConfigData {
     @ConfigEntry.Category("customtooltips")
     @ConfigEntry.Gui.Tooltip
     public boolean customBottledExperienceLevelsFromCurrentTooltip = true;
+    @ConfigEntry.Category("customtooltips")
+    @ConfigEntry.Gui.Tooltip
+    public boolean customPricePerItemTooltip = true;
 
     @ConfigEntry.Category("features")
     @ConfigEntry.Gui.Tooltip

@@ -6,6 +6,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -19,8 +20,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemStackUtils {
-    public static final Style STYLE_GRAY = Style.EMPTY.withColor(Formatting.GRAY);
-    public static final Style STYLE_WHITE = Style.EMPTY.withColor(Formatting.WHITE);
+    public static final Style STYLE_GRAY = Style.EMPTY.withColor(Formatting.GRAY).withItalic(false);
+    public static final Style STYLE_WHITE = Style.EMPTY.withColor(Formatting.WHITE).withItalic(false);
 
     public static String getItemStackCustomID(ItemStack itemStack) {
         NbtCompound itemNBT = itemStack.getNbt();
@@ -49,7 +50,7 @@ public class ItemStackUtils {
                 int expAmount = 0;
                 int index = -1;
                 int currentIndex = -1;
-                for (Text line : tooltip) {
+                for (Text line: tooltip) {
                     currentIndex++;
                     Matcher matcher = expAmountPattern.matcher(line.getString().trim());
                     if (!matcher.find()) continue;
@@ -88,6 +89,38 @@ public class ItemStackUtils {
                 return;
             }
         }
+    }
+
+    public static final Pattern pricePattern = Pattern.compile("^Price: ([0-9,]+) .$");
+    public static final DecimalFormat priceFormat = new DecimalFormat("#,###.#");
+
+    public static List<Text> transformTooltipLine(ItemStack self, Text oldLine) {
+        if (self.getCount() > 1 && OriginAddons.getConfig().customPricePerItemTooltip) {
+            List<Text> pricePerItem = pricePerItem(self, oldLine);
+            if (pricePerItem != null) return pricePerItem;
+        }
+
+        return List.of(oldLine);
+    }
+
+    private static List<Text> pricePerItem(ItemStack self, Text oldLine) {
+        String contents = oldLine.getString().trim();
+
+        Matcher matcher = pricePattern.matcher(contents);
+        if (!matcher.find()) return null;
+
+        String matchedPrice = matcher.group(1).replaceAll(",", "");
+        double price;
+        try {
+            price = Double.parseDouble(matchedPrice);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+
+        double pricePer = price / self.getCount();
+        MutableText pricePerLabel = Text.translatable("originaddons.tooltips.price_per.label").setStyle(STYLE_GRAY);
+        MutableText pricePerValue = Text.translatable("originaddons.tooltips.price_per.value", priceFormat.format(pricePer)).setStyle(STYLE_WHITE);
+        return List.of(oldLine, pricePerLabel.append(pricePerValue));
     }
 
     // Formula is from PlayerEntity class

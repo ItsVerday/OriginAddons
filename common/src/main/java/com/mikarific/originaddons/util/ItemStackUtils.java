@@ -166,7 +166,7 @@ public class ItemStackUtils {
         }
 
         if (customCrop && OriginAddons.getConfig().cropStarsIcon)
-            return new Identifier("originaddons", "textures/crop_overlays/" + cropStars + "_star.png");
+            return new Identifier("originaddons", "textures/item_overlays/crops/" + cropStars + "_star.png");
 
         return null;
     }

@@ -1,4 +1,4 @@
-package com.mikarific.originaddons.mixin.cropstars;
+package com.mikarific.originaddons.mixin.itemoverlay;
 
 import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.util.ItemStackUtils;

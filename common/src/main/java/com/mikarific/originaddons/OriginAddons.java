@@ -35,9 +35,13 @@ public class OriginAddons {
     }
 
     public static boolean onOriginRealms() {
-        ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
-        if (serverInfo == null) return false;
-        return onOriginRealms(serverInfo.address);
+        try {
+            ServerInfo serverInfo = MinecraftClient.getInstance().getCurrentServerEntry();
+            if (serverInfo == null) return false;
+            return onOriginRealms(serverInfo.address);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static boolean onOriginRealms(String address) {

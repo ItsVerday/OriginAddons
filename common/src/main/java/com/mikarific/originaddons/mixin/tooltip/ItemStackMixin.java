@@ -5,9 +5,11 @@ import com.mikarific.originaddons.util.ItemStackUtils;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +22,8 @@ import java.util.List;
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
     @Shadow public abstract String toString();
+
+    @Shadow @Nullable private NbtCompound nbt;
 
     @Inject(at = @At("RETURN"), method = "getTooltip", cancellable = true)
     private void modifyTooltip(PlayerEntity player, TooltipContext tooltipContext, CallbackInfoReturnable<List<Text>> cir) {
@@ -89,7 +93,44 @@ public abstract class ItemStackMixin {
         }
 
         newTooltip.addAll(advanced);
-
         cir.setReturnValue(newTooltip);
+    }
+
+    @Inject(at = @At("RETURN"), method = "isDamageable", cancellable = true)
+    private void isCustomDamageable(CallbackInfoReturnable<Boolean> cir) {
+        if (!OriginAddons.onOriginRealms()) return;
+
+        ItemStack self = (ItemStack) (Object) this;
+        NbtCompound nbt = self.getNbt();
+        if (nbt == null) return;
+        if (nbt.contains("MaxDamage")) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    @Inject(at = @At("RETURN"), method = "getMaxDamage", cancellable = true)
+    private void getCustomMaxDamage(CallbackInfoReturnable<Integer> cir) {
+        if (!OriginAddons.onOriginRealms()) return;
+
+        ItemStack self = (ItemStack) (Object) this;
+        NbtCompound nbt = self.getNbt();
+        if (nbt == null) return;
+        if (nbt.contains("MaxDamage")) {
+            int maxDamage = nbt.getInt("MaxDamage");
+            cir.setReturnValue(maxDamage);
+        }
+    }
+
+    @Inject(at = @At("RETURN"), method = "getDamage", cancellable = true)
+    private void getCustomDamage(CallbackInfoReturnable<Integer> cir) {
+        if (!OriginAddons.onOriginRealms()) return;
+
+        ItemStack self = (ItemStack) (Object) this;
+        NbtCompound nbt = self.getNbt();
+        if (nbt == null) return;
+        if (nbt.contains("RealDamage")) {
+            int damage = nbt.getInt("RealDamage");
+            cir.setReturnValue(damage);
+        }
     }
 }

@@ -75,6 +75,7 @@ public class EmojiPicker {
         for (int i = 0; i < emojis.size(); i++) {
             if (emojis.get(i).getInfo().getID().equalsIgnoreCase(id)) return i;
         }
+
         return -1;
     }
 
@@ -94,8 +95,6 @@ public class EmojiPicker {
     }
 
     public static void clearUnlocked() {
-        if (!OriginAddons.getConfig().hideLockedEmojis) return;
-
         for (EmojiInstance instance: emojis) {
             instance.setUnlocked(false);
             instance.setHidden(false);

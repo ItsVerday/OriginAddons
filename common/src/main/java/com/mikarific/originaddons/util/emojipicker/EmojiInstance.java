@@ -1,5 +1,7 @@
 package com.mikarific.originaddons.util.emojipicker;
 
+import com.mikarific.originaddons.OriginAddons;
+
 public class EmojiInstance {
     private EmojiInfo info;
     private boolean unlocked;
@@ -16,6 +18,7 @@ public class EmojiInstance {
     }
 
     public boolean isUnlocked() {
+        if (!OriginAddons.getConfig().hideLockedEmojis) return true;
         return unlocked;
     }
 

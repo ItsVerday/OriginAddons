@@ -45,9 +45,9 @@ public class NavigatorOpenWorldMenu extends CustomMenu {
 
         // Random Button
         addSelectableElement(new UIButton(TEXTURE, 152, 9, 16, 14, 192,  0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
-            MenuUtils.pickupItemAtSlot(8);
+            MenuUtils.pickupItemAtSlot(7);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(8).getStack()), (int) x, (int) y);
+            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), (int) x, (int) y);
         }, false).setChildOf(box));
 
         // Close button

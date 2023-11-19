@@ -2,7 +2,7 @@ package com.mikarific.originaddons.ui.components;
 
 import com.mikarific.originaddons.util.emojipicker.EmojiInstance;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,13 +19,13 @@ public class UIEmoji extends UIButton {
         this.emoji = emoji;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
-        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
+        super.draw(context, mouseX, mouseY, hideTooltips);
         if (this.isVisible()) {
-            matrixStack.push();
-            matrixStack.translate(this.getX(), this.getY(), 1f);
-            MinecraftClient.getInstance().textRenderer.draw(matrixStack, emoji.getInfo().getStyledText(), 1, 2, emoji.getInfo().getTextColor().getRgb());
-            matrixStack.pop();
+            context.getMatrices().push();
+            context.getMatrices().translate(this.getX(), this.getY(), 1f);
+            context.drawText(MinecraftClient.getInstance().textRenderer, emoji.getInfo().getStyledText(), 1, 2, emoji.getInfo().getTextColor().getRgb(), false);
+            context.getMatrices().pop();
         }
     }
 }

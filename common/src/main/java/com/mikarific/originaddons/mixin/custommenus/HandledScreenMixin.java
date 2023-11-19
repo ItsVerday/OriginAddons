@@ -2,14 +2,12 @@ package com.mikarific.originaddons.mixin.custommenus;
 
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.menu.CustomMenus;
-import com.mikarific.originaddons.menu.ScreenHandler;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIComponent;
-import net.minecraft.client.gui.Drawable;
-import net.minecraft.client.gui.Selectable;
+import com.mikarific.originaddons.util.MenuUtils;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,11 +17,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
-
 @Mixin(HandledScreen.class)
 public abstract class HandledScreenMixin extends Screen {
-    @Shadow protected abstract void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY);
+    @Shadow protected abstract void drawBackground(DrawContext context, float delta, int mouseX, int mouseY);
 
     private static Window window = null;
 
@@ -78,19 +74,20 @@ public abstract class HandledScreenMixin extends Screen {
         clearCurrentMenu();
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ingame/HandledScreen.drawBackground(Lnet/minecraft/client/util/math/MatrixStack;FII)V"))
-    private void drawBackground(HandledScreen instance, MatrixStack matrixStack, float delta, int mouseX, int mouseY) {
+    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreen;drawBackground(Lnet/minecraft/client/gui/DrawContext;FII)V"))
+    private void drawBackground(HandledScreen instance, DrawContext context, float delta, int mouseX, int mouseY) {
+        MenuUtils.setForcedTooltip(false, 0, 0);
         if (CustomMenus.getCurrentMenu() != null) {
             CustomMenus.getCurrentMenu().doDraw(this, mouseX, mouseY);
-            window.draw(matrixStack, mouseX, mouseY, CustomMenus.getCurrentMenu().isRenderSelectedTooltip());
-            CustomMenus.getCurrentMenu().drawSelectedElementTooltip(matrixStack);
+            window.draw(context, mouseX, mouseY, CustomMenus.getCurrentMenu().isRenderSelectedTooltip());
+            CustomMenus.getCurrentMenu().drawSelectedElementTooltip(context);
         } else {
-            drawBackground(matrixStack, delta, mouseX, mouseY);
+            drawBackground(context, delta, mouseX, mouseY);
         }
     }
 
     @Inject(method = "drawForeground", at = @At("HEAD"), cancellable = true)
-    private void drawForeground(MatrixStack matrices, int mouseX, int mouseY, CallbackInfo ci) {
+    private void drawForeground(DrawContext context, int mouseX, int mouseY, CallbackInfo ci) {
         if (CustomMenus.getCurrentMenu() != null) {
             ci.cancel();
         }

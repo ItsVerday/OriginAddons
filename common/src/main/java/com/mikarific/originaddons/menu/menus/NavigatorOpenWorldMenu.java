@@ -44,10 +44,17 @@ public class NavigatorOpenWorldMenu extends CustomMenu {
         addWorldButton(box, screen, screenHandler, 116, 72, 52, 44, 104, 214, 44, 44, "꣙", "꣟", 106);
 
         // Random Button
-        addSelectableElement(new UIButton(TEXTURE, 152, 9, 16, 14, 192,  0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+        addSelectableElement(new UIButton(TEXTURE, 134, 9, 16, 14, 192,  0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(7);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), (int) x, (int) y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), screen, m, (int) x, (int) y);
+        }, false).setChildOf(box));
+
+        // Help Button
+        addSelectableElement(new UIButton(TEXTURE, 152, 9, 16, 14, 192,  28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
+            MenuUtils.pickupItemAtSlot(8);
+        }, (b, m, x, y) -> {
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(8).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
 
         // Close button
@@ -60,7 +67,7 @@ public class NavigatorOpenWorldMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 176, closeV, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(0);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int) x, (int) y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
     }
 
@@ -78,7 +85,7 @@ public class NavigatorOpenWorldMenu extends CustomMenu {
         UIComponent button = new UIButton(TEXTURE, x, y, width, height, finalU, finalV, finalHoveredVOffset, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(slot);
         }, (b, m, tx, ty) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) tx, (int) ty);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, x, y);
         }, false).setChildOf(box);
 
         if (!disabled) {

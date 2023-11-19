@@ -4,22 +4,22 @@ import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ItemRenderer.class)
-public class ItemRendererMixin {
-    @Inject(method = "renderGuiItemModel", at = @At("RETURN"))
-    private void renderCropStarOverlay(ItemStack stack, int x, int y, BakedModel model, CallbackInfo ci) {
+@Mixin(DrawContext.class)
+public class DrawContextMixin {
+    @Inject(method = "drawItem(Lnet/minecraft/entity/LivingEntity;Lnet/minecraft/world/World;Lnet/minecraft/item/ItemStack;IIII)V", at = @At("RETURN"))
+    private void drawItemOverlay(LivingEntity entity, World world, ItemStack stack, int x, int y, int seed, int z, CallbackInfo ci) {
         if (!OriginAddons.onOriginRealms()) return;
 
         Identifier overlayTextureIdentifier = ItemStackUtils.getItemOverlayIdentifier(stack);
@@ -27,16 +27,15 @@ public class ItemRendererMixin {
             return;
         }
 
-        RenderSystem.disableDepthTest();
+        DrawContext self = (DrawContext) (Object) this;
+
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-        RenderSystem.setShaderTexture(0, overlayTextureIdentifier);
-        DrawableHelper.drawTexture(new MatrixStack(), x, y, 0, 0, 16, 16, 16, 16);
+        self.drawTexture(overlayTextureIdentifier, x, y, z + 250, 0, 0, 16, 16, 16, 16);
 
         RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
     }
 }

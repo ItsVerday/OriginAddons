@@ -6,10 +6,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -55,27 +54,26 @@ public class UIButton extends UIComponent {
         this.playSound = playSound;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
-            matrixStack.push();
-            matrixStack.translate(this.getX(), this.getY(), 1f);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
-            RenderSystem.setShaderTexture(0, this.getIdentifier());
+            context.getMatrices().push();
+            context.getMatrices().translate(this.getX(), this.getY(), 1f);
+            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+            context.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             if (this.isHoveredOrSelected()) {
-                DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV() + hoveredVOffset, this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
+                context.drawTexture(this.getIdentifier(), 0, 0, this.getU(), this.getV() + hoveredVOffset, this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
             } else {
-                DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
+                context.drawTexture(this.getIdentifier(), 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
             }
 
-            matrixStack.pop();
+            context.getMatrices().pop();
         }
 
-        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
+        super.draw(context, mouseX, mouseY, hideTooltips);
     }
 
-    public void renderTooltip(MatrixStack matrices, double mouseX, double mouseY) {
-        tooltipSupplier.onTooltip(this, matrices, mouseX, mouseY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0));
+    public void renderTooltip(DrawContext context, double mouseX, double mouseY) {
+        tooltipSupplier.drawTooltip(this, context, mouseX, mouseY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? 43 : 0), false);
     }
 
     public UIComponent mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
@@ -97,13 +95,22 @@ public class UIButton extends UIComponent {
     }
 
     @Override
-    public void renderFixedTooltip(MatrixStack stack) {
-        tooltipSupplier.onTooltip(this, stack, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0));
+    public void renderFixedTooltip(DrawContext context) {
+        tooltipSupplier.drawTooltip(this, context, getX() + getWidth() - 4, getY() + 8 + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0), true);
     }
 
     @Environment(EnvType.CLIENT)
     public interface TooltipSupplier {
-        void onTooltip(UIButton button, MatrixStack matrices, double mouseX, double mouseY);
+        void onTooltip(UIButton button, DrawContext context, double mouseX, double mouseY);
+
+        default void drawTooltip(UIButton button, DrawContext context, double mouseX, double mouseY, boolean override) {
+            onTooltip(button, context, mouseX, mouseY);
+            if (override) {
+                MenuUtils.setForcedTooltip(true, mouseX, mouseY);
+            } else {
+                MenuUtils.setForcedTooltip(false, 0, 0);
+            }
+        }
 
         default void supply(Consumer<Text> consumer) {
         }

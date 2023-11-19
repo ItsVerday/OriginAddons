@@ -28,31 +28,31 @@ public class OrbitMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 98, 12, 70, 16, 176, 0, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(8);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(8).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(8).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Quests
         addSelectableElement(new UIButton(TEXTURE, 98, 30, 70, 16, 176, 32, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(17);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(17).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(17).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Friends
         addSelectableElement(new UIButton(TEXTURE, 98, 48, 70, 16, 176, 64, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(26);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(26).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(26).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Discord
         addSelectableElement(new UIButton(TEXTURE, 98, 66, 70, 16, 246, 0, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(35);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(35).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(35).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Settings
         addSelectableElement(new UIButton(TEXTURE, 98, 84, 70, 16, 246, 32, 16, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(44);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(44).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(44).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
     }
 

@@ -3,7 +3,7 @@ package com.mikarific.originaddons.ui.components;
 import com.mikarific.originaddons.util.Other;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class UIScrollable extends UIComponent {
         super(x, y, width, height);
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         ArrayList<UIButton> buttons = new ArrayList<>();
         if (this.getChildren().size() != childrenLength) {
             double lowestY = MinecraftClient.getInstance().getWindow().getHeight();
@@ -48,14 +48,14 @@ public class UIScrollable extends UIComponent {
                     child.setY(y);
                     child.setYOffset(yOffset);
                 }
-                child.draw(matrixStack, mouseX, mouseY, hideTooltips);
+                child.draw(context, mouseX, mouseY, hideTooltips);
                 if (child instanceof UIButton) buttons.add((UIButton) child);
             });
             Other.resetScrollOffset();
             RenderSystem.disableScissor();
         }
         buttons.forEach(button -> {
-            if (button.isVisible() && button.isHovered() && this.isHovered()) button.renderTooltip(matrixStack, mouseX, mouseY);
+            if (button.isVisible() && button.isHovered() && this.isHovered()) button.renderTooltip(context, mouseX, mouseY);
         });
     }
 }

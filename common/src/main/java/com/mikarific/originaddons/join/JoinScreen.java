@@ -5,6 +5,7 @@ import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import com.mikarific.originaddons.util.emojipicker.EmojiPicker;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -53,7 +54,7 @@ public class JoinScreen extends Screen {
         this.status = Text.translatable("originaddons.join.blockpick");
         update(new File(originAddonsDirectory, "blockpicker.json"), "https://api.originaddons.com/blockpicker.json?v=" + Instant.now().toEpochMilli(), info.get("blockpickVersion").getAsInt(), BlockPicker::clear);
         assert this.client != null;
-        ConnectScreen.connect(this.parent, this.client, ServerAddress.parse(this.entry.address), this.entry);
+        ConnectScreen.connect(this.parent, this.client, ServerAddress.parse(this.entry.address), this.entry, false);
     }
 
     private void update(File file, String url, int latestVersion, Runnable action) {
@@ -88,10 +89,10 @@ public class JoinScreen extends Screen {
         }
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        drawCenteredText(matrices, this.textRenderer, this.status, this.width / 2, this.height / 2 - 50, 16777215);
-        super.render(matrices, mouseX, mouseY, delta);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.status, this.width / 2, this.height / 2 - 50, 16777215);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     public boolean shouldCloseOnEsc() {

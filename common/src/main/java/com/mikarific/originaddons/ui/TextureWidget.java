@@ -1,15 +1,12 @@
 package com.mikarific.originaddons.ui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-public class TextureWidget extends DrawableHelper implements Drawable {
+public class TextureWidget implements Drawable {
     private final int x;
     private final int y;
     private final int width;
@@ -33,10 +30,9 @@ public class TextureWidget extends DrawableHelper implements Drawable {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, this.texture);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.enableDepthTest();
-        drawTexture(matrices, this.x, this.y, (float) this.u, (float) this.v, this.width, this.height, this.textureWidth, this.textureHeight);
+        context.drawTexture(this.texture, this.x, this.y, (float) this.u, (float) this.v, this.width, this.height, this.textureWidth, this.textureHeight);
     }
 }

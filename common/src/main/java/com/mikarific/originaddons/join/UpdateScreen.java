@@ -4,11 +4,11 @@ import com.google.gson.JsonObject;
 import com.mikarific.originaddons.OriginAddons;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.MultilineText;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
@@ -53,30 +53,30 @@ public class UpdateScreen extends Screen {
         super.init();
         int height = 110 + changelogLineCount * 10;
         if (changelog.size() > 0) height += 20;
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 150, height, 148, 20, Text.translatable("originaddons.update.update"), (button) -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.update"), (button) -> {
             Util.getOperatingSystem().open(download);
-        }));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 + 2, height, 148, 20, Text.translatable("originaddons.update.joinanyways"), (button) -> {
+        }).dimensions(this.width / 2 - 150, height, 148, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.joinanyways"), (button) -> {
             assert this.client != null;
             this.client.setScreen(new JoinScreen((MultiplayerScreen) this.parent, entry, info));
-        }));
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, height + 24, 200, 20, Text.translatable("originaddons.update.cancel"), (button) -> {
+        }).dimensions(this.width / 2 + 2, height, 148, 20).build());
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("originaddons.update.cancel"), (button) -> {
             assert this.client != null;
             this.client.setScreen(this.parent);
-        }));
+        }).dimensions(this.width / 2 - 100, height + 24, 200, 20).build());
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        drawCenteredText(matrices, this.textRenderer, this.title.copy().setStyle(Style.EMPTY.withBold(true)), this.width / 2, 70, 16777215);
-        drawCenteredText(matrices, this.textRenderer, Text.translatable("originaddons.update.message").getString().replaceAll("%currentVersion%", OriginAddons.VERSION).replaceAll("%latestVersion%", latestVersion), this.width / 2, 90, 16777215);
-        if (changelog.size() > 0) drawCenteredText(matrices, this.textRenderer, Text.translatable("originaddons.update.changelog").setStyle(Style.EMPTY.withBold(true)), this.width / 2, 110, 16777215);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        context.drawCenteredTextWithShadow(this.textRenderer, this.title.copy().setStyle(Style.EMPTY.withBold(true)), this.width / 2, 70, 16777215);
+        context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("originaddons.update.message").getString().replaceAll("%currentVersion%", OriginAddons.VERSION).replaceAll("%latestVersion%", latestVersion), this.width / 2, 90, 16777215);
+        if (changelog.size() > 0) context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("originaddons.update.changelog").setStyle(Style.EMPTY.withBold(true)), this.width / 2, 110, 16777215);
         int y = 120;
         for(MultilineText line : changelog) {
-            line.drawWithShadow(matrices, this.width / 2 - 150, y, 10, 16777215);
+            line.drawWithShadow(context, this.width / 2 - 150, y, 10, 16777215);
             y += line.count() * 10;
         }
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     public boolean shouldCloseOnEsc() {

@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 
 import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class NavigatorMenu extends CustomMenu {
     public static final String TITLE = "슣";
@@ -124,7 +125,7 @@ public class NavigatorMenu extends CustomMenu {
         }, (b, m, tx, ty) -> {
             List<Text> tooltip = MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack());
             tooltip.addAll(List.of(extraTooltipLines));
-            screen.renderTooltip(m, tooltip, (int) tx, (int) ty);
+            MenuUtils.renderTooltip(tooltip, screen, m, tx, ty);
         });
     }
 
@@ -132,7 +133,7 @@ public class NavigatorMenu extends CustomMenu {
         addButton(box, x, y, width, height, u, v, hoveredVOffset, selectable, true, () -> {
             MenuUtils.sendCommand(player, command.get());
         }, (b, m, tx, ty) -> {
-            screen.renderTooltip(m, List.of(tooltip), (int) tx, (int) ty);
+            MenuUtils.renderTooltip(List.of(tooltip), screen, m, tx, ty);
         });
     }
 

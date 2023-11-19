@@ -2,12 +2,10 @@ package com.mikarific.originaddons.ui.components;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.util.DefaultSkinHelper;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,11 +33,11 @@ public class UIFace extends UIButton {
         this.scale = scale;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
-        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
+        super.draw(context, mouseX, mouseY, hideTooltips);
         if (this.isVisible()) {
-            matrixStack.push();
-            matrixStack.translate(this.getX(), this.getY(), 1f);
+            context.getMatrices().push();
+            context.getMatrices().translate(this.getX(), this.getY(), 1f);
             Identifier texture;
             assert MinecraftClient.getInstance().player != null;
             GameProfile profile = null;
@@ -57,10 +55,9 @@ public class UIFace extends UIButton {
             } else {
                 texture = profile != null ? DefaultSkinHelper.getTexture(profile.getId()) : DefaultSkinHelper.getTexture();
             }
-            RenderSystem.setShaderTexture(0, texture);
-            DrawableHelper.drawTexture(matrixStack, innerX, innerY, 8 * scale, 8 * scale, 8, 8, 8, 8, 64, 64);
-            DrawableHelper.drawTexture(matrixStack, innerX - 1, innerY - 1, (8 * scale) + 2, (8 * scale) + 2, 40, 8, 8, 8, 64, 64);
-            matrixStack.pop();
+            context.drawTexture(texture, innerX, innerY, 8 * scale, 8 * scale, 8, 8, 8, 8, 64, 64);
+            context.drawTexture(texture, innerX - 1, innerY - 1, (8 * scale) + 2, (8 * scale) + 2, 40, 8, 8, 8, 64, 64);
+            context.getMatrices().pop();
         }
     }
 

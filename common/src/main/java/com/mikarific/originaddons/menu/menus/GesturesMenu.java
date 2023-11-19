@@ -1,6 +1,5 @@
 package com.mikarific.originaddons.menu.menus;
 
-import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.menu.CustomMenu;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIButton;
@@ -32,50 +31,50 @@ public class GesturesMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 8, 27, 52, 34, 176, 0, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(9);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(9).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(9).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Slot 2
         addSelectableElement(new UIButton(TEXTURE, 62, 27, 52, 34, 228, 0, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(12);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(12).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(12).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Slot 3
         addSelectableElement(new UIButton(TEXTURE, 116, 27, 52, 34, 280, 0, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(15);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(15).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(15).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Slot 4
         addSelectableElement(new UIButton(TEXTURE, 8, 63, 52, 34, 176, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(27);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Slot 5
         addSelectableElement(new UIButton(TEXTURE, 62, 63, 52, 34, 228, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(30);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Slot 6
         addSelectableElement(new UIButton(TEXTURE, 116, 63, 52, 34, 280, 68, 34, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(33);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
 
         //Back
         new UIButton(TEXTURE, 8, 9, 16, 14, 332, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(0);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box);
         //View All
         addSelectableElement(new UIButton(TEXTURE, 116, 9, 52, 14, 332, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(6);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), screen, m, (int)x, (int)y);
         }, false).setChildOf(box));
         //Gestures
         List<Text> gestures = screen.getTitle().getSiblings().get(1).getSiblings().get(0).getSiblings().stream().filter(sibling -> sibling.getStyle().getFont().getPath().contains("gesture")).toList();

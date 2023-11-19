@@ -5,6 +5,7 @@ import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -16,14 +17,14 @@ public class Window {
     private boolean includeInventory = false;
     private ArrayList<UIComponent> children = new ArrayList<>();
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
-        draw(matrixStack, mouseX, mouseY, false);
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY) {
+        draw(context, mouseX, mouseY, false);
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (includeInventory) {
-            matrixStack.push();
-            matrixStack.translate(0, -43, 0);
+            context.getMatrices().push();
+            context.getMatrices().translate(0, -43, 0);
             int maxY = 0;
             for (UIComponent child : children) {
                 int bottom = (int) (child.getY() + child.getHeight());
@@ -33,26 +34,26 @@ public class Window {
             }
 
             UIComponent inventory = new UITexture(new Identifier("textures/gui/container/inventory.png"), (MinecraftClient.getInstance().getWindow().getScaledWidth() - 176) / 2, maxY, 176, 87, 0, 79, 256, 256);
-            inventory.draw(matrixStack, mouseX, mouseY, hideTooltips);
+            inventory.draw(context, mouseX, mouseY, hideTooltips);
         }
 
-        drawChildren(children, matrixStack, mouseX, mouseY, hideTooltips);
-        if (includeInventory) matrixStack.pop();
+        drawChildren(children, context, mouseX, mouseY, hideTooltips);
+        if (includeInventory) context.getMatrices().pop();
     }
 
-    public static void drawChildren(ArrayList<UIComponent> children, @NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public static void drawChildren(ArrayList<UIComponent> children, @NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         ArrayList<UIButton> buttons = new ArrayList<>();
         ArrayList<UIItem> items = new ArrayList<>();
         children.forEach(child -> {
-            child.draw(matrixStack, mouseX, mouseY, hideTooltips);
+            child.draw(context, mouseX, mouseY, hideTooltips);
             if (child instanceof UIButton) buttons.add((UIButton) child);
             if (child instanceof UIItem) items.add((UIItem) child);
         });
         buttons.forEach(button -> {
-            if (button.isVisible() && button.isHovered() && !hideTooltips) button.renderTooltip(matrixStack, mouseX, mouseY);
+            if (button.isVisible() && button.isHovered() && !hideTooltips) button.renderTooltip(context, mouseX, mouseY);
         });
         items.forEach(item -> {
-            if (item.isVisible() && item.isHovered() && !hideTooltips) item.renderTooltip(matrixStack, mouseX, mouseY);
+            if (item.isVisible() && item.isHovered() && !hideTooltips) item.renderTooltip(context, mouseX, mouseY);
         });
     }
 

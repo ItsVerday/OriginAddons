@@ -2,12 +2,13 @@ package com.mikarific.originaddons.mixin.emojipicker;
 
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.*;
+import com.mikarific.originaddons.util.MenuUtils;
 import com.mikarific.originaddons.util.emojipicker.EmojiInstance;
 import com.mikarific.originaddons.util.emojipicker.EmojiPicker;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.*;
 import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.List;
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin extends Screen {
@@ -71,7 +74,7 @@ public class ChatScreenMixin extends Screen {
                     chatField.setText(beforeEmoji + emoji.getInfo().getToken() + afterEmoji);
                     chatField.setCursor(cursor + emoji.getInfo().getToken().length());
                 }, (b, m, x, y) -> {
-                    renderTooltip(m, Text.literal(emoji.getInfo().getToken()).setStyle(EMOJI_TOKEN_HOVER_STYLE), (int) x, (int) y);
+                    MenuUtils.renderTooltip(List.of(Text.literal(emoji.getInfo().getToken()).setStyle(EMOJI_TOKEN_HOVER_STYLE)), this, m, (int) x, (int) y);
                 }, true).setChildOf(scrollable);
 
                 emojiX += emoji.getInfo().getWidth();
@@ -80,9 +83,9 @@ public class ChatScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    private void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (EmojiPicker.isEmojiPickerEnabled()) {
-            window.draw(matrices, mouseX, mouseY);
+            window.draw(context, mouseX, mouseY);
         }
     }
 
@@ -103,8 +106,8 @@ public class ChatScreenMixin extends Screen {
         if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) cir.setReturnValue(false);
     }
 
-    @Inject(method = "render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V", at = @At(value = "INVOKE", target = "net/minecraft/client/gui/screen/ChatScreen.renderTextHoverEffect (Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/text/Style;II)V"), cancellable = true)
-    private void disableHudTooltips(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawHoverEvent(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Style;II)V"), cancellable = true)
+    private void disableHudTooltips(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) ci.cancel();
     }
 }

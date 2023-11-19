@@ -2,6 +2,8 @@ package com.mikarific.originaddons.util;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.InputUtil;
@@ -16,16 +18,46 @@ import java.util.Objects;
 import java.util.function.Function;
 
 public class MenuUtils {
+    private static boolean forcedTooltip = false;
+    private static double forcedTooltipX = 0;
+    private static double forcedTooltipY = 0;
+
+    public static void setForcedTooltip(boolean forcedTooltip, double forcedTooltipX, double forcedTooltipY) {
+        MenuUtils.forcedTooltip = forcedTooltip;
+        MenuUtils.forcedTooltipX = forcedTooltipX;
+        MenuUtils.forcedTooltipY = forcedTooltipY;
+    }
+
+    public static double getTooltipX(double currentTooltipX) {
+        if (forcedTooltip) {
+            return forcedTooltipX;
+        }
+
+        return currentTooltipX;
+    }
+
+    public static double getTooltipY(double currentTooltipY) {
+        if (forcedTooltip) {
+            return forcedTooltipY;
+        }
+
+        return currentTooltipY;
+    }
+
     public static void sendCommand(ClientPlayerEntity player, String text) {
         if (text.startsWith("/")) {
             text = text.substring(1);
         }
 
-        player.sendCommand(text);
+        player.networkHandler.sendChatCommand(text);
     }
 
     public static List<Text> getDisplayTooltip(ItemStack item) {
-        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
+        return item.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.BASIC);
+    }
+
+    public static void renderTooltip(List<Text> tooltip, Screen screen, DrawContext context, double tx, double ty) {
+        screen.setTooltip(tooltip.stream().map(Text::asOrderedText).toList());
     }
 
     private static int clickButton = 0;

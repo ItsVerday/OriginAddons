@@ -43,7 +43,7 @@ public class RealmsMenu extends CustomMenu {
             new UIButton(TEXTURE, 23, 15, 22, 28, 176, 44, 28, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(1);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(1).getStack()), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(1).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box);
         }
         //Teleport Home
@@ -51,7 +51,7 @@ public class RealmsMenu extends CustomMenu {
             addSelectableElement(new UIButton(TEXTURE, 58, 15, 60, 22, 176, 0, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(4);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box));
         }
         //Settings
@@ -59,7 +59,7 @@ public class RealmsMenu extends CustomMenu {
             addSelectableElement(new UIButton(TEXTURE, 131, 15, 22, 22, 236, 0, 22, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(7);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(7).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box));
         }
         //Items
@@ -72,7 +72,7 @@ public class RealmsMenu extends CustomMenu {
                 MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
                 if (!screenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                    screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                    MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, (int) x, (int) y);
                 }
             }, false).setChildOf(box);
             items.put(slot, item);
@@ -84,7 +84,7 @@ public class RealmsMenu extends CustomMenu {
             UIButton button = (UIButton) new UIButton(TEXTURE, 0, 0, 0, 0, 0, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) x, (int) y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box);
             buttons.put(slot, button);
             addSelectableElement(button, i == 46 ? () -> !firstPage : i == 52 ? () -> !lastPage : () -> true);

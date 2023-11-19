@@ -43,14 +43,14 @@ public class GesturesAllMenu extends CustomMenu {
                 MenuUtils.pickupItemAtSlot(slot);
             }, (b, m, x, y) -> {
                 if (!screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR)) {
-                    screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                    MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, (int) x, (int) y);
                 }
             }, false).setChildOf(box), () -> !screenHandler.getSlot(slot).getStack().getItem().equals(Items.AIR));
         }
 
         //Previous Page
         previousPage = (UIButton) new UIButton(TEXTURE, 8, 101, 36, 14, 176, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(45).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         addSelectableElement(previousPage, () -> !firstPage);
 
@@ -58,7 +58,7 @@ public class GesturesAllMenu extends CustomMenu {
         nextPage = (UIButton) new UIButton(TEXTURE, 132, 101, 36, 14, 212, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(52);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(52).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         addSelectableElement(nextPage, () -> !lastPage);
 
@@ -67,13 +67,13 @@ public class GesturesAllMenu extends CustomMenu {
             addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 192, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(0);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box));
         } else {
             addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 176, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(0);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), screen, m, (int) x, (int) y);
             }, false).setChildOf(box));
         }
         //Page Numbers

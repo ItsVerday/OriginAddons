@@ -1,7 +1,7 @@
 package com.mikarific.originaddons.ui.components;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,14 +17,14 @@ public class UIText extends UIComponent {
         this.setY(y);
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
-            matrixStack.push();
-            matrixStack.translate(this.getX(), this.getY(), 1f);
-            MinecraftClient.getInstance().textRenderer.draw(matrixStack, this.text, 0, 0, this.color);
-            matrixStack.pop();
+            context.getMatrices().push();
+            context.getMatrices().translate(this.getX(), this.getY(), 1f);
+            context.drawText(MinecraftClient.getInstance().textRenderer, this.text, 0, 0, this.color, false);
+            context.getMatrices().pop();
         }
-        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
+        super.draw(context, mouseX, mouseY, hideTooltips);
     }
 
     public UIText setText(Text text) {

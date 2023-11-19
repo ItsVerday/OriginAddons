@@ -50,7 +50,7 @@ public class NavigatorBalloonsMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 8, 9, 16, 14, 176, closeV, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(0);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), (int) x, (int) y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(0).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
     }
 
@@ -66,7 +66,7 @@ public class NavigatorBalloonsMenu extends CustomMenu {
         UIComponent button = new UIButton(TEXTURE, x, y, width, height, u, finalV, finalHoveredVOffset, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(slot);
         }, (b, m, tx, ty) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int) tx, (int) ty);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, (int) tx, (int) ty);
         }, false).setChildOf(box);
 
         if (!disabled) {

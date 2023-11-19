@@ -51,7 +51,7 @@ public class PaintingMenu extends CustomMenu {
             finishesSelector = (UIButton) new UIButton(TEXTURE, 74, 78, 28, 15, 176 + (finishesOn ? 28 : 0), 0, 15, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
                 MenuUtils.pickupItemAtSlot(31);
             }, (b, m, x, y) -> {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(31).getStack()), (int) x, (int) y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(31).getStack()), screen, m, (int)x, (int)y);
             }, false).setChildOf(box);
         } else {
             window.includeInventory();
@@ -98,7 +98,7 @@ public class PaintingMenu extends CustomMenu {
         }, (b, m, x_, y_) -> {
             ItemStack stack = screenHandler.getSlot(slot).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int) x_, (int) y_);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x_, (int)y_);
             }
         }, false).setChildOf(box);
 

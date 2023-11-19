@@ -1,9 +1,8 @@
 package com.mikarific.originaddons.ui.components;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,17 +22,17 @@ public class UITexture extends UIComponent {
         this.textureHeight = textureHeight;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
-            matrixStack.push();
-            matrixStack.translate(this.getX(), this.getY(), 1f);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            context.getMatrices().push();
+            context.getMatrices().translate(this.getX(), this.getY(), 1f);
+            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
             RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
             RenderSystem.setShaderTexture(0, this.getIdentifier());
-            DrawableHelper.drawTexture(matrixStack, 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
-            matrixStack.pop();
+            context.drawTexture(this.getIdentifier(), 0, 0, this.getU(), this.getV(), this.getWidth(), this.getHeight(), this.getTextureWidth(), this.getTextureHeight());
+            context.getMatrices().pop();
         }
-        super.draw(matrixStack, mouseX, mouseY, hideTooltips);
+        super.draw(context, mouseX, mouseY, hideTooltips);
     }
 
     public Identifier getIdentifier() {

@@ -28,19 +28,19 @@ public class RealmSettingsMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 25, 17, 36, 18, 176, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(1);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(1).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(1).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
         //Reset Realm
         new UIButton(TEXTURE, 79, 17, 18, 18, 212, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(4);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(4).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Visiting Rules
         addSelectableElement(new UIButton(TEXTURE, 115, 17, 36, 18, 230, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(6);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
     }
 

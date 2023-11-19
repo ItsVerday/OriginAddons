@@ -3,6 +3,8 @@ package com.mikarific.originaddons.menu;
 import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.ui.Window;
 import com.mikarific.originaddons.ui.components.UIComponent;
+import com.mikarific.originaddons.util.MenuUtils;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -35,9 +37,9 @@ public abstract class CustomMenu {
         draw(screen);
     }
 
-    public void drawSelectedElementTooltip(MatrixStack stack) {
+    public void drawSelectedElementTooltip(DrawContext context) {
         if (selectedElement != -1 && renderSelectedTooltip) {
-            selectableElements.get(selectedElement).renderFixedTooltip(stack);
+            selectableElements.get(selectedElement).renderFixedTooltip(context);
         }
     }
 
@@ -67,7 +69,7 @@ public abstract class CustomMenu {
     }
 
     public void selectNextElement(boolean reversed) {
-        if (selectableElements.size() == 0) return;
+        if (selectableElements.isEmpty()) return;
 
         renderSelectedTooltip = true;
         if (selectedElement != -1) {

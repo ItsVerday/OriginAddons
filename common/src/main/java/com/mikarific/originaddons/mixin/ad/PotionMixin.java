@@ -21,6 +21,7 @@ public abstract class PotionMixin<T extends ScreenHandler> extends HandledScreen
         super(handler, inventory, title);
     }
 
+    /*
     @ModifyArg(
             method = "drawStatusEffectDescriptions",
             at = @At(
@@ -49,4 +50,5 @@ public abstract class PotionMixin<T extends ScreenHandler> extends HandledScreen
             AbstractInventoryScreen.drawSprite(matrices, x, y, zOffset, width, height, sprite);
         }
     }
+    */
 }

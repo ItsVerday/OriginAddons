@@ -3,9 +3,8 @@ package com.mikarific.originaddons.ui.components;
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
@@ -32,20 +31,19 @@ public class UIItem extends UIButton {
         this.drawHighlight = drawHighlight;
     }
 
-    public void draw(@NotNull MatrixStack matricies, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) {
             if (stack != null && !stack.getTranslationKey().equals("block.minecraft.air")) {
-                super.draw(matricies, mouseX, mouseY, hideTooltips);
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                super.draw(context, mouseX, mouseY, hideTooltips);
+                RenderSystem.setShader(GameRenderer::getPositionTexProgram);
                 RenderSystem.enableDepthTest();
-                MinecraftClient.getInstance().getItemRenderer().renderInGuiWithOverrides(MinecraftClient.getInstance().player, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
-                MinecraftClient.getInstance().getItemRenderer().renderGuiItemOverlay(MinecraftClient.getInstance().textRenderer, stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)));
+                context.drawItem(stack, (int) (this.getX() + this.innerX), (int) (this.getY() + this.innerY + (CustomMenus.getCurrentMenu() != null && CustomMenus.inventoryEnabled() ? -43 : 0)), (int) (this.getX() + this.innerX + (this.getY() + this.innerY) * MinecraftClient.getInstance().getWindow().getWidth()));
             }
             if(drawHighlight) this.setHovered(this.getX() - 1, this.getY() - 1, this.getWidth() + 2, this.getHeight() + 2, mouseX, mouseY);
             if (this.isHoveredOrSelected() && drawHighlight) {
                 RenderSystem.disableDepthTest();
                 RenderSystem.colorMask(true, true, true, false);
-                DrawableHelper.fill(matricies, (int) this.getX(), (int) this.getY(), (int) (this.getX() + this.getWidth()), (int) (this.getY() + this.getHeight()), -2130706433);
+                context.fill((int) this.getX(), (int) this.getY(), (int) (this.getX() + this.getWidth()), (int) (this.getY() + this.getHeight()), -2130706433);
                 RenderSystem.colorMask(true, true, true, true);
                 RenderSystem.enableDepthTest();
             }

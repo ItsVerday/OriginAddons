@@ -2,7 +2,7 @@ package com.mikarific.originaddons.ui.components;
 
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.ui.Window;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -28,9 +28,9 @@ public class UIComponent {
         this.originalY = y;
     }
 
-    public void draw(@NotNull MatrixStack matrixStack, double mouseX, double mouseY, boolean hideTooltips) {
+    public void draw(@NotNull DrawContext context, double mouseX, double mouseY, boolean hideTooltips) {
         if (this.isVisible()) setHovered(mouseX, mouseY);
-        Window.drawChildren(children, matrixStack, mouseX, mouseY, hideTooltips);
+        Window.drawChildren(children, context, mouseX, mouseY, hideTooltips);
     }
 
     public UIComponent mouseClicked(int button, CallbackInfoReturnable<Boolean> cir) {
@@ -142,5 +142,5 @@ public class UIComponent {
 
     public void click(int button) {}
 
-    public void renderFixedTooltip(MatrixStack stack) {}
+    public void renderFixedTooltip(DrawContext context) {}
 }

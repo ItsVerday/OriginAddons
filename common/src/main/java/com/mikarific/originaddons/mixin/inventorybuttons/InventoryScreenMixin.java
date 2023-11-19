@@ -24,8 +24,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(InventoryScreen.class)
 public abstract class InventoryScreenMixin extends AbstractInventoryScreen<PlayerScreenHandler> {
-    @Shadow public abstract void removed();
-
     private static TexturedButtonWidget navigatorMenuButton;
     public InventoryScreenMixin(PlayerScreenHandler screenHandler, PlayerInventory playerInventory, Text text) {
         super(screenHandler, playerInventory, text);
@@ -74,17 +72,7 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Inject(method = "method_19891(Lnet/minecraft/client/gui/widget/ButtonWidget;)V", at = @At(value = "TAIL"))
     private void moveButtonsWithRecipeBook(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
-            navigatorMenuButton.setPos(this.x + 127, navigatorMenuButton.y);
+            navigatorMenuButton.setX(this.x + 127);
         }
-    }
-
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/AbstractInventoryScreen;render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V"))
-    private void renderWindow(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        //window.draw(matrices, mouseX, mouseY);
-    }
-
-    @Inject(method = "mouseClicked(DDI)Z", at = @At("HEAD"))
-    private void clickWindow(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-        //window.mouseClicked(button, cir);
     }
 }

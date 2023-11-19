@@ -28,13 +28,13 @@ public class RealmRoleSelectMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 24, 17, 56, 18, 176, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(2);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(2).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(2).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
         //Trusted
         addSelectableElement(new UIButton(TEXTURE, 98, 17, 56, 18, 232, 0, 18, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(6);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
     }
 

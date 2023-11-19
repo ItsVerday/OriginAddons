@@ -104,7 +104,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(0).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(backButton);
@@ -114,7 +114,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(1).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(refreshButton, () -> refreshEnabled);
@@ -124,7 +124,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(8).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(buyButton, () -> buyEnabled);
@@ -134,7 +134,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(45).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(previousPageButton, () -> previousPageEnabled);
@@ -144,7 +144,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(50).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(nextPageButton, () -> nextPageEnabled);
@@ -154,7 +154,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(52).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(categoryButton);
@@ -164,7 +164,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x, y) -> {
             ItemStack stack = screenHandler.getSlot(53).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int)x, (int)y);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, (int)x, (int)y);
             }
         }, false).setChildOf(box);
         addSelectableElement(sortButton);
@@ -192,7 +192,7 @@ public class AuctionHouseMenu extends CustomMenu {
         }, (b, m, x_, y_) -> {
             ItemStack stack = screenHandler.getSlot(slot).getStack();
             if (!stack.getItem().equals(Items.AIR)) {
-                screen.renderTooltip(m, MenuUtils.getDisplayTooltip(stack), (int) x_, (int) y_);
+                MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(stack), screen, m, x, y);
             }
         }, false).setChildOf(box);
 

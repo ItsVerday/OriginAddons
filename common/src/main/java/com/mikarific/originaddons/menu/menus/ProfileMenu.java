@@ -19,6 +19,7 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -43,7 +44,7 @@ public class ProfileMenu extends CustomMenu {
 
         //Face
         face = (UIItem) new UIItem(null, 49, 30, false, TEXTURE, 13, 28, 42, 42, 176, 0, 42, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(10).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(10).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
 
         //Items
@@ -54,7 +55,7 @@ public class ProfileMenu extends CustomMenu {
             int slotY = 4 + (18 * ((int) Math.floor(slot / 9.0) + 1));
             items.put(slot, (UIItem) new UIItem(null, 0, 0, true, TEXTURE, slotX, slotY, 16, 16, 273, 84, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
                 if (!screenHandler.getSlot(slot).getStack().getTranslationKey().equals("block.minecraft.air")) {
-                    screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), (int)x, (int)y);
+                    MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(slot).getStack()), screen, m, (int) x, (int) y);
                 }
             }, false).setChildOf(box));
         }
@@ -76,31 +77,31 @@ public class ProfileMenu extends CustomMenu {
 
         //Player Level
         new UIButton(TEXTURE, 65, 60, 13, 13, 176, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(21).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(21).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Rubies
         new UIButton(TEXTURE, 79, 60, 16, 13, 189, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(22).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(22).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Discord
         new UIButton(TEXTURE, 96, 60, 16, 13, 205, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(23).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(23).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Playtime
         new UIButton(TEXTURE, 113, 60, 13, 13, 221, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(24).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(24).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
 
         //Online Indicator
         onlineIndicator = (UIButton) new UIButton(TEXTURE, 116, 22, 13, 13, 234, 84, 13, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(6).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(25).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
 
         //Visit Realm
         addSelectableElement(new UIButton(TEXTURE, 7, 79, 34, 14, 218, 0, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(27);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(27).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
         //Friend
         int friendU = 252;
@@ -113,50 +114,50 @@ public class ProfileMenu extends CustomMenu {
         addSelectableElement(new UIButton(TEXTURE, 43, 79, 16, 14, friendU, friendV, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(29);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(29).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(29).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
         //Duel
         new UIButton(TEXTURE, 61, 79, 16, 14, 234, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(30);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(30).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Trade
         new UIButton(TEXTURE, 79, 79, 16, 14, 250, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(31);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(31).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(31).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Vault
         new UIButton(TEXTURE, 97, 79, 16, 14, 266, 28, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(32);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(32).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(32).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //Auctions
         addSelectableElement(new UIButton(TEXTURE, 115, 79, 16, 14, 218, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.pickupItemAtSlot(33);
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), (int)x, (int)y);
+            MenuUtils.renderTooltip(MenuUtils.getDisplayTooltip(screenHandler.getSlot(33).getStack()), screen, m, (int) x, (int) y);
         }, false).setChildOf(box));
 
         //Messaging
         new UIButton(TEXTURE, 7, 5, 16, 14, 234, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //TPA
         addSelectableElement(new UIButton(TEXTURE, 25, 5, 16, 14, 250, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.sendCommand(player, "/tpa " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
         }, true).setChildOf(box));
         //TPAHere
         addSelectableElement(new UIButton(TEXTURE, 43, 5, 16, 14, 266, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.sendCommand(player, "/tpahere " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            screen.renderTooltip(m, Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray"))), (int)x, (int)y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
         }, true).setChildOf(box));
     }
 

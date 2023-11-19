@@ -2,37 +2,32 @@ package com.mikarific.originaddons.mixin.rocketboots;
 
 import com.mikarific.originaddons.OriginAddons;
 import com.mikarific.originaddons.util.ItemStackUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.HungerManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
-import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.List;
 
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
-    private static final Identifier ICONS = new Identifier("originaddons", "textures/gui/rocket_boots_fuel_bar.png");
+    @Unique
+    private static final Identifier RB_ICONS = new Identifier("originaddons", "textures/gui/rocket_boots_fuel_bar.png");
+    @Unique
     private static final int FUEL_BAR_HEIGHT = 30;
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
@@ -48,7 +43,7 @@ public abstract class InGameHudMixin {
     }
 
     private static int getCurrentFuel(ItemStack itemStack) {
-        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
+        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.BASIC);
 
         for (Text text: tooltip) {
             String toString = text.getString();
@@ -68,7 +63,7 @@ public abstract class InGameHudMixin {
         PlayerEntity playerEntity = getCameraPlayer();
         if (playerEntity == null) return false;
 
-        Identifier worldKey = playerEntity.world.getRegistryKey().getValue();
+        Identifier worldKey = playerEntity.getWorld().getRegistryKey().getValue();
         if (!OriginAddons.getConfig().neverHideRocketBootsFuelBar && worldKey.getNamespace().equals("minecraft") && (worldKey.getPath().equals("overworld") || worldKey.getPath().equals("the_nether"))) return false;
 
         ItemStack boots = playerEntity.getEquippedStack(EquipmentSlot.FEET);
@@ -81,14 +76,14 @@ public abstract class InGameHudMixin {
     }
 
     @Inject(method = "renderStatusBars", at = @At("HEAD"))
-    private void renderRocketBootsFuelBar(MatrixStack matrices, CallbackInfo ci) {
+    private void renderRocketBootsFuelBar(DrawContext context, CallbackInfo ci) {
         if (!OriginAddons.onOriginRealms()) return;
         if (!OriginAddons.getConfig().rocketBootsFuelBar) return;
 
         PlayerEntity playerEntity = getCameraPlayer();
         if (playerEntity == null) return;
 
-        Identifier worldKey = playerEntity.world.getRegistryKey().getValue();
+        Identifier worldKey = playerEntity.getWorld().getRegistryKey().getValue();
         if (!OriginAddons.getConfig().neverHideRocketBootsFuelBar && worldKey.getNamespace().equals("minecraft") && (worldKey.getPath().equals("overworld") || worldKey.getPath().equals("the_nether"))) return;
 
         ItemStack boots = playerEntity.getEquippedStack(EquipmentSlot.FEET);
@@ -102,7 +97,6 @@ public abstract class InGameHudMixin {
 
         if (!shouldRenderRocketBootsFuelBar()) return;
 
-        RenderSystem.setShaderTexture(0, ICONS);
         int scaledWidth = MinecraftClient.getInstance().getWindow().getScaledWidth();
         int scaledHeight = MinecraftClient.getInstance().getWindow().getScaledHeight();
         int barX = (scaledWidth / 2 - 5 / 2) + 96;
@@ -117,9 +111,7 @@ public abstract class InGameHudMixin {
         if (barHeight < 0) barHeight = 0;
         if (barHeight > FUEL_BAR_HEIGHT) barHeight = FUEL_BAR_HEIGHT;
 
-        DrawableHelper.drawTexture(matrices, barX, barY, 0, 0, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 10, FUEL_BAR_HEIGHT + 2);
-        DrawableHelper.drawTexture(matrices, barX, barY + FUEL_BAR_HEIGHT + 1 - barHeight, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 5, 1 + barHeight, 10, FUEL_BAR_HEIGHT + 2);
-
-        RenderSystem.setShaderTexture(0, InGameHud.GUI_ICONS_TEXTURE);
+        context.drawTexture(RB_ICONS, barX, barY, 0, 0, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 10, FUEL_BAR_HEIGHT + 2);
+        context.drawTexture(RB_ICONS, barX, barY + FUEL_BAR_HEIGHT + 1 - barHeight, 5, FUEL_BAR_HEIGHT + 1 - barHeight, 5, 1 + barHeight, 10, FUEL_BAR_HEIGHT + 2);
     }
 }

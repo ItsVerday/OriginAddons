@@ -9,9 +9,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -21,10 +19,6 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public abstract class ItemStackMixin {
-    @Shadow public abstract String toString();
-
-    @Shadow @Nullable private NbtCompound nbt;
-
     @Inject(at = @At("RETURN"), method = "getTooltip", cancellable = true)
     private void modifyTooltip(PlayerEntity player, TooltipContext tooltipContext, CallbackInfoReturnable<List<Text>> cir) {
         if (!OriginAddons.onOriginRealms()) {

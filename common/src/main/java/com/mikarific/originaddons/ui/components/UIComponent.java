@@ -2,6 +2,7 @@ package com.mikarific.originaddons.ui.components;
 
 import com.mikarific.originaddons.menu.CustomMenus;
 import com.mikarific.originaddons.ui.Window;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;

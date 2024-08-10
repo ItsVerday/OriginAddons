@@ -2,6 +2,7 @@ package com.mikarific.originaddons.mixin.inventorybuttons;
 
 import com.mikarific.originaddons.util.InventoryButtons;
 import com.mikarific.originaddons.util.MenuUtils;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
@@ -45,8 +46,11 @@ public abstract class InventoryScreenMixin extends AbstractInventoryScreen<Playe
     @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/InventoryScreen;addDrawableChild(Lnet/minecraft/client/gui/Element;)Lnet/minecraft/client/gui/Element;"))
     private void addButtons(CallbackInfo ci) {
         if (InventoryButtons.isEnabled()) {
-            Identifier TEXTURE = new Identifier("originaddons", "textures/gui/inventory/inventory_buttons.png");
-            navigatorMenuButton = new TexturedButtonWidget(this.x + 127, this.height / 2 - 22, 20, 18, 0, 0, 18, TEXTURE, 20, 36, (button) -> {
+            ButtonTextures buttonTextures = new ButtonTextures(
+                new Identifier("originaddons", "textures/gui/inventory/inventory_button_off"),
+                new Identifier("originaddons", "textures/gui/inventory/inventory_button_on")
+            );
+            navigatorMenuButton = new TexturedButtonWidget(this.x + 127, this.height / 2 - 22, 20, 18, buttonTextures, (button) -> {
                 assert client != null;
                 assert client.player != null;
                 MenuUtils.sendCommand(client.player, "/navigator");

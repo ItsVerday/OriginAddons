@@ -1,9 +1,11 @@
 package com.mikarific.originaddons.menu.handler;
 
 import com.mikarific.originaddons.ui.TextureWidget;
+import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Drawable;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -33,6 +35,7 @@ public class ProfileTPAHandler {
             y -= 18;
         }
 
+        /*
         drawables.add(new TextureWidget(x, y - 10, 49, 13, 0, 0, TEXTURE, TEXTURE_WIDTH, TEXTURE_HEIGHT));
         drawables.add(new TexturedButtonWidget(x + 7, y - 5, 16, 14, 0, 13, 14, TEXTURE, TEXTURE_WIDTH, TEXTURE_HEIGHT, button -> {
             ClientPlayerEntity player = MinecraftClient.getInstance().player;
@@ -44,6 +47,7 @@ public class ProfileTPAHandler {
             String username = getUsername();
             if (username != null) MenuUtils.sendCommand(player, "/tpahere " + username);
         }));
+        */
 
         return drawables;
     }
@@ -52,7 +56,7 @@ public class ProfileTPAHandler {
         assert MinecraftClient.getInstance().player != null;
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
         Slot slot = screenHandler.slots.get(21);
-        if (slot.getStack().getNbt() != null) return Objects.requireNonNull(slot.getStack().getNbt()).getCompound("SkullOwner").getString("Name");
+        if (ItemStackUtils.getItemNBT(slot.getStack()) != null) return Objects.requireNonNull(ItemStackUtils.getItemNBT(slot.getStack())).getCompound("SkullOwner").getString("Name");
         return null;
     }
 }

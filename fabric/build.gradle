@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
 }
 
 architectury {
@@ -19,9 +19,9 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
-    modImplementation "com.terraformersmc:modmenu:4.1.2"
+    modImplementation "com.terraformersmc:modmenu:10.0.0"
 
-    modApi(include("me.shedaniel.cloth:cloth-config-fabric:11.1.106")) {
+    modApi(include("me.shedaniel.cloth:cloth-config-fabric:11.1.118")) {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
@@ -39,17 +39,17 @@ processResources {
 
 shadowJar {
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier.set("dev-shadow")
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier "FABRIC"
+    archiveClassifier.set("FABRIC")
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier.set("dev")
 }
 
 sourcesJar {

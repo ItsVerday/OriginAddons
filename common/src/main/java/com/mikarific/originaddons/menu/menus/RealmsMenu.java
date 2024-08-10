@@ -7,6 +7,7 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
+import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -97,8 +98,8 @@ public class RealmsMenu extends CustomMenu {
         ScreenHandler screenHandler = MinecraftClient.getInstance().player.currentScreenHandler;
 
         for (int i = 46; i < 53; i += 3) {
-            if (screenHandler.getSlot(i).getStack().getNbt() != null) {
-                int customModelData = Objects.requireNonNull(screenHandler.getSlot(i).getStack().getNbt()).getInt("CustomModelData");
+            if (ItemStackUtils.getItemNBT(screenHandler.getSlot(i).getStack()) != null) {
+                int customModelData = Objects.requireNonNull(ItemStackUtils.getItemNBT(screenHandler.getSlot(i).getStack())).getInt("CustomModelData");
                 //Back Button
                 if (customModelData == 8009) {
                     buttons.get(i).setX(box.getX() + 26);

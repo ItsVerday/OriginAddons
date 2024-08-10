@@ -37,6 +37,12 @@ public class Window {
             inventory.draw(context, mouseX, mouseY, hideTooltips);
         }
 
+        int halfWidth = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
+        int halfHeight = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
+        mouseX -= halfWidth;
+        mouseY -= halfHeight;
+
+        context.getMatrices().translate(halfWidth, halfHeight, 0.0);
         drawChildren(children, context, mouseX, mouseY, hideTooltips);
         if (includeInventory) context.getMatrices().pop();
     }

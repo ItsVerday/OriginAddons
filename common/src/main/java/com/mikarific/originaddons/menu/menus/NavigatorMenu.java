@@ -40,10 +40,10 @@ public class NavigatorMenu extends CustomMenu {
         int MENU_HEIGHT = 124;
         UIComponent box = new UITexture(TEXTURE, (screen.width - MENU_WIDTH) / 2, (screen.height - MENU_HEIGHT) / 2, MENU_WIDTH, MENU_HEIGHT, 0, 0, TEXTURE_WIDTH, TEXTURE_HEIGHT).setChildOf(window);
 
-        Style tooltipTitle = Style.EMPTY.withColor(TextColor.parse("gold")).withBold(true);
-        Style tooltipDescription = Style.EMPTY.withColor(TextColor.parse("gray"));
-        Style tooltipAction = Style.EMPTY.withColor(TextColor.parse("#85CC16"));
-        Style tooltipAlternateAction = Style.EMPTY.withColor(TextColor.parse("#0EA6E9"));
+        Style tooltipTitle = Style.EMPTY.withColor(TextColor.parse("gold").getOrThrow()).withBold(true);
+        Style tooltipDescription = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow());
+        Style tooltipAction = Style.EMPTY.withColor(TextColor.parse("#85CC16").getOrThrow());
+        Style tooltipAlternateAction = Style.EMPTY.withColor(TextColor.parse("#0EA6E9").getOrThrow());
 
         // Realms
         addButtonBaseAugmented(box, screen, screenHandler, player, 33, 9, 70, 52, 0, 124, 52, true, () -> {

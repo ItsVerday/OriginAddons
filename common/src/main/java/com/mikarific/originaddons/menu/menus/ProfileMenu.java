@@ -7,6 +7,7 @@ import com.mikarific.originaddons.ui.components.UIButton;
 import com.mikarific.originaddons.ui.components.UIComponent;
 import com.mikarific.originaddons.ui.components.UIItem;
 import com.mikarific.originaddons.ui.components.UITexture;
+import com.mikarific.originaddons.util.ItemStackUtils;
 import com.mikarific.originaddons.util.MenuUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -143,21 +144,21 @@ public class ProfileMenu extends CustomMenu {
 
         //Messaging
         new UIButton(TEXTURE, 7, 5, 16, 14, 234, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {}, (b, m, x, y) -> {
-            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.messaging").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()))), screen, m, (int) x, (int) y);
         }, false).setChildOf(box);
         //TPA
         addSelectableElement(new UIButton(TEXTURE, 25, 5, 16, 14, 250, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.sendCommand(player, "/tpa " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpa").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()))), screen, m, (int) x, (int) y);
         }, true).setChildOf(box));
         //TPAHere
         addSelectableElement(new UIButton(TEXTURE, 43, 5, 16, 14, 266, 56, 14, TEXTURE_WIDTH, TEXTURE_HEIGHT, () -> {
             MenuUtils.sendCommand(player, "/tpahere " + username);
             player.closeHandledScreen();
         }, (b, m, x, y) -> {
-            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray")))), screen, m, (int) x, (int) y);
+            MenuUtils.renderTooltip(List.of(Text.literal((Text.translatable("originaddons.menus.profile.tpahere").getString().replaceAll("%username%", username))).setStyle(Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow()))), screen, m, (int) x, (int) y);
         }, true).setChildOf(box));
     }
 
@@ -168,7 +169,7 @@ public class ProfileMenu extends CustomMenu {
 
         if (username.equals("")) {
             Slot slot = screenHandler.slots.get(21);
-            if (slot.getStack().getNbt() != null) username = Objects.requireNonNull(slot.getStack().getNbt()).getCompound("SkullOwner").getString("Name");
+            if (ItemStackUtils.getItemNBT(slot.getStack()) != null) username = Objects.requireNonNull(ItemStackUtils.getItemNBT(slot.getStack())).getCompound("SkullOwner").getString("Name");
         }
 
         if (face.getStack() == null) {
@@ -181,8 +182,8 @@ public class ProfileMenu extends CustomMenu {
                 if (!slot.getStack().getTranslationKey().equals("block.minecraft.air")) item.setStack(slot.getStack());
             });
         }
-        if (screenHandler.slots.get(6).getStack().getNbt() != null) {
-            int status = Objects.requireNonNull(screenHandler.slots.get(6).getStack().getNbt()).getInt("CustomModelData");
+        if (ItemStackUtils.getItemNBT(screenHandler.slots.get(6).getStack()) != null) {
+            int status = Objects.requireNonNull(ItemStackUtils.getItemNBT(screenHandler.slots.get(6).getStack())).getInt("CustomModelData");
             if (status == 8042) { //Online
                 onlineIndicator.setU(260).setV(84);
             }

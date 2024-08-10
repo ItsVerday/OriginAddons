@@ -48,13 +48,9 @@ public class UIFace extends UIButton {
             } else if (this.username != null && !this.username.equals("")) {
                 profile = new GameProfile(UUID.randomUUID(), this.username);
             }
-            boolean skinProviderHasTexture = profile != null && MinecraftClient.getInstance().getSkinProvider().getTextures(profile).containsKey(MinecraftProfileTexture.Type.SKIN);
-            if (skinProviderHasTexture) {
-                MinecraftProfileTexture profileTexture = MinecraftClient.getInstance().getSkinProvider().getTextures(profile).get(MinecraftProfileTexture.Type.SKIN);
-                texture = MinecraftClient.getInstance().getSkinProvider().loadSkin(profileTexture, MinecraftProfileTexture.Type.SKIN);
-            } else {
-                texture = profile != null ? DefaultSkinHelper.getTexture(profile.getId()) : DefaultSkinHelper.getTexture();
-            }
+
+            texture = MinecraftClient.getInstance().getSkinProvider().getSkinTextures(profile).texture();
+
             context.drawTexture(texture, innerX, innerY, 8 * scale, 8 * scale, 8, 8, 8, 8, 64, 64);
             context.drawTexture(texture, innerX - 1, innerY - 1, (8 * scale) + 2, (8 * scale) + 2, 40, 8, 8, 8, 64, 64);
             context.getMatrices().pop();

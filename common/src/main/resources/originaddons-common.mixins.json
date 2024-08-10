@@ -21,7 +21,6 @@
     "rocketboots.InGameHudMixin",
     "rocketboots.ItemStackMixin",
     "settings.GameMenuScreenMixin",
-    "spu.ServerResourcePackProviderMixin",
     "tooltip.ItemStackMixin"
   ],
   "injectors": {

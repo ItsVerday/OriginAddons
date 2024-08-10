@@ -6,12 +6,11 @@ import com.mikarific.originaddons.util.blockpicker.BlockPicker;
 import com.mikarific.originaddons.util.emojipicker.EmojiPicker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.JsonHelper;
 
@@ -50,11 +49,11 @@ public class JoinScreen extends Screen {
         }
 
         this.status = Text.translatable("originaddons.join.emoji");
-        update(new File(originAddonsDirectory, "emoji.json"), "https://api.originaddons.com/emoji.json?v=" + Instant.now().toEpochMilli(), info.get("emojiVersion").getAsInt(), EmojiPicker::unload);
+        //update(new File(originAddonsDirectory, "emoji.json"), "https://api.originaddons.com/emoji.json?v=" + Instant.now().toEpochMilli(), info.get("emojiVersion").getAsInt(), EmojiPicker::unload);
         this.status = Text.translatable("originaddons.join.blockpick");
-        update(new File(originAddonsDirectory, "blockpicker.json"), "https://api.originaddons.com/blockpicker.json?v=" + Instant.now().toEpochMilli(), info.get("blockpickVersion").getAsInt(), BlockPicker::clear);
+        //update(new File(originAddonsDirectory, "blockpicker.json"), "https://api.originaddons.com/blockpicker.json?v=" + Instant.now().toEpochMilli(), info.get("blockpickVersion").getAsInt(), BlockPicker::clear);
         assert this.client != null;
-        ConnectScreen.connect(this.parent, this.client, ServerAddress.parse(this.entry.address), this.entry, false);
+        ConnectScreen.connect(this.parent, this.client, ServerAddress.parse(this.entry.address), this.entry, false, null);
     }
 
     private void update(File file, String url, int latestVersion, Runnable action) {
@@ -90,7 +89,7 @@ public class JoinScreen extends Screen {
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(this.textRenderer, this.status, this.width / 2, this.height / 2 - 50, 16777215);
         super.render(context, mouseX, mouseY, delta);
     }

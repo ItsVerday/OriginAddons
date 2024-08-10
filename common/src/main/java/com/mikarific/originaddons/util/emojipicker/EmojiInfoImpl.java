@@ -60,7 +60,7 @@ public class EmojiInfoImpl implements EmojiInfo {
         int width = obj.has("width") ? obj.get("width").getAsInt() : 1;
         String display = obj.has("display") ? obj.get("display").getAsString() : null;
         Identifier font = obj.has("font") ? Identifier.tryParse(obj.get("font").getAsString()) : Style.DEFAULT_FONT_ID;
-        TextColor textColor = TextColor.parse(obj.has("color") ? obj.get("color").getAsString() : "white");
+        TextColor textColor = TextColor.parse(obj.has("color") ? obj.get("color").getAsString() : "white").getOrThrow();
 
         return new EmojiInfoImpl(id, width, display, font, textColor);
     }

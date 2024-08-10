@@ -26,23 +26,23 @@ import java.util.List;
 public class MultiplayerScreenMixin {
     @Inject(method = "connect(Lnet/minecraft/client/network/ServerInfo;)V", at = @At("HEAD"), cancellable = true)
     private void connect(ServerInfo entry, CallbackInfo ci) throws IOException {
-        try {
+        //try {
             if (OriginAddons.onOriginRealms(entry.address)) {
-                URL infoUrl = new URL("https://api.originaddons.com/info.json?v=" + Instant.now().toEpochMilli());
-                InputStreamReader infoReader = new InputStreamReader(infoUrl.openStream());
-                JsonObject info = JsonHelper.deserialize(infoReader).getAsJsonObject();
-                if (Other.newerVersionExists(info) && OriginAddons.getConfig().updateNotifications) {
-                    String latestVersion = info.get("latestVersion").getAsString();
-                    MinecraftClient.getInstance().setScreen(new UpdateScreen((MultiplayerScreen) (Object) this, entry, info, latestVersion));
-                } else {
-                    MinecraftClient.getInstance().setScreen(new JoinScreen((MultiplayerScreen) (Object) this, entry, info));
-                }
+                //URL infoUrl = new URL("https://api.originaddons.com/info.json?v=" + Instant.now().toEpochMilli());
+                //InputStreamReader infoReader = new InputStreamReader(infoUrl.openStream());
+                //JsonObject info = JsonHelper.deserialize(infoReader).getAsJsonObject();
+                //if (Other.newerVersionExists(info) && OriginAddons.getConfig().updateNotifications) {
+                //    String latestVersion = info.get("latestVersion").getAsString();
+                //    MinecraftClient.getInstance().setScreen(new UpdateScreen((MultiplayerScreen) (Object) this, entry, info, latestVersion));
+                //} else {
+                MinecraftClient.getInstance().setScreen(new JoinScreen((MultiplayerScreen) (Object) this, entry, null));
+                //}
 
                 ci.cancel();
             }
-        } catch (UnknownHostException e) {
-            OriginAddons.LOGGER.error("Failed to connect to api.originaddons.com! Connecting without updating assets...");
-            e.printStackTrace();
-        }
+        //} catch (UnknownHostException e) {
+        //    OriginAddons.LOGGER.error("Failed to connect to api.originaddons.com! Connecting without updating assets...");
+        //    e.printStackTrace();
+        //}
     }
 }

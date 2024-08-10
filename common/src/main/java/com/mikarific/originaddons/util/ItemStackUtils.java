@@ -2,8 +2,11 @@ package com.mikarific.originaddons.util;
 
 import com.mikarific.originaddons.OriginAddons;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.item.TooltipType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.MutableText;
@@ -23,8 +26,14 @@ public class ItemStackUtils {
     public static final Style STYLE_GRAY = Style.EMPTY.withColor(Formatting.GRAY).withItalic(false);
     public static final Style STYLE_WHITE = Style.EMPTY.withColor(Formatting.WHITE).withItalic(false);
 
+    public static NbtCompound getItemNBT(ItemStack itemStack) {
+        NbtComponent component = itemStack.getComponents().get(DataComponentTypes.CUSTOM_DATA);
+        if (component == null) return null;
+        return component.copyNbt();
+    }
+
     public static String getItemStackCustomID(ItemStack itemStack) {
-        NbtCompound itemNBT = itemStack.getNbt();
+        NbtCompound itemNBT = getItemNBT(itemStack);
         if (itemNBT == null) return "";
         if (itemNBT.contains("CustomBlock")) return itemNBT.getString("CustomBlock");
         if (itemNBT.contains("PublicBukkitValues")) {
@@ -209,7 +218,7 @@ public class ItemStackUtils {
     }
 
     public static Identifier getItemOverlayIdentifier(ItemStack itemStack) {
-        NbtCompound itemNBT = itemStack.getNbt();
+        NbtCompound itemNBT = getItemNBT(itemStack);
         if (itemNBT == null) itemNBT = new NbtCompound();
 
         int cropStars = getCropStars(itemNBT);
@@ -259,7 +268,7 @@ public class ItemStackUtils {
         int maxFuel = getMaximumRocketBootsFuel(id);
         int currentFuel = maxFuel;
 
-        List<Text> tooltip = itemStack.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.BASIC);
+        List<Text> tooltip = itemStack.getTooltip(Item.TooltipContext.DEFAULT, MinecraftClient.getInstance().player, TooltipType.BASIC);
 
         for (Text text : tooltip) {
             String toString = text.getString();

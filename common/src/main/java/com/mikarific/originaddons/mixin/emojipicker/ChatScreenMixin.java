@@ -22,7 +22,7 @@ import java.util.List;
 
 @Mixin(ChatScreen.class)
 public class ChatScreenMixin extends Screen {
-    private static final Style EMOJI_TOKEN_HOVER_STYLE = Style.EMPTY.withColor(TextColor.parse("gray"));
+    private static final Style EMOJI_TOKEN_HOVER_STYLE = Style.EMPTY.withColor(TextColor.parse("gray").getOrThrow());
 
     @Shadow protected TextFieldWidget chatField;
 
@@ -72,7 +72,7 @@ public class ChatScreenMixin extends Screen {
                     }
 
                     chatField.setText(beforeEmoji + emoji.getInfo().getToken() + afterEmoji);
-                    chatField.setCursor(cursor + emoji.getInfo().getToken().length());
+                    chatField.setCursor(cursor + emoji.getInfo().getToken().length(), hasShiftDown());
                 }, (b, m, x, y) -> {
                     MenuUtils.renderTooltip(List.of(Text.literal(emoji.getInfo().getToken()).setStyle(EMOJI_TOKEN_HOVER_STYLE)), this, m, (int) x, (int) y);
                 }, true).setChildOf(scrollable);
@@ -96,8 +96,8 @@ public class ChatScreenMixin extends Screen {
         }
     }
 
-    @Inject(method = "mouseScrolled(DDD)Z", at = @At("HEAD"), cancellable = true)
-    private void scrollWindow(double mouseX, double mouseY, double amount, CallbackInfoReturnable<Boolean> cir) {
+    @Inject(method = "mouseScrolled", at = @At("HEAD"), cancellable = true)
+    private void scrollWindow(double mouseX, double mouseY, double horizontalAmount, double verticalAmount, CallbackInfoReturnable<Boolean> cir) {
         if (EmojiPicker.isEmojiPickerEnabled() && box.isVisible() && box.isHoveredOrSelected()) cir.setReturnValue(true);
     }
 

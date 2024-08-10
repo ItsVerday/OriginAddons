@@ -67,7 +67,7 @@ public class UpdateScreen extends Screen {
     }
 
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(this.textRenderer, this.title.copy().setStyle(Style.EMPTY.withBold(true)), this.width / 2, 70, 16777215);
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("originaddons.update.message").getString().replaceAll("%currentVersion%", OriginAddons.VERSION).replaceAll("%latestVersion%", latestVersion), this.width / 2, 90, 16777215);
         if (changelog.size() > 0) context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("originaddons.update.changelog").setStyle(Style.EMPTY.withBold(true)), this.width / 2, 110, 16777215);
